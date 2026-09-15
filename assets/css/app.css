@@ -271,7 +271,8 @@ table.index-table th {
   display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  object-fit: contain;
+  background: var(--bg-alt);
 }
 .photo-grid figcaption {
   font-family: var(--sans);
