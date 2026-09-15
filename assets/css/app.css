@@ -269,6 +269,28 @@ nav.site-nav a:hover, nav.site-nav a.active {
   margin: 0;
 }
 
+.page-anchor {
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding: 0 1.2rem;
+}
+
+.page-anchor img {
+  width: 100%;
+  display: block;
+  filter: grayscale(1) contrast(1.08) brightness(0.96);
+  border: 1px solid var(--rule);
+}
+
+.page-anchor figcaption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-top: 0.6rem;
+}
+
 main {
   max-width: var(--maxw);
   margin: 0 auto;
