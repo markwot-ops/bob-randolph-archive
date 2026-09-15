@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Master Index — Bob Randolph Archive</title>
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="kicker">A Working Archive — Prototype</div>
+  <h1>Bob Randolph</h1>
+  <div class="subtitle">El Tecolote Blanco &middot; the White Owl &middot; Revolutionary Poet</div>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Bob</a>
+    <a href="chapbooks/index.html">Chapbooks</a>
+    <a href="master-index.html" class="active">Full Index (1,775 poems)</a>
+  </nav>
+</header>
+
+<main class="wide">
+  <h2>Master Index</h2>
+  <p class="lede">
+    Bob's own numbered, alphabetized, and theme-coded catalogue of his complete works &mdash;
+    transcribed here from his hand-numbered printout, the only copy that existed until now.
+    Titles are shown exactly as Bob wrote them, including where his own column cut a title short.
+  </p>
+
+  <div class="index-controls">
+    <input type="search" id="index-search" placeholder="Search by title, number, or theme code&hellip;">
+    <span class="index-count" id="index-count"></span>
+  </div>
+
+  <div class="index-scroll">
+    <table class="index-table" id="index-table" data-src="data/master-index.json">
+      <thead>
+        <tr>
+          <th data-sort="number">No.</th>
+          <th data-sort="title">Title</th>
+          <th data-sort="codes">Theme codes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="3">Loading&hellip;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="placeholder-block" style="margin-top:1.4rem;">
+    Known gaps in this transcription: a handful of titles are truncated exactly as printed in
+    Bob's original narrow column (to be filled in later by matching against the actual chapbook
+    pages); a short run of entries is missing its number, matching a gap in Bob's own numbering;
+    a few titles near the end of the printout were illegible on the scan.
+  </div>
+</main>
+
+<footer class="site-footer">
+  Built by Mark Wotton, continuing a promise made to Bob Randolph.
+</footer>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>

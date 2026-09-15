@@ -1,0 +1,270 @@
+/* Bob Randolph Archive — shared styles */
+
+:root {
+  --bg: #faf6ee;
+  --bg-alt: #f1ead9;
+  --ink: #2a231c;
+  --ink-soft: #5a5044;
+  --rule: #d8cdb6;
+  --accent: #8a2e22;      /* deep, worn red — "revolutionary" without being garish */
+  --accent-soft: #b5533f;
+  --serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --maxw: 760px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  line-height: 1.6;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.site-header {
+  border-bottom: 3px double var(--rule);
+  padding: 1.6rem 1.2rem 1.2rem;
+  text-align: center;
+  background: var(--bg-alt);
+}
+
+.site-header .kicker {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.site-header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  margin: 0.1rem 0 0.3rem;
+  font-weight: normal;
+  letter-spacing: 0.01em;
+}
+
+.site-header .subtitle {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+nav.site-nav {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  margin-top: 0.9rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+nav.site-nav a {
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+
+nav.site-nav a:hover, nav.site-nav a.active {
+  border-bottom-color: var(--accent);
+  text-decoration: none;
+}
+
+main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 2.2rem 1.2rem 4rem;
+}
+
+main.wide { max-width: 980px; }
+
+h2 { font-weight: normal; font-size: 1.5rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.4rem; }
+h3 { font-weight: normal; font-size: 1.15rem; color: var(--ink); }
+
+.lede {
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.card h3 { margin-top: 0; }
+
+.badge {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.15em 0.55em;
+  border-radius: 3px;
+  background: var(--bg-alt);
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+}
+
+.badge.available { background: #e8f1e6; color: #33562e; border-color: #b9d3b3; }
+.badge.progress { background: #fbeee0; color: #8a4f13; border-color: #e6c79c; }
+.badge.planned { background: var(--bg-alt); color: var(--ink-soft); }
+
+.poem-list { list-style: none; padding: 0; margin: 0; }
+.poem-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dotted var(--rule);
+  font-family: var(--sans);
+  font-size: 0.92rem;
+}
+.poem-list li .num { color: var(--ink-soft); width: 2.4rem; flex-shrink: 0; }
+.poem-list li .ttl { flex: 1; }
+.poem-list li .status { font-size: 0.75rem; color: var(--ink-soft); }
+
+.poem-text {
+  font-size: 1.12rem;
+  white-space: pre-wrap;
+  margin: 1.6rem 0;
+  padding: 1.4rem 1.6rem;
+  background: #fff;
+  border-left: 3px solid var(--accent);
+}
+
+.poem-meta {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.toggle-row {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  margin: 1.2rem 0;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+button.btn, .btn {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  padding: 0.4em 0.9em;
+  border-radius: 3px;
+  cursor: pointer;
+}
+button.btn:hover, .btn:hover { border-color: var(--accent); color: var(--accent); }
+button.btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.original-scan {
+  display: none;
+  margin: 1rem 0 1.6rem;
+  text-align: center;
+}
+.original-scan.shown { display: block; }
+.original-scan img {
+  max-width: 100%;
+  border: 1px solid var(--rule);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+.original-scan .cap {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  margin-top: 0.4rem;
+}
+
+.placeholder-block {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  border: 1px dashed var(--rule);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 0.8rem 0;
+  background: var(--bg-alt);
+}
+
+.lang-switch {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+}
+.lang-switch button { margin-left: 0.3rem; }
+
+table.index-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+}
+table.index-table th, table.index-table td {
+  text-align: left;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+table.index-table th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-alt);
+  cursor: pointer;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+.index-controls {
+  font-family: var(--sans);
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.index-controls input[type=search] {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  padding: 0.45em 0.7em;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  flex: 1;
+  min-width: 200px;
+}
+.index-count { font-size: 0.8rem; color: var(--ink-soft); }
+.index-scroll { max-height: 70vh; overflow: auto; border: 1px solid var(--rule); border-radius: 4px; }
+
+footer.site-footer {
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  padding: 2rem 1rem 3rem;
+  border-top: 1px solid var(--rule);
+  margin-top: 2rem;
+}
+
+@media (max-width: 480px) {
+  main { padding: 1.4rem 1rem 3rem; }
+  .poem-text { padding: 1rem; }
+}
