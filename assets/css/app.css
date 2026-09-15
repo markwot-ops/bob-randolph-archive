@@ -80,6 +80,133 @@ nav.site-nav a:hover, nav.site-nav a.active {
   text-decoration: none;
 }
 
+/* Compact masthead — used on the homepage, where the hero below carries the real title */
+.site-header--compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  text-align: left;
+  padding: 0.85rem 1.4rem;
+}
+
+.site-header--compact .wordmark {
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.site-header--compact nav.site-nav {
+  margin-top: 0;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  flex: 1;
+}
+
+/* Hero — the landing page's real title treatment: full-bleed, Bob's own photo, oversized name */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(260px, 40%) 1fr;
+  background: #18130f;
+  color: #f4ede0;
+}
+
+.hero-media {
+  position: relative;
+  min-height: 460px;
+  overflow: hidden;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: grayscale(1) contrast(1.12) brightness(0.92);
+}
+
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(24,19,15,0) 55%, rgba(24,19,15,0.95) 100%),
+    linear-gradient(90deg, rgba(24,19,15,0.35), rgba(24,19,15,0) 45%);
+}
+
+.hero-copy {
+  padding: clamp(2.4rem, 6vw, 5rem) clamp(1.4rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-kicker {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #d3a08a;
+  margin: 0 0 0.9rem;
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-weight: normal;
+  font-size: clamp(3.4rem, 9vw, 7.8rem);
+  line-height: 0.84;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.1rem;
+  color: #f8f2e6;
+}
+
+.hero-name .surname {
+  display: block;
+  color: var(--accent-soft);
+}
+
+.hero-alias {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2.3vw, 1.55rem);
+  color: #e9dfc9;
+  margin: 0 0 1.2rem;
+}
+
+.hero-role {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #18130f;
+  background: var(--accent-soft);
+  display: inline-block;
+  padding: 0.4em 0.95em;
+  border-radius: 2px;
+  align-self: flex-start;
+}
+
+@media (max-width: 720px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-media { min-height: 320px; }
+  .site-header--compact {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .site-header--compact nav.site-nav {
+    flex: none;
+    width: 100%;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+  }
+}
+
 main {
   max-width: var(--maxw);
   margin: 0 auto;
