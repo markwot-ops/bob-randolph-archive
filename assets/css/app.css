@@ -207,6 +207,68 @@ nav.site-nav a:hover, nav.site-nav a.active {
   }
 }
 
+/* Masthead — the interior-page header. Same dark, oversized-name drama as the
+   homepage hero, just without the photo, so every page carries Bob's presence. */
+.masthead {
+  background: #18130f;
+  color: #f4ede0;
+  border-bottom: 4px solid var(--accent);
+}
+
+.masthead nav.site-nav {
+  margin-top: 0;
+  padding: 0.85rem 1.4rem;
+  gap: 1.2rem;
+  border-bottom: 1px solid rgba(244,237,224,0.14);
+}
+
+.masthead nav.site-nav a {
+  color: #cfc4ae;
+}
+
+.masthead nav.site-nav a:hover,
+.masthead nav.site-nav a.active {
+  color: #f4ede0;
+  border-bottom-color: var(--accent-soft);
+}
+
+.masthead-title {
+  padding: clamp(1.6rem, 4.5vw, 3rem) 1.4rem clamp(1.8rem, 4vw, 2.6rem);
+  text-align: center;
+}
+
+.masthead-kicker {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #d3a08a;
+  margin: 0 0 0.5rem;
+}
+
+.masthead-name {
+  font-family: var(--serif);
+  font-weight: normal;
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5rem;
+  color: #f8f2e6;
+}
+
+.masthead-name .surname {
+  color: var(--accent-soft);
+}
+
+.masthead-subtitle {
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: #b9ac93;
+  margin: 0;
+}
+
 main {
   max-width: var(--maxw);
   margin: 0 auto;
