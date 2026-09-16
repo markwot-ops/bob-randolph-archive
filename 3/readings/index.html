@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taped Live Readings — Bob Randolph Archive</title>
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .gallery-controls {
+    display: flex; align-items: center; gap: 0.6rem;
+    margin: 0 0 1.5rem; flex-wrap: wrap;
+  }
+  .gallery-controls .lbl {
+    font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7;
+  }
+  .gallery-controls input[type=range] { flex: 1 1 160px; max-width: 240px; accent-color: var(--accent); }
+  .zoom-btn {
+    border: 1px solid rgba(0,0,0,0.2); background: transparent; color: inherit;
+    width: 2rem; height: 2rem; border-radius: 4px; font-size: 1.1rem; line-height: 1;
+    cursor: pointer;
+  }
+  .zoom-btn:hover { background: rgba(0,0,0,0.06); }
+  .video-gallery {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  .vid-card { margin: 0; }
+  .vid-card video {
+    width: 100%; aspect-ratio: 16 / 9; display: block;
+    background: #000; border-radius: 4px;
+  }
+  .vid-card h3 {
+    font-size: 0.98rem; margin: 0.5rem 0 0; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <nav class="site-nav">
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About Bob</a>
+    <a href="../chapbooks/index.html">Chapbooks</a>
+    <a href="../photography/index.html">Photography</a>
+    <a href="../readings/index.html" class="active">Taped Live Readings</a>
+    <a href="../master-index.html">Full Index (1,775 poems)</a>
+  </nav>
+  <div class="masthead-title">
+    <p class="masthead-kicker">A Working Archive &mdash; Prototype</p>
+    <h1 class="masthead-name">Bob <span class="surname">Randolph</span></h1>
+    <p class="masthead-subtitle">El Tecolote Blanco &middot; the White Owl &middot; Revolutionary Poet</p>
+  </div>
+</header>
+
+<main class="wide">
+  <h2>Taped Live Readings</h2>
+
+  <div class="gallery-controls">
+    <span class="lbl">Zoom</span>
+    <button class="zoom-btn" id="zoomOut" aria-label="Show more, smaller videos">&minus;</button>
+    <input type="range" id="zoomRange" min="1" max="4" step="1" value="3" aria-label="Videos per row">
+    <button class="zoom-btn" id="zoomIn" aria-label="Show fewer, larger videos">&plus;</button>
+  </div>
+
+  <div class="video-gallery" id="gallery" style="--cols:3;">
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../assets/video/walking-thoughts.jpg">
+        <source src="../assets/video/walking-thoughts.mp4" type="video/mp4">
+        <a href="../assets/video/walking-thoughts.mp4">Download</a>
+      </video>
+      <h3>Walking Thoughts</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../assets/video/our-national-anus.jpg">
+        <source src="../assets/video/our-national-anus.mp4" type="video/mp4">
+        <a href="../assets/video/our-national-anus.mp4">Download</a>
+      </video>
+      <h3>Our National Anus</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../assets/video/tow-trucks.jpg">
+        <source src="../assets/video/tow-trucks.mp4" type="video/mp4">
+        <a href="../assets/video/tow-trucks.mp4">Download</a>
+      </video>
+      <h3>Tow Trucks</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../assets/video/we-too-are-birds.jpg">
+        <source src="../assets/video/we-too-are-birds.mp4" type="video/mp4">
+        <a href="../assets/video/we-too-are-birds.mp4">Download</a>
+      </video>
+      <h3>We Too Are Birds</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../assets/video/thoughts-on-birds.jpg">
+        <source src="../assets/video/thoughts-on-birds.mp4" type="video/mp4">
+        <a href="../assets/video/thoughts-on-birds.mp4">Download</a>
+      </video>
+      <h3>Thoughts on Birds</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../assets/video/sea-coast-of-the-world.jpg">
+        <source src="../assets/video/sea-coast-of-the-world.mp4" type="video/mp4">
+        <a href="../assets/video/sea-coast-of-the-world.mp4">Download</a>
+      </video>
+      <h3>Sea Coast of the World</h3>
+    </figure>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  Site built by Mark Wotton, continuing a promise made to Bob.
+</footer>
+
+<script>
+  (function () {
+    var gallery = document.getElementById('gallery');
+    var range = document.getElementById('zoomRange');
+    var out = document.getElementById('zoomOut');
+    var zin = document.getElementById('zoomIn');
+    var MIN = 1, MAX = 4;
+    function apply(n) {
+      n = Math.max(MIN, Math.min(MAX, n));
+      gallery.style.setProperty('--cols', n);
+      range.value = n;
+    }
+    var start = window.innerWidth <= 640 ? 1 : (window.innerWidth <= 980 ? 2 : 3);
+    apply(start);
+    range.addEventListener('input', function () { apply(parseInt(range.value, 10)); });
+    out.addEventListener('click', function () { apply(parseInt(range.value, 10) + 1); });
+    zin.addEventListener('click', function () { apply(parseInt(range.value, 10) - 1); });
+  })();
+</script>
+
+</body>
+</html>
