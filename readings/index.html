@@ -108,13 +108,18 @@
     var range = document.getElementById('zoomRange');
     var out = document.getElementById('zoomOut');
     var zin = document.getElementById('zoomIn');
-    var MIN = 1, MAX = 4;
-    function apply(n) { n = Math.max(MIN, Math.min(MAX, n)); gallery.style.setProperty('--cols', n); range.value = n; }
-    var start = window.innerWidth <= 640 ? 1 : (window.innerWidth <= 980 ? 2 : 3);
-    apply(start);
+    var MINZ = 1, MAXZ = 4;
+    // higher zoom = bigger videos (fewer columns); slider right = bigger
+    function apply(zoom) {
+      zoom = Math.max(MINZ, Math.min(MAXZ, zoom));
+      gallery.style.setProperty('--cols', (MINZ + MAXZ) - zoom);
+      range.value = zoom;
+    }
+    var startCols = window.innerWidth <= 640 ? 1 : (window.innerWidth <= 980 ? 2 : 3);
+    apply((MINZ + MAXZ) - startCols);
     range.addEventListener('input', function () { apply(parseInt(range.value, 10)); });
-    out.addEventListener('click', function () { apply(parseInt(range.value, 10) + 1); });
-    zin.addEventListener('click', function () { apply(parseInt(range.value, 10) - 1); });
+    zin.addEventListener('click', function () { apply(parseInt(range.value, 10) + 1); }); // + = bigger
+    out.addEventListener('click', function () { apply(parseInt(range.value, 10) - 1); }); // - = smaller
   })();
 </script>
 
