@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Taped Live Readings — Bob Randolph Archive</title>
 <link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .gallery-controls { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 1.5rem; flex-wrap: wrap; }
+  .gallery-controls .lbl { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
+  .gallery-controls input[type=range] { flex: 1 1 160px; max-width: 240px; accent-color: var(--accent); }
+  .zoom-btn { border: 1px solid rgba(0,0,0,0.2); background: transparent; color: inherit; width: 2rem; height: 2rem; border-radius: 4px; font-size: 1.1rem; line-height: 1; cursor: pointer; }
+  .zoom-btn:hover { background: rgba(0,0,0,0.06); }
+  .video-gallery { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 1.25rem; }
+  .vid-card { margin: 0; }
+  .vid-card video { width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; border-radius: 4px; }
+  .vid-card h3 { font-size: 0.98rem; margin: 0.5rem 0 0; font-weight: 600; }
+</style>
 </head>
 <body>
 
@@ -27,55 +38,85 @@
 <main class="wide">
   <h2>Taped Live Readings</h2>
 
-  <div class="card">
-    <h3>Clip 10 &mdash; Bob's Walk</h3>
-    <video controls preload="metadata" style="width:100%; max-width:480px; background:#000; border-radius:4px; display:block; margin:0 auto;">
-      <source src="../assets/video/clip-10-bob-reading.mp4" type="video/mp4">
-      Your browser doesn't support embedded video &mdash; you can
-      <a href="../assets/video/clip-10-bob-reading.mp4">download the clip directly</a>.
-    </video>
+  <div class="gallery-controls">
+    <span class="lbl">Zoom</span>
+    <button class="zoom-btn" id="zoomOut" aria-label="Show more, smaller videos">&minus;</button>
+    <input type="range" id="zoomRange" min="1" max="4" step="1" value="3" aria-label="Videos per row">
+    <button class="zoom-btn" id="zoomIn" aria-label="Show fewer, larger videos">&plus;</button>
   </div>
 
-  <div class="card">
-    <h3>Our National Anus</h3>
-    <video controls preload="metadata" style="width:100%; max-width:480px; background:#000; border-radius:4px; display:block; margin:0 auto;">
-      <source src="../assets/video/our-national-anus.mp4" type="video/mp4">
-      Your browser doesn't support embedded video &mdash; you can
-      <a href="../assets/video/our-national-anus.mp4">download the clip directly</a>.
-    </video>
-  </div>
+  <div class="video-gallery" id="gallery" style="--cols:3;">
 
-  <div class="card">
-    <h3>Tow Trucks</h3>
-    <video controls preload="metadata" style="width:100%; max-width:480px; background:#000; border-radius:4px; display:block; margin:0 auto;">
-      <source src="../assets/video/tow-trucks.mp4" type="video/mp4">
-      Your browser doesn't support embedded video &mdash; you can
-      <a href="../assets/video/tow-trucks.mp4">download the clip directly</a>.
-    </video>
-  </div>
+    <figure class="vid-card">
+      <video controls preload="none" poster="../3/assets/video/walking-thoughts.jpg">
+        <source src="../3/assets/video/walking-thoughts.mp4" type="video/mp4">
+        <a href="../3/assets/video/walking-thoughts.mp4">Download</a>
+      </video>
+      <h3>Walking Thoughts</h3>
+    </figure>
 
-  <div class="card">
-    <h3>We Too Are Birds</h3>
-    <video controls preload="metadata" style="width:100%; max-width:480px; background:#000; border-radius:4px; display:block; margin:0 auto;">
-      <source src="../assets/video/we-too-are-birds.mp4" type="video/mp4">
-      Your browser doesn't support embedded video &mdash; you can
-      <a href="../assets/video/we-too-are-birds.mp4">download the clip directly</a>.
-    </video>
-  </div>
+    <figure class="vid-card">
+      <video controls preload="none" poster="../3/assets/video/our-national-anus.jpg">
+        <source src="../assets/video/our-national-anus.mp4" type="video/mp4">
+        <a href="../assets/video/our-national-anus.mp4">Download</a>
+      </video>
+      <h3>Our National Anus</h3>
+    </figure>
 
-  <div class="card">
-    <h3>Footwork 2</h3>
-    <video controls preload="metadata" style="width:100%; max-width:480px; background:#000; border-radius:4px; display:block; margin:0 auto;">
-      <source src="../assets/video/footwork-2.mp4" type="video/mp4">
-      Your browser doesn't support embedded video &mdash; you can
-      <a href="../assets/video/footwork-2.mp4">download the clip directly</a>.
-    </video>
+    <figure class="vid-card">
+      <video controls preload="none" poster="../3/assets/video/tow-trucks.jpg">
+        <source src="../assets/video/tow-trucks.mp4" type="video/mp4">
+        <a href="../assets/video/tow-trucks.mp4">Download</a>
+      </video>
+      <h3>Tow Trucks</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../3/assets/video/we-too-are-birds.jpg">
+        <source src="../assets/video/we-too-are-birds.mp4" type="video/mp4">
+        <a href="../assets/video/we-too-are-birds.mp4">Download</a>
+      </video>
+      <h3>We Too Are Birds</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../3/assets/video/thoughts-on-birds.jpg">
+        <source src="../2/assets/video/thoughts-on-birds.mp4" type="video/mp4">
+        <a href="../2/assets/video/thoughts-on-birds.mp4">Download</a>
+      </video>
+      <h3>Thoughts on Birds</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../3/assets/video/sea-coast-of-the-world.jpg">
+        <source src="../1/assets/video/sea-coast-of-the-world.mp4" type="video/mp4">
+        <a href="../1/assets/video/sea-coast-of-the-world.mp4">Download</a>
+      </video>
+      <h3>Sea Coast of the World</h3>
+    </figure>
+
   </div>
 </main>
 
 <footer class="site-footer">
-  Built by Mark Wotton, continuing a promise made to Bob Randolph.
+  Site built by Mark Wotton, continuing a promise made to Bob.
 </footer>
+
+<script>
+  (function () {
+    var gallery = document.getElementById('gallery');
+    var range = document.getElementById('zoomRange');
+    var out = document.getElementById('zoomOut');
+    var zin = document.getElementById('zoomIn');
+    var MIN = 1, MAX = 4;
+    function apply(n) { n = Math.max(MIN, Math.min(MAX, n)); gallery.style.setProperty('--cols', n); range.value = n; }
+    var start = window.innerWidth <= 640 ? 1 : (window.innerWidth <= 980 ? 2 : 3);
+    apply(start);
+    range.addEventListener('input', function () { apply(parseInt(range.value, 10)); });
+    out.addEventListener('click', function () { apply(parseInt(range.value, 10) + 1); });
+    zin.addEventListener('click', function () { apply(parseInt(range.value, 10) - 1); });
+  })();
+</script>
 
 </body>
 </html>
