@@ -21,6 +21,38 @@
   .hero-cta:hover { background: var(--accent-soft); }
   .hero-cta:active { transform: translateY(1px); }
   .hero-cta .arrow { margin-left: 0.5em; }
+
+  /* Intro light-sweep over the name + alias */
+  .hero-copy { position: relative; overflow: hidden; }
+  .hero-sweep {
+    position: absolute; top: 0; bottom: 0; left: 0;
+    width: 45%; pointer-events: none; opacity: 0;
+    background: linear-gradient(100deg,
+      transparent 0%, rgba(255,255,255,0) 38%,
+      rgba(255,255,255,0.92) 50%,
+      rgba(255,255,255,0) 62%, transparent 100%);
+    mix-blend-mode: screen;
+    transform: translateX(-160%) skewX(-14deg);
+  }
+  .hero-copy.swept .hero-sweep {
+    animation: heroSweep 1.15s cubic-bezier(.4,0,.2,1) forwards;
+  }
+  @keyframes heroSweep {
+    0%   { transform: translateX(-160%) skewX(-14deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateX(260%) skewX(-14deg); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-copy.swept .hero-sweep { animation: none; }
+  }
+  .sound-toggle {
+    position: fixed; right: 1rem; bottom: 1rem; z-index: 60;
+    background: var(--accent); color: #f8f2e6; border: none;
+    border-radius: 999px; padding: 0.55em 1.05em; font-size: 0.82rem;
+    cursor: pointer; opacity: 0.94; box-shadow: 0 2px 12px rgba(0,0,0,.35);
+  }
+  .sound-toggle:hover { background: var(--accent-soft); }
 </style>
 </head>
 <body>
@@ -46,6 +78,7 @@
     <h1 class="hero-name">Bob<span class="surname">Randolph</span></h1>
     <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
     <a href="#what" class="hero-role hero-cta">Revolutionary Poet<span class="arrow" aria-hidden="true">↓</span></a>
+    <span class="hero-sweep" aria-hidden="true"></span>
   </div>
 </section>
 
@@ -105,6 +138,85 @@
 <footer class="site-footer">
   Site built by Mark Wotton, continuing a promise made to Bob.
 </footer>
+
+<audio id="introAudio" preload="auto">
+  <source src="assets/audio/sea-coast-intro.m4a" type="audio/mp4">
+</audio>
+<button id="soundToggle" class="sound-toggle" hidden>&#128266; Play intro</button>
+
+<script>
+(function () {
+  var heroCopy = document.querySelector('.hero-copy');
+  var intro = document.getElementById('introAudio');
+  var toggle = document.getElementById('soundToggle');
+  var audioCtx = null;
+
+  function runSweep() {
+    if (!heroCopy) return;
+    heroCopy.classList.remove('swept');
+    void heroCopy.offsetWidth;      // reflow so it can replay
+    heroCopy.classList.add('swept');
+  }
+
+  // Synthesized "laser swish" — falling tone through a bandpass, quick envelope
+  function swish() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return false;
+      if (!audioCtx) audioCtx = new AC();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      if (audioCtx.state !== 'running') return false;
+      var t = audioCtx.currentTime, dur = 0.5;
+      var osc = audioCtx.createOscillator();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(1500, t);
+      osc.frequency.exponentialRampToValueAtTime(220, t + dur);
+      var bp = audioCtx.createBiquadFilter();
+      bp.type = 'bandpass'; bp.Q.value = 0.9;
+      bp.frequency.setValueAtTime(1300, t);
+      bp.frequency.exponentialRampToValueAtTime(420, t + dur);
+      var g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.22, t + 0.05);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      osc.connect(bp); bp.connect(g); g.connect(audioCtx.destination);
+      osc.start(t); osc.stop(t + dur + 0.03);
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function playIntro(delay) {
+    return new Promise(function (res, rej) {
+      if (!intro) return rej();
+      setTimeout(function () {
+        try {
+          intro.currentTime = 0;
+          var p = intro.play();
+          if (p && p.then) p.then(res).catch(rej); else res();
+        } catch (e) { rej(); }
+      }, delay || 0);
+    });
+  }
+
+  function showToggle() { if (toggle) toggle.hidden = false; }
+
+  window.addEventListener('load', function () {
+    runSweep();                 // visual always runs
+    var soundOk = swish();      // usually blocked until a click
+    playIntro(1000).catch(showToggle);
+    if (!soundOk) showToggle();
+  });
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      toggle.hidden = true;
+      runSweep();
+      swish();
+      playIntro(150).catch(function () {});
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
