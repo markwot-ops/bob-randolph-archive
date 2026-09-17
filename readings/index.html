@@ -41,22 +41,22 @@
   <div class="gallery-controls">
     <span class="lbl">Zoom</span>
     <button class="zoom-btn" id="zoomOut" aria-label="Show more, smaller videos">&minus;</button>
-    <input type="range" id="zoomRange" min="1" max="4" step="1" value="3" aria-label="Videos per row">
+    <input type="range" id="zoomRange" min="1" max="4" step="1" value="3" aria-label="Video size">
     <button class="zoom-btn" id="zoomIn" aria-label="Show fewer, larger videos">&plus;</button>
   </div>
 
   <div class="video-gallery" id="gallery" style="--cols:3;">
 
     <figure class="vid-card">
-      <video controls preload="none" poster="../3/assets/video/walking-thoughts.jpg">
-        <source src="../3/assets/video/walking-thoughts.mp4" type="video/mp4">
-        <a href="../3/assets/video/walking-thoughts.mp4">Download</a>
+      <video controls preload="none" poster="../assets/video/walking-thoughts.jpg">
+        <source src="../assets/video/walking-thoughts.mp4" type="video/mp4">
+        <a href="../assets/video/walking-thoughts.mp4">Download</a>
       </video>
       <h3>Walking Thoughts</h3>
     </figure>
 
     <figure class="vid-card">
-      <video controls preload="none" poster="../3/assets/video/our-national-anus.jpg">
+      <video controls preload="none" poster="../assets/video/our-national-anus.jpg">
         <source src="../assets/video/our-national-anus.mp4" type="video/mp4">
         <a href="../assets/video/our-national-anus.mp4">Download</a>
       </video>
@@ -64,7 +64,7 @@
     </figure>
 
     <figure class="vid-card">
-      <video controls preload="none" poster="../3/assets/video/tow-trucks.jpg">
+      <video controls preload="none" poster="../assets/video/tow-trucks.jpg">
         <source src="../assets/video/tow-trucks.mp4" type="video/mp4">
         <a href="../assets/video/tow-trucks.mp4">Download</a>
       </video>
@@ -72,7 +72,7 @@
     </figure>
 
     <figure class="vid-card">
-      <video controls preload="none" poster="../3/assets/video/we-too-are-birds.jpg">
+      <video controls preload="none" poster="../assets/video/we-too-are-birds.jpg">
         <source src="../assets/video/we-too-are-birds.mp4" type="video/mp4">
         <a href="../assets/video/we-too-are-birds.mp4">Download</a>
       </video>
@@ -80,19 +80,35 @@
     </figure>
 
     <figure class="vid-card">
-      <video controls preload="none" poster="../3/assets/video/thoughts-on-birds.jpg">
-        <source src="../2/assets/video/thoughts-on-birds.mp4" type="video/mp4">
-        <a href="../2/assets/video/thoughts-on-birds.mp4">Download</a>
+      <video controls preload="none" poster="../assets/video/thoughts-on-birds.jpg">
+        <source src="../assets/video/thoughts-on-birds.mp4" type="video/mp4">
+        <a href="../assets/video/thoughts-on-birds.mp4">Download</a>
       </video>
       <h3>Thoughts on Birds</h3>
     </figure>
 
     <figure class="vid-card">
-      <video controls preload="none" poster="../3/assets/video/sea-coast-of-the-world.jpg">
-        <source src="../1/assets/video/sea-coast-of-the-world.mp4" type="video/mp4">
-        <a href="../1/assets/video/sea-coast-of-the-world.mp4">Download</a>
+      <video controls preload="none" poster="../assets/video/sea-coast-of-the-world.jpg">
+        <source src="../assets/video/sea-coast-of-the-world.mp4" type="video/mp4">
+        <a href="../assets/video/sea-coast-of-the-world.mp4">Download</a>
       </video>
       <h3>Sea Coast of the World</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../assets/video/i-saw-them-six-ducks.jpg">
+        <source src="../assets/video/i-saw-them-six-ducks.mp4" type="video/mp4">
+        <a href="../assets/video/i-saw-them-six-ducks.mp4">Download</a>
+      </video>
+      <h3>I Saw Them Six Ducks</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <video controls preload="none" poster="../assets/video/two-sisteen-chapells.jpg">
+        <source src="../assets/video/two-sisteen-chapells.mp4" type="video/mp4">
+        <a href="../assets/video/two-sisteen-chapells.mp4">Download</a>
+      </video>
+      <h3>Two Sisteen Chapells</h3>
     </figure>
 
   </div>
@@ -118,8 +134,8 @@
     var startCols = window.innerWidth <= 640 ? 1 : (window.innerWidth <= 980 ? 2 : 3);
     apply((MINZ + MAXZ) - startCols);
     range.addEventListener('input', function () { apply(parseInt(range.value, 10)); });
-    zin.addEventListener('click', function () { apply(parseInt(range.value, 10) + 1); }); // + = bigger
-    out.addEventListener('click', function () { apply(parseInt(range.value, 10) - 1); }); // - = smaller
+    zin.addEventListener('click', function () { apply(parseInt(range.value, 10) + 1); });
+    out.addEventListener('click', function () { apply(parseInt(range.value, 10) - 1); });
   })();
 </script>
 
