@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Picture of Dorian America — read the book — Bob Randolph</title>
+<link rel="stylesheet" href="../../../assets/css/app.css">
+<style>
+  :root { --bookbg:#141210; }
+  body.reader { margin:0; background:var(--bookbg); }
+  .reader-bar {
+    display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+    padding:.55rem .9rem; background:#000; color:#f4ece0;
+    position:sticky; top:0; z-index:10; font-size:.9rem;
+  }
+  .reader-bar a { color:#f4ece0; text-decoration:none; opacity:.85; }
+  .reader-bar a:hover { opacity:1; }
+  .reader-bar .sp { flex:1; }
+  .rbtn { background:transparent; border:1px solid rgba(255,255,255,.35); color:#f4ece0;
+    border-radius:4px; padding:.3em .7em; cursor:pointer; font-size:1rem; line-height:1; }
+  .rbtn:hover { background:rgba(255,255,255,.12); }
+  .rbtn:disabled { opacity:.3; cursor:default; }
+  #pageNum { width:3.2em; text-align:center; background:#222; color:#f4ece0;
+    border:1px solid rgba(255,255,255,.3); border-radius:4px; padding:.25em; font-size:.9rem; }
+  .stage { position:relative; height:calc(100vh - 52px); display:flex;
+    align-items:center; justify-content:center; overflow:auto; }
+  .stage img { max-height:100%; max-width:100%; box-shadow:0 6px 30px rgba(0,0,0,.6);
+    background:#fff; display:block; transition:opacity .12s ease; }
+  .stage.zoom { align-items:flex-start; }
+  .stage.zoom img { max-height:none; max-width:none; width:1400px; cursor:zoom-out; }
+  .stage:not(.zoom) img { cursor:zoom-in; }
+  .nav-zone { position:absolute; top:0; bottom:0; width:22%; z-index:5; }
+  .nav-zone.left { left:0; cursor:w-resize; } .nav-zone.right { right:0; cursor:e-resize; }
+  .hint { color:#8a8378; font-size:.8rem; }
+</style>
+</head>
+<body class="reader">
+
+<div class="reader-bar">
+  <a href="../index.html">&larr; The Picture of Dorian America</a>
+  <span class="sp"></span>
+  <button class="rbtn" id="prev" aria-label="Previous page">&lsaquo;</button>
+  <input id="pageNum" type="text" inputmode="numeric" value="1" aria-label="Page number">
+  <span>/ <span id="total">197</span></span>
+  <button class="rbtn" id="next" aria-label="Next page">&rsaquo;</button>
+  <span class="sp"></span>
+  <span class="hint">&larr; &rarr; to turn &middot; click page to zoom</span>
+</div>
+
+<div class="stage" id="stage">
+  <div class="nav-zone left" id="zoneL"></div>
+  <img id="page" alt="Page">
+  <div class="nav-zone right" id="zoneR"></div>
+</div>
+
+<script>
+(function(){
+  var TOTAL = 197;
+  var base = "../pages/";
+  function pad(n){ return String(n).padStart(3,"0"); }
+  function src(n){ return base + "p" + pad(n) + ".jpg"; }
+  var cur = 1;
+  var img = document.getElementById("page");
+  var stage = document.getElementById("stage");
+  var numIn = document.getElementById("pageNum");
+  var prev = document.getElementById("prev"), next = document.getElementById("next");
+  document.getElementById("total").textContent = TOTAL;
+
+  function preload(n){ if(n>=1&&n<=TOTAL){ var i=new Image(); i.src=src(n); } }
+  function show(n){
+    cur = Math.max(1, Math.min(TOTAL, n));
+    img.style.opacity = 0;
+    img.onload = function(){ img.style.opacity = 1; };
+    img.src = src(cur);
+    img.alt = "The Picture of Dorian America - page " + cur;
+    numIn.value = cur;
+    prev.disabled = (cur===1); next.disabled = (cur===TOTAL);
+    stage.classList.remove("zoom");
+    preload(cur+1); preload(cur-1);
+    try { location.hash = cur; } catch(e){}
+  }
+  prev.onclick = function(){ show(cur-1); };
+  next.onclick = function(){ show(cur+1); };
+  document.getElementById("zoneL").onclick = function(){ if(!stage.classList.contains("zoom")) show(cur-1); };
+  document.getElementById("zoneR").onclick = function(){ if(!stage.classList.contains("zoom")) show(cur+1); };
+  img.onclick = function(e){ e.stopPropagation(); stage.classList.toggle("zoom"); if(stage.classList.contains("zoom")) stage.scrollTop=0; };
+  numIn.addEventListener("change", function(){ var v=parseInt(numIn.value,10); if(!isNaN(v)) show(v); });
+  document.addEventListener("keydown", function(e){
+    if(e.target===numIn) return;
+    if(e.key==="ArrowRight"||e.key==="PageDown"){ show(cur+1); }
+    else if(e.key==="ArrowLeft"||e.key==="PageUp"){ show(cur-1); }
+  });
+  var x0=null;
+  stage.addEventListener("touchstart", function(e){ x0=e.touches[0].clientX; }, {passive:true});
+  stage.addEventListener("touchend", function(e){
+    if(x0===null) return; var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>45){ show(cur + (dx<0?1:-1)); } x0=null;
+  }, {passive:true});
+
+  var start = parseInt((location.hash||"").replace("#",""),10);
+  show(!isNaN(start)&&start>=1 ? start : 1);
+})();
+</script>
+</body>
+</html>
