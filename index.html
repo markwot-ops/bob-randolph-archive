@@ -3,220 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bob Randolph — El Tecolote Blanco</title>
-<link rel="stylesheet" href="assets/css/app.css">
-<style>
-  /* Landing-page-only overrides */
-  html { scroll-behavior: smooth; }
-  .hero { min-height: 100vh; }
-  #what { scroll-margin-top: 1.5rem; }
-  .hero-cta {
-    cursor: pointer;
-    background: var(--accent);
-    color: #f8f2e6;
-    font-size: 0.82rem;
-    padding: 0.62em 1.25em;
-    transition: background .15s ease, transform .1s ease;
-  }
-  .hero-cta:hover { background: var(--accent-soft); }
-  .hero-cta:active { transform: translateY(1px); }
-  .hero-cta .arrow { margin-left: 0.5em; }
-
-  /* Intro light-sweep over the name + alias */
-  .hero-copy { position: relative; overflow: hidden; }
-  .hero-sweep {
-    position: absolute; top: 0; bottom: 0; left: 0;
-    width: 45%; pointer-events: none; opacity: 0;
-    background: linear-gradient(100deg,
-      transparent 0%, rgba(255,255,255,0) 38%,
-      rgba(255,255,255,0.92) 50%,
-      rgba(255,255,255,0) 62%, transparent 100%);
-    mix-blend-mode: screen;
-    transform: translateX(-160%) skewX(-14deg);
-  }
-  .hero-copy.swept .hero-sweep {
-    animation: heroSweep 1.15s cubic-bezier(.4,0,.2,1) forwards;
-  }
-  @keyframes heroSweep {
-    0%   { transform: translateX(-160%) skewX(-14deg); opacity: 0; }
-    10%  { opacity: 1; }
-    90%  { opacity: 1; }
-    100% { transform: translateX(260%) skewX(-14deg); opacity: 0; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-copy.swept .hero-sweep { animation: none; }
-  }
-  .sound-toggle {
-    position: fixed; right: 1rem; bottom: 1rem; z-index: 60;
-    background: var(--accent); color: #f8f2e6; border: none;
-    border-radius: 999px; padding: 0.55em 1.05em; font-size: 0.82rem;
-    cursor: pointer; opacity: 0.94; box-shadow: 0 2px 12px rgba(0,0,0,.35);
-  }
-  .sound-toggle:hover { background: var(--accent-soft); }
-</style>
+<title>Chapbooks — Bob Randolph Archive</title>
+<link rel="stylesheet" href="../assets/css/app.css">
 </head>
 <body>
 
-<header class="site-header site-header--compact">
-  <div class="wordmark">Bob Randolph &middot; Archive</div>
+<header class="masthead">
   <nav class="site-nav">
-    <a href="index.html" class="active">Home</a>
-    <a href="about.html">About Bob</a>
-    <a href="chapbooks/index.html">Chapbooks</a>
-    <a href="photography/index.html">Photography</a>
-    <a href="readings/index.html">Taped Live Readings</a>
-    <a href="master-index.html">Full Index (1,775 poems)</a>
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About Bob</a>
+    <a href="index.html" class="active">Chapbooks</a>
+    <a href="../photography/index.html">Photography</a>
+    <a href="../readings/index.html">Taped Live Readings</a>
+    <a href="../master-index.html">Full Index (1,775 poems)</a>
   </nav>
+  <div class="masthead-title">
+    <p class="masthead-kicker">A Working Archive &mdash; Prototype</p>
+    <h1 class="masthead-name">Bob <span class="surname">Randolph</span></h1>
+    <p class="masthead-subtitle">El Tecolote Blanco &middot; the White Owl &middot; Revolutionary Poet</p>
+  </div>
 </header>
 
-<section class="hero">
-  <div class="hero-media">
-    <img src="assets/img/photography/bob.jpg" alt="Bob Randolph, mid-poem, reading aloud from a chapbook">
-  </div>
-  <div class="hero-copy">
-    <p class="hero-kicker">A Working Archive &mdash; Prototype</p>
-    <h1 class="hero-name">Bob<span class="surname">Randolph</span></h1>
-    <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
-    <a href="#what" class="hero-role hero-cta">Revolutionary Poet<span class="arrow" aria-hidden="true">↓</span></a>
-    <span class="hero-sweep" aria-hidden="true"></span>
-  </div>
-</section>
+<figure class="page-anchor">
+  <img src="../assets/img/photography/joey.jpg" alt="Three men sitting together on a bench, Berkeley street scene">
+  <figcaption>Berkeley, date unknown &mdash; the kind of street portrait Bob's chapbooks are full of. Photograph selected by Harold, from Bob's personal archive.</figcaption>
+</figure>
 
 <main>
-  <p class="lede">
-    This is a working prototype — built from the material catalogued so far. Poems here are
-    rendered from Bob's own pages.
-  </p>
-
-  <h2 id="what">What this will become</h2>
-  <p>
-    A permanent, freely accessible archive of Bob Randolph's body of work: every poem he wrote,
-    given a page of its own, in his own words and in his own hand where a page survives to show it.
-    The plan, as it stands:
-  </p>
+  <h2>Browse by chapbook</h2>
+  <p class="lede">The way Bob himself published his work — self-published chapbooks, plus the two
+  edited volumes below. The full 1,775-poem master index sits underneath all of it as the complete
+  catalogue.</p>
 
   <div class="card">
-    <h3>Text</h3>
-    <p>Every poem transcribed to HTML for searching and reading, paired with a toggle to view
-    the original scanned page — so nothing is silently "corrected" out of Bob's own spelling,
-    line breaks, or layout. Organized chapbook by chapbook, the way Bob himself published them,
-    with the full 1,775-poem master index underneath as the complete catalogue.</p>
+    <h3>Yokohama Rickshaw Boy <span class="badge progress">in progress — 5 of 124 poems</span></h3>
+    <p>124 poems, subtitled "book about 'Sketches of Strangers.'" Mostly dated 1989&ndash;1991.</p>
+    <p><a href="yokohama-rickshaw-boy/index.html">Open this chapbook &rarr;</a></p>
   </div>
 
   <div class="card">
-    <h3>Audio &amp; Video <span class="badge progress">first clip live</span></h3>
-    <p>Extemporaneous B-roll of Bob doing live readings — the archive's centerpiece, being
-    digitized off the original tapes clip by clip. The first clip is up on the
-    <a href="readings/index.html">Taped Live Readings</a> page. His documentary photography is a second body
-    of work in its own right, not just illustration for the poems — see <a
-    href="photography/index.html">Photography</a>.</p>
+    <h3>El Tecolote Blanco: Space and Time Travel <span class="badge planned">not yet catalogued</span></h3>
+    <p>~50 poems, dedicated to Eldridge Cleaver, introduction by Rev. Tom Sanders. The presumed
+    launch chapbook, physical copy only — awaiting page photographs.</p>
   </div>
 
   <div class="card">
-    <h3>Print <span class="badge planned">planned</span></h3>
-    <p>A print-on-demand edition of Bob's seminal work, <em>The Picture of Dorian America</em>,
-    edited by Mark Wotton, with its own ISBN, so the collection enters library and bookstore
-    catalogs the way a traditionally published book would.</p>
+    <h3>The Picture of Dorian America <span class="badge progress">all 72 poems transcribed</span></h3>
+    <p>Edited and prepared for print by Mark and Bob together in 2008&ndash;2009, under Bob's own
+    imprint, Randolph House Press &mdash; but never actually published or released. This archive is
+    what finally gives it a public life. All four books &mdash; 72 poems &mdash; are transcribed and
+    mounted; original scanned pages still to come.</p>
+    <p><a href="dorian-america/index.html">Open this chapbook &rarr;</a></p>
   </div>
 
   <div class="card">
-    <h3>Translation <span class="badge planned">planned</span></h3>
-    <p>Every poem page is already built to hold more than one language side by side — the language
-    switcher on each poem page is live now, waiting for translated text. English is the only
-    language populated so far.</p>
+    <h3>&hellip; and the rest of the corpus</h3>
+    <p>More chapbooks are being photographed and will appear here as they're catalogued. Nothing
+    about launch order is locked in yet — everything gets added as it arrives.</p>
   </div>
-
-  <h2>Start here</h2>
-  <p>
-    <a href="chapbooks/yokohama-rickshaw-boy/index.html">Yokohama Rickshaw Boy</a> — the first
-    chapbook added with live poem pages. Or browse the
-    <a href="master-index.html">full 1,775-poem master index</a>, Bob's own numbered and coded
-    catalogue of everything he wrote.
-  </p>
 </main>
 
 <footer class="site-footer">
-  Site built by Mark Wotton, continuing a promise made to Bob.
+  Built by Mark Wotton, continuing a promise made to Bob Randolph.
 </footer>
-
-<audio id="introAudio" preload="auto">
-  <source src="assets/audio/sea-coast-intro.m4a" type="audio/mp4">
-</audio>
-<button id="soundToggle" class="sound-toggle" hidden>&#128266; Play intro</button>
-
-<script>
-(function () {
-  var heroCopy = document.querySelector('.hero-copy');
-  var intro = document.getElementById('introAudio');
-  var toggle = document.getElementById('soundToggle');
-  var audioCtx = null;
-
-  function runSweep() {
-    if (!heroCopy) return;
-    heroCopy.classList.remove('swept');
-    void heroCopy.offsetWidth;      // reflow so it can replay
-    heroCopy.classList.add('swept');
-  }
-
-  // Synthesized "laser swish" — falling tone through a bandpass, quick envelope
-  function swish() {
-    try {
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return false;
-      if (!audioCtx) audioCtx = new AC();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      if (audioCtx.state !== 'running') return false;
-      var t = audioCtx.currentTime, dur = 0.5;
-      var osc = audioCtx.createOscillator();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(1500, t);
-      osc.frequency.exponentialRampToValueAtTime(220, t + dur);
-      var bp = audioCtx.createBiquadFilter();
-      bp.type = 'bandpass'; bp.Q.value = 0.9;
-      bp.frequency.setValueAtTime(1300, t);
-      bp.frequency.exponentialRampToValueAtTime(420, t + dur);
-      var g = audioCtx.createGain();
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.22, t + 0.05);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      osc.connect(bp); bp.connect(g); g.connect(audioCtx.destination);
-      osc.start(t); osc.stop(t + dur + 0.03);
-      return true;
-    } catch (e) { return false; }
-  }
-
-  function playIntro(delay) {
-    return new Promise(function (res, rej) {
-      if (!intro) return rej();
-      setTimeout(function () {
-        try {
-          intro.currentTime = 0;
-          var p = intro.play();
-          if (p && p.then) p.then(res).catch(rej); else res();
-        } catch (e) { rej(); }
-      }, delay || 0);
-    });
-  }
-
-  function showToggle() { if (toggle) toggle.hidden = false; }
-
-  window.addEventListener('load', function () {
-    runSweep();                 // visual always runs
-    var soundOk = swish();      // usually blocked until a click
-    playIntro(1000).catch(showToggle);
-    if (!soundOk) showToggle();
-  });
-
-  if (toggle) {
-    toggle.addEventListener('click', function () {
-      toggle.hidden = true;
-      runSweep();
-      swish();
-      playIntro(150).catch(function () {});
-    });
-  }
-})();
-</script>
 
 </body>
 </html>
