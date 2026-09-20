@@ -5,38 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Picture of Dorian America — read the book — Bob Randolph</title>
 <link rel="stylesheet" href="../../../assets/css/app.css">
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 <style>
-  html,body { height:100%; }
-  body.reader { margin:0; background:#141210; }
+  html, body { height:100%; }
+  body.reader { margin:0; background:#0e0b08;
+    background-image:
+      radial-gradient(120% 90% at 50% 12%, #241812 0%, #140d08 60%, #0b0705 100%);
+    color:#e9dfce; }
   .reader-bar {
     display:flex; align-items:center; gap:.55rem; flex-wrap:wrap;
-    padding:.5rem .9rem; background:#000; color:#f4ece0;
-    position:sticky; top:0; z-index:10; font-size:.9rem;
+    padding:.5rem .9rem; background:rgba(0,0,0,.55); color:#efe5d3;
+    position:sticky; top:0; z-index:20; font-size:.9rem;
+    border-bottom:1px solid rgba(212,175,110,.18);
   }
-  .reader-bar a { color:#f4ece0; text-decoration:none; opacity:.85; }
+  .reader-bar a { color:#efe5d3; text-decoration:none; opacity:.85; }
   .reader-bar a:hover { opacity:1; }
   .reader-bar .sp { flex:1; }
-  .rbtn { background:transparent; border:1px solid rgba(255,255,255,.35); color:#f4ece0;
-    border-radius:4px; padding:.3em .7em; cursor:pointer; font-size:1rem; line-height:1; }
-  .rbtn:hover { background:rgba(255,255,255,.12); }
+  .rbtn { background:transparent; border:1px solid rgba(212,175,110,.4); color:#efe5d3;
+    border-radius:5px; padding:.32em .72em; cursor:pointer; font-size:1rem; line-height:1; }
+  .rbtn:hover { background:rgba(212,175,110,.14); }
   .rbtn:disabled { opacity:.3; cursor:default; }
-  .rbtn.active { background:rgba(255,255,255,.18); }
-  #label { min-width:7em; text-align:center; opacity:.9; }
+  #label { min-width:7.5em; text-align:center; opacity:.9; letter-spacing:.02em; }
+  .hint { color:#9a8b6d; font-size:.78rem; }
+
   .stage { height:calc(100vh - 50px); display:flex; align-items:center; justify-content:center;
-    overflow:auto; padding:1.2rem; box-sizing:border-box; }
-  .book { display:flex; align-items:stretch; justify-content:center;
-    max-width:100%; max-height:100%; box-shadow:0 10px 40px rgba(0,0,0,.6); background:#fff; }
-  .book.single { box-shadow:0 12px 44px rgba(0,0,0,.65); }
-  .leaf { display:flex; align-items:center; justify-content:center; background:#fff; }
-  .leaf img { display:block; max-width:100%; max-height:calc(100vh - 96px); object-fit:contain; }
-  .book.spread .leaf.left  { box-shadow: inset -14px 0 22px -14px rgba(0,0,0,.45); }
-  .book.spread .leaf.right { box-shadow: inset  14px 0 22px -14px rgba(0,0,0,.45); }
-  .book.zoom .leaf img { max-height:none; max-width:none; height:1150px; }
-  .book.zoom { max-width:none; max-height:none; }
-  .stage.zoomon { align-items:flex-start; justify-content:flex-start; }
-  .leaf.blank { background:#efe9dd; }
-  .turnzone { display:none; }
-  .hint { color:#8a8378; font-size:.78rem; }
+    padding:2.2vmin; box-sizing:border-box; }
+
+  /* the hardcover: dark leather frame around the open pages */
+  .leather {
+    padding:14px;
+    border-radius:8px;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"),
+      radial-gradient(130% 90% at 50% 28%, #5a3f27 0%, #3a2717 48%, #241608 100%);
+    background-blend-mode: overlay, normal;
+    background-size: 140px 140px, cover;
+    box-shadow:
+      inset 0 0 0 1px rgba(214,178,110,.25),
+      inset 0 2px 6px rgba(255,225,180,.08),
+      inset 0 -6px 18px rgba(0,0,0,.55),
+      0 26px 60px rgba(0,0,0,.6),
+      0 6px 18px rgba(0,0,0,.5);
+    max-width:100%; max-height:100%;
+  }
+  .leather::before { /* thin gilt keyline */
+    content:""; position:absolute; inset:6px; border:1px solid rgba(214,178,110,.28);
+    border-radius:5px; pointer-events:none;
+  }
+  .leather { position:relative; }
+  #flipbook { margin:0 auto; }
+  #flipbook .page { background:#fff; }
+  #fallback { display:none; text-align:center; padding:2rem; color:#cbb; }
 </style>
 </head>
 <body class="reader">
@@ -47,90 +66,92 @@
   <button class="rbtn" id="prev" aria-label="Previous">&lsaquo;</button>
   <span id="label">Cover</span>
   <button class="rbtn" id="next" aria-label="Next">&rsaquo;</button>
-  <button class="rbtn" id="zoom" aria-label="Zoom" title="Zoom">&#9906;</button>
   <span class="sp"></span>
-  <span class="hint">click a page to turn &middot; &larr; &rarr; keys</span>
+  <span class="hint">drag a corner to turn &middot; &larr; &rarr; keys</span>
 </div>
 
 <div class="stage" id="stage">
-  <div class="book" id="book"></div>
+  <div class="leather" id="leather">
+    <div id="flipbook"></div>
+  </div>
+  <div id="fallback">Loading the book&hellip; if it doesn't appear, reload the page.</div>
 </div>
 
 <script>
-(function(){
+(function () {
   var TOTAL = 197;
   var base = "../pages/";
   function pad(n){ return String(n).padStart(3,"0"); }
-  function src(n){ return base + "p" + pad(n) + ".jpg"; }
+  var images = [];
+  for (var i=1; i<=TOTAL; i++) images.push(base + "p" + pad(i) + ".jpg");
 
-  // Build views: front cover (single), interior spreads, back cover (single)
-  var views = [];
-  views.push({single:true, L:1});                 // front cover
-  for (var i=2; i<=196; i+=2){                     // interior spreads
-    views.push({single:false, L:i, R:(i+1<=196? i+1 : null)});
+  var labelEl = document.getElementById("label");
+  var prev = document.getElementById("prev");
+  var next = document.getElementById("next");
+
+  // paper page-flip sound (synth, no file)
+  var actx = null;
+  function playFlip(){
+    try{
+      var AC = window.AudioContext || window.webkitAudioContext; if(!AC) return;
+      if(!actx) actx = new AC();
+      if(actx.state === "suspended") actx.resume();
+      var dur = 0.17, sr = actx.sampleRate, len = Math.floor(sr*dur);
+      var buf = actx.createBuffer(1, len, sr), d = buf.getChannelData(0);
+      for (var i=0;i<len;i++){ var e = Math.pow(1 - i/len, 2.2); d[i] = (Math.random()*2-1)*e; }
+      var s = actx.createBufferSource(); s.buffer = buf;
+      var hp = actx.createBiquadFilter(); hp.type="highpass"; hp.frequency.value=900;
+      var bp = actx.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value=2500; bp.Q.value=0.5;
+      var g = actx.createGain(); g.gain.value=0.3;
+      s.connect(hp); hp.connect(bp); bp.connect(g); g.connect(actx.destination);
+      s.start();
+    }catch(e){}
   }
-  views.push({single:true, L:197});               // back cover
-  var LAST = views.length-1;
 
-  var cur = 0, zoom = false;
-  var book = document.getElementById("book");
-  var stage = document.getElementById("stage");
-  var label = document.getElementById("label");
-  var prev = document.getElementById("prev"), next = document.getElementById("next");
-  var zbtn = document.getElementById("zoom");
-
-  function leaf(n, side, blank){
-    if (blank) return '<div class="leaf blank ' + side + '"></div>';
-    return '<div class="leaf ' + side + '"><img src="' + src(n) + '" alt="Page ' + n + '" draggable="false"></div>';
+  function labelFor(idx, pf){
+    if (idx <= 0) return "Cover";
+    if (idx >= pf.getPageCount() - 1) return "Back cover";
+    return "Pages " + (idx+1) + "\u2013" + (idx+2);
   }
-  function preload(n){ if(n>=1&&n<=TOTAL){ var im=new Image(); im.src=src(n); } }
 
-  function render(){
-    var v = views[cur];
-    book.className = "book" + (v.single ? " single" : " spread") + (zoom ? " zoom" : "");
-    if (v.single){
-      book.innerHTML = leaf(v.L, "only");
-      label.textContent = (cur===0 ? "Cover" : "Back cover");
-    } else {
-      book.innerHTML = leaf(v.L, "left") + (v.R ? leaf(v.R, "right") : leaf(null,"right",true));
-      label.textContent = "Pages " + v.L + (v.R ? "\u2013" + v.R : "");
+  function boot(w, h){
+    if (typeof St === "undefined" || !St.PageFlip){
+      document.getElementById("fallback").style.display = "block";
+      document.getElementById("leather").style.display = "none";
+      return;
     }
-    prev.disabled = (cur===0); next.disabled = (cur===LAST);
-    // preload neighbours
-    var nx = views[cur+1], pv = views[cur-1];
-    if(nx){ preload(nx.L); if(nx.R) preload(nx.R); }
-    if(pv){ preload(pv.L); if(pv.R) preload(pv.R); }
-    try{ location.hash = cur; }catch(e){}
-    if(zoom) stage.scrollLeft=0, stage.scrollTop=0;
+    var pf = new St.PageFlip(document.getElementById("flipbook"), {
+      width: w, height: h,
+      size: "stretch",
+      minWidth: 300, maxWidth: 1700,
+      minHeight: Math.round(300*h/w), maxHeight: Math.round(1700*h/w),
+      maxShadowOpacity: 0.55,
+      showCover: true,
+      usePortrait: true,
+      mobileScrollSupport: false,
+      flippingTime: 800,
+      drawShadow: true,
+      swipeDistance: 20
+    });
+    pf.loadFromImages(images);
+
+    function update(){ labelEl.textContent = labelFor(pf.getCurrentPageIndex(), pf); }
+    pf.on("flip", function(){ playFlip(); update(); });
+    pf.on("init", update);
+    prev.onclick = function(){ pf.flipPrev(); };
+    next.onclick = function(){ pf.flipNext(); };
+    document.addEventListener("keydown", function(e){
+      if (e.key==="ArrowRight"||e.key==="PageDown") pf.flipNext();
+      else if (e.key==="ArrowLeft"||e.key==="PageUp") pf.flipPrev();
+    });
+    update();
   }
-  function go(d){ cur = Math.max(0, Math.min(LAST, cur+d)); zoom=false; stage.classList.remove("zoomon"); zbtn.classList.remove("active"); render(); }
 
-  prev.onclick = function(){ go(-1); };
-  next.onclick = function(){ go(1); };
-  zbtn.onclick = function(){ zoom=!zoom; zbtn.classList.toggle("active", zoom); stage.classList.toggle("zoomon", zoom); render(); };
-
-  // click left/right half of the book to turn (when not zoomed)
-  book.addEventListener("click", function(e){
-    if(zoom) return;
-    var r = book.getBoundingClientRect();
-    if (e.clientX < r.left + r.width/2) go(-1); else go(1);
-  });
-
-  document.addEventListener("keydown", function(e){
-    if(e.key==="ArrowRight"||e.key==="PageDown"){ go(1); }
-    else if(e.key==="ArrowLeft"||e.key==="PageUp"){ go(-1); }
-  });
-  // swipe
-  var x0=null;
-  stage.addEventListener("touchstart", function(e){ if(!zoom) x0=e.touches[0].clientX; }, {passive:true});
-  stage.addEventListener("touchend", function(e){
-    if(x0===null) return; var dx=e.changedTouches[0].clientX-x0;
-    if(Math.abs(dx)>45){ go(dx<0?1:-1); } x0=null;
-  }, {passive:true});
-
-  var start = parseInt((location.hash||"").replace("#",""),10);
-  cur = (!isNaN(start) && start>=0 && start<=LAST) ? start : 0;
-  render();
+  // detect page aspect from the first image, then build the book
+  var probe = new Image();
+  probe.onload = function(){ boot(probe.naturalWidth || 733, probe.naturalHeight || 550); };
+  probe.onerror = function(){ boot(733, 550); };
+  probe.src = images[0];
 })();
 </script>
 </body>
