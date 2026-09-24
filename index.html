@@ -6,49 +6,53 @@
 <title>Bob Randolph — El Tecolote Blanco</title>
 <link rel="stylesheet" href="assets/css/app.css">
 <style>
+  /* Landing-page-only overrides */
   html { scroll-behavior: smooth; }
-  .hero { min-height: 100vh; align-items: center; transition: min-height .3s ease; }
-
-  /* name/alias now sit WITH the photo */
-  .hero-media { display: flex; flex-direction: column; }
-  .hero-caption { margin-top: .9rem; }
-  .hero-caption .hero-name { margin: 0; }
-  .hero-caption .hero-alias { margin: .25rem 0 0; }
-
+  .hero { min-height: 100vh; }
+  #what { scroll-margin-top: 1.5rem; }
   .hero-cta {
-    cursor: pointer; background: var(--accent); color: #f8f2e6;
-    font-size: 0.9rem; padding: 0.7em 1.4em; border: none;
-    transition: background .15s ease, transform .1s ease; display: inline-block;
+    cursor: pointer;
+    background: var(--accent);
+    color: #f8f2e6;
+    font-size: 0.82rem;
+    padding: 0.62em 1.25em;
+    transition: background .15s ease, transform .1s ease;
   }
   .hero-cta:hover { background: var(--accent-soft); }
   .hero-cta:active { transform: translateY(1px); }
   .hero-cta .arrow { margin-left: 0.5em; }
 
-  .hero-intro { position: relative; overflow: hidden; }
+  /* Intro light-sweep over the name + alias */
+  .hero-copy { position: relative; overflow: hidden; }
   .hero-sweep {
-    position: absolute; top: 0; bottom: 0; left: 0; width: 60%;
-    pointer-events: none; opacity: 0;
-    background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0) 38%,
-      rgba(255,255,255,0.92) 50%, rgba(255,255,255,0) 62%, transparent 100%);
-    mix-blend-mode: screen; transform: translateX(-160%) skewX(-14deg);
+    position: absolute; top: 0; bottom: 0; left: 0;
+    width: 45%; pointer-events: none; opacity: 0;
+    background: linear-gradient(100deg,
+      transparent 0%, rgba(255,255,255,0) 38%,
+      rgba(255,255,255,0.92) 50%,
+      rgba(255,255,255,0) 62%, transparent 100%);
+    mix-blend-mode: screen;
+    transform: translateX(-160%) skewX(-14deg);
   }
-  .hero-intro.swept .hero-sweep { animation: heroSweep 1.15s cubic-bezier(.4,0,.2,1) forwards; }
+  .hero-copy.swept .hero-sweep {
+    animation: heroSweep 1.15s cubic-bezier(.4,0,.2,1) forwards;
+  }
   @keyframes heroSweep {
-    0% { transform: translateX(-160%) skewX(-14deg); opacity: 0; }
-    10% { opacity: 1; } 90% { opacity: 1; }
+    0%   { transform: translateX(-160%) skewX(-14deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
     100% { transform: translateX(260%) skewX(-14deg); opacity: 0; }
   }
-  @media (prefers-reduced-motion: reduce) { .hero-intro.swept .hero-sweep { animation: none; } }
-
-  /* the 'This will become' panel that reveals beside the photo */
-  .hero-become { display: none; max-width: 62ch; }
-  .hero.revealed { align-items: flex-start; min-height: 100vh; padding-block: 6vh 4rem; }
-  .hero.revealed .hero-intro { display: none; }
-  .hero.revealed .hero-become { display: block; animation: fadeUp .5s ease both; }
-  .hero.revealed .hero-media { position: sticky; top: 2rem; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-  .hero-become h2 { margin-top: 0; }
-  .hero-become .card { margin: 1rem 0; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-copy.swept .hero-sweep { animation: none; }
+  }
+  .sound-toggle {
+    position: fixed; right: 1rem; bottom: 1rem; z-index: 60;
+    background: var(--accent); color: #f8f2e6; border: none;
+    border-radius: 999px; padding: 0.55em 1.05em; font-size: 0.82rem;
+    cursor: pointer; opacity: 0.94; box-shadow: 0 2px 12px rgba(0,0,0,.35);
+  }
+  .sound-toggle:hover { background: var(--accent-soft); }
 </style>
 </head>
 <body>
@@ -58,7 +62,7 @@
   <nav class="site-nav">
     <a href="index.html" class="active">Home</a>
     <a href="about.html">About Bob</a>
-    <a href="chapbooks/dorian-america/index.html">The Book</a>
+    <a href="chapbooks/dorian-america/index.html">Books</a>
     <a href="chapbooks/index.html">Chapbooks</a>
     <a href="photography/index.html">Photography</a>
     <a href="readings/index.html">Taped Live Readings</a>
@@ -66,70 +70,88 @@
   </nav>
 </header>
 
-<section class="hero" id="hero">
+<section class="hero">
   <div class="hero-media">
     <img src="assets/img/photography/bob.jpg" alt="Bob Randolph, mid-poem, reading aloud from a chapbook">
-    <div class="hero-caption">
-      <h1 class="hero-name">Bob<span class="surname">Randolph</span></h1>
-      <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
-    </div>
   </div>
-
   <div class="hero-copy">
-    <div class="hero-intro">
-      <p class="hero-kicker">A Working Archive &mdash; Prototype</p>
-      <button type="button" class="hero-role hero-cta" id="revBtn">Revolutionary Poet<span class="arrow" aria-hidden="true">&#9654;</span></button>
-      <span class="hero-sweep" aria-hidden="true"></span>
-    </div>
-
-    <div class="hero-become" id="become">
-      <p class="lede">This is a working prototype &mdash; built from the material catalogued so far.
-      Poems here are rendered from Bob's own pages.</p>
-
-      <h2>This will become</h2>
-      <p>A permanent, freely accessible archive of Bob Randolph's body of work: every poem he wrote,
-      given a page of its own, in his own words and in his own hand where a page survives to show it.
-      The plan, as it stands:</p>
-
-      <div class="card">
-        <h3>Text</h3>
-        <p>Every poem transcribed to HTML for searching and reading, paired with a toggle to view the
-        original scanned page &mdash; so nothing is silently &ldquo;corrected&rdquo; out of Bob's own
-        spelling, line breaks, or layout. Organized chapbook by chapbook, the way Bob himself published
-        them, with the full 1,775-poem master index underneath as the complete catalogue.</p>
-      </div>
-
-      <div class="card">
-        <h3>Audio &amp; Video</h3>
-        <p>Extemporaneous source video of Bob doing live readings &mdash; digitized off the original
-        tapes clip by clip, linked at the <a href="readings/index.html">Taped Live Readings</a> page.
-        Select documentary photos drawn from nearly 3,000 pictures Bob took in his travels around the
-        world &mdash; a second body of work in its own right, not just illustration for the poems &mdash;
-        see <a href="photography/index.html">Photography</a>.</p>
-      </div>
-
-      <div class="card">
-        <h3>Print <span class="badge planned">planned</span></h3>
-        <p>A print-on-demand edition of Bob's seminal work, <em>The Picture of Dorian America</em>,
-        edited by Mark Wotton, with its own ISBN, so the collection enters library and bookstore
-        catalogs the way a traditionally published book would.</p>
-      </div>
-
-      <div class="card">
-        <h3>Translation <span class="badge planned">planned</span></h3>
-        <p>Every poem page is already built to hold more than one language side by side &mdash; the
-        language switcher on each poem page is live, waiting for translated text. English is the only
-        language populated so far.</p>
-      </div>
-
-      <h2>Start here</h2>
-      <p><a href="chapbooks/yokohama-rickshaw-boy/index.html">Yokohama Rickshaw Boy</a> &mdash; the first
-      chapbook added with live poem pages. Or browse the
-      <a href="master-index.html">full 1,775-poem master index</a>, Bob's own numbered and coded
-      catalogue of everything he wrote.</p>
-    </div>
+    <p class="hero-kicker">A Working Archive &mdash; Prototype</p>
+    <h1 class="hero-name">Bob<span class="surname">Randolph</span></h1>
+    <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
+    <a href="#what" class="hero-role hero-cta">Revolutionary Poet<span class="arrow" aria-hidden="true">↓</span></a>
+    <span class="hero-sweep" aria-hidden="true"></span>
   </div>
 </section>
+
+<main>
+  <p class="lede">
+    This is a working prototype — built from the material catalogued so far. Poems here are
+    rendered from Bob's own pages.
+  </p>
+
+  <section class="dorian-feature" style="margin:2rem 0; padding:1.5rem; border:1px solid rgba(0,0,0,0.15); border-radius:6px; display:flex; gap:1.5rem; flex-wrap:wrap; align-items:center;">
+    <a href="chapbooks/dorian-america/read/index.html" style="flex:0 0 auto;" aria-label="Read The Picture of Dorian America">
+      <img src="chapbooks/dorian-america/pages/p001.jpg" alt="The Picture of Dorian America &mdash; cover"
+           style="width:180px; max-width:50vw; height:auto; box-shadow:0 8px 26px rgba(0,0,0,.4); border-radius:2px; display:block;">
+    </a>
+    <div style="flex:1 1 300px; min-width:260px;">
+      <p class="masthead-kicker" style="margin:0 0 .2rem;">The Book</p>
+      <h2 style="margin:0 0 .4rem;">The Picture of Dorian America</h2>
+      <p style="margin:.2rem 0 1rem;">Poems by Bob Randolph, selected and edited by Mark Wotton &mdash; the finished
+      hardcover volume, page for page as Bob made it: cover, introduction, preface, photographs, and all 72 poems.</p>
+      <p style="margin:0;">
+        <a class="btn" href="chapbooks/dorian-america/read/index.html" style="font-size:1.05rem; padding:.6em 1.1em;">&#128214; Read the book</a>
+        <a href="chapbooks/dorian-america/index.html" style="margin-left:.8rem;">Poems &amp; text &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <h2 id="what">What this will become</h2>
+  <p>
+    A permanent, freely accessible archive of Bob Randolph's body of work: every poem he wrote,
+    given a page of its own, in his own words and in his own hand where a page survives to show it.
+    The plan, as it stands:
+  </p>
+
+  <div class="card">
+    <h3>Text</h3>
+    <p>Every poem transcribed to HTML for searching and reading, paired with a toggle to view
+    the original scanned page — so nothing is silently "corrected" out of Bob's own spelling,
+    line breaks, or layout. Organized chapbook by chapbook, the way Bob himself published them,
+    with the full 1,775-poem master index underneath as the complete catalogue.</p>
+  </div>
+
+  <div class="card">
+    <h3>Audio &amp; Video <span class="badge progress">first clip live</span></h3>
+    <p>Extemporaneous B-roll of Bob doing live readings — the archive's centerpiece, being
+    digitized off the original tapes clip by clip. The first clip is up on the
+    <a href="readings/index.html">Taped Live Readings</a> page. His documentary photography is a second body
+    of work in its own right, not just illustration for the poems — see <a
+    href="photography/index.html">Photography</a>.</p>
+  </div>
+
+  <div class="card">
+    <h3>Print <span class="badge planned">planned</span></h3>
+    <p>A print-on-demand edition of Bob's seminal work, <em>The Picture of Dorian America</em>,
+    edited by Mark Wotton, with its own ISBN, so the collection enters library and bookstore
+    catalogs the way a traditionally published book would.</p>
+  </div>
+
+  <div class="card">
+    <h3>Translation <span class="badge planned">planned</span></h3>
+    <p>Every poem page is already built to hold more than one language side by side — the language
+    switcher on each poem page is live now, waiting for translated text. English is the only
+    language populated so far.</p>
+  </div>
+
+  <h2>Start here</h2>
+  <p>
+    <a href="chapbooks/yokohama-rickshaw-boy/index.html">Yokohama Rickshaw Boy</a> — the first
+    chapbook added with live poem pages. Or browse the
+    <a href="master-index.html">full 1,775-poem master index</a>, Bob's own numbered and coded
+    catalogue of everything he wrote.
+  </p>
+</main>
 
 <footer class="site-footer">
   Site built by Mark Wotton, continuing a promise made to Bob.
@@ -141,19 +163,17 @@
 
 <script>
 (function () {
-  var hero = document.getElementById('hero');
-  var intro = document.querySelector('.hero-intro');
-  var btn = document.getElementById('revBtn');
-  var audio = document.getElementById('introAudio');
-  var actx = null;
-  function sweep(){ if(!intro) return; intro.classList.remove('swept'); void intro.offsetWidth; intro.classList.add('swept'); }
-  function swish(){ try{ var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return; if(!actx) actx=new AC(); if(actx.state==='suspended') actx.resume(); var t=actx.currentTime,d=0.5; var o=actx.createOscillator(); o.type='sawtooth'; o.frequency.setValueAtTime(1500,t); o.frequency.exponentialRampToValueAtTime(220,t+d); var b=actx.createBiquadFilter(); b.type='bandpass'; b.Q.value=0.9; b.frequency.setValueAtTime(1300,t); b.frequency.exponentialRampToValueAtTime(420,t+d); var g=actx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.22,t+0.05); g.gain.exponentialRampToValueAtTime(0.0001,t+d); o.connect(b); b.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d+0.03); }catch(e){} }
-  window.addEventListener('load', sweep);
-  if (btn) {
-    btn.addEventListener('click', function(){
-      sweep(); swish();
-      if (audio){ try{ audio.currentTime=0; var p=audio.play(); if(p&&p.catch) p.catch(function(){}); }catch(e){} }
-      hero.classList.add('revealed');
+  var heroCopy = document.querySelector('.hero-copy');
+  var cta = document.querySelector('.hero-cta');
+  var intro = document.getElementById('introAudio');
+  var audioCtx = null;
+  function runSweep(){ if(!heroCopy) return; heroCopy.classList.remove('swept'); void heroCopy.offsetWidth; heroCopy.classList.add('swept'); }
+  function swish(){ try{ var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return; if(!audioCtx) audioCtx=new AC(); if(audioCtx.state==='suspended') audioCtx.resume(); var t=audioCtx.currentTime,d=0.5; var o=audioCtx.createOscillator(); o.type='sawtooth'; o.frequency.setValueAtTime(1500,t); o.frequency.exponentialRampToValueAtTime(220,t+d); var b=audioCtx.createBiquadFilter(); b.type='bandpass'; b.Q.value=0.9; b.frequency.setValueAtTime(1300,t); b.frequency.exponentialRampToValueAtTime(420,t+d); var g=audioCtx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.22,t+0.05); g.gain.exponentialRampToValueAtTime(0.0001,t+d); o.connect(b); b.connect(g); g.connect(audioCtx.destination); o.start(t); o.stop(t+d+0.03); }catch(e){} }
+  window.addEventListener('load', runSweep);
+  if (cta) {
+    cta.addEventListener('click', function(){
+      runSweep(); swish();
+      if (intro){ try{ intro.currentTime=0; var p=intro.play(); if(p&&p.catch) p.catch(function(){}); }catch(e){} }
     });
   }
 })();
