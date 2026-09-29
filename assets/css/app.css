@@ -219,6 +219,7 @@ nav.site-nav a:hover, nav.site-nav a.active {
   margin-top: 0;
   padding: 0.85rem 1.4rem;
   gap: 1.2rem;
+  justify-content: flex-end;
   border-bottom: 1px solid rgba(244,237,224,0.14);
 }
 
