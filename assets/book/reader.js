@@ -43,6 +43,9 @@ window.BookReader=function(cfg){
   var bPrev=bar.querySelector('[data-a=prev]')||{},bNext=bar.querySelector('[data-a=next]')||{},jumpSel=bar.querySelector('.br-jump');
 
   /* pages come either as one file per page (cfg.page) or as spread sheets holding two facing pages (cfg.sheet) */
+  /* optional page-turn sounds (cfg.sounds = list of files under base) */
+  var snd=(cfg.sounds||[]).map(function(u){var a=new Audio(base+u);a.preload='auto';a.volume=0.6;return a;});
+  function swish(){if(!snd.length)return;try{var a=snd[Math.floor(Math.random()*snd.length)];a.currentTime=0;var p=a.play();if(p&&p.catch)p.catch(function(){});}catch(e){}}
   function url(n){if(!n)return '';return cfg.sheet?cfg.sheet(Math.floor((n-leftStart)/2)):page(n);}
   function halfOf(n){return ((n-leftStart)%2===0)?'br-half-l':'br-half-r';}
   function putImg(img,n){if(n){img.src=url(n);img.className=cfg.sheet?halfOf(n):'';}else{img.removeAttribute('src');img.className='';}}
@@ -94,18 +97,19 @@ window.BookReader=function(cfg){
   }
   function show(v,instant){
     if(busy)return;v=Math.max(0,Math.min(nViews-1,v));
+    if(v!==cur)swish();
     if(isClosed(v)){cur=v;state(v);return;}
     if(!isClosed(cur)&&!instant&&Math.abs(v-cur)===1&&!single){var v0=cur;cur=v;state(v);flip(v0,v);return;}
     cur=v;renderSpread(v);state(v);
   }
   api.next=function(){
     if(busy)return;
-    if(single&&!isClosed(cur)){var s=spreadOf(cur);if(half==='l'&&s[1]){half='r';applyHalf(s);return;}half='l';}
+    if(single&&!isClosed(cur)){var s=spreadOf(cur);if(half==='l'&&s[1]){half='r';applyHalf(s);swish();return;}half='l';}
     else if(single)half='l';
     show(cur+1);};
   api.prev=function(){
     if(busy)return;
-    if(single&&!isClosed(cur)){var s=spreadOf(cur);if(half==='r'&&s[0]){half='l';applyHalf(s);return;}half='r';}
+    if(single&&!isClosed(cur)){var s=spreadOf(cur);if(half==='r'&&s[0]){half='l';applyHalf(s);swish();return;}half='r';}
     else if(single)half='r';
     show(cur-1);};
   bPrev.onclick=api.prev;bNext.onclick=api.next;

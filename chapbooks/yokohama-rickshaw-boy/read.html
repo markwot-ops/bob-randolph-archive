@@ -15,6 +15,7 @@ BookReader({
   root: document.getElementById('book'),
   layout: BookLayouts.flat,                /* plain staple-bound chapbook: pages exactly as scanned */
   flat: true,
+  sounds: ['turn-1.mp3','turn-2.mp3'],     /* page-turn swish */
   base: '../../assets/book/',
   front: 'yokohama-cover-scan.jpg',        /* the original cover scan, shown as a single page */
   sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },  /* two facing pages per image */

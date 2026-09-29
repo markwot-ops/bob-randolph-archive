@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Tecolote Blanco: Space and Time Travel — Bob Randolph</title>
+<link rel="stylesheet" href="../../assets/book/reader.css">
+</head>
+<body>
+<div id="book"></div>
+<script src="../../assets/book/layouts.js"></script>
+<script src="../../assets/book/reader.js"></script>
+<script>
+BookReader({
+  root: document.getElementById('book'),
+  layout: BookLayouts.flat,                /* plain chapbook: pages exactly as photographed */
+  flat: true,
+  sounds: ['turn-1.mp3','turn-2.mp3'],     /* page-turn swish */
+  base: '../../assets/book/',
+  front: 'tecolote-cover-scan.jpg',        /* cover photograph */
+  page: function(n){ return 'pages/p' + ('00' + n).slice(-3) + '.jpg'; },
+  total: 3,                                /* p1-2 table of contents, p3 introduction; poems to be added */
+  leftStart: 0,                            /* first spread = blank | p.1 */
+  homeHref: '../../index.html',
+  backHref: '../index.html',
+  backLabel: 'Chapbooks'
+  , noArrows: true
+});
+</script>
+</body>
+</html>
