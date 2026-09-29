@@ -62,3 +62,8 @@ html,body{height:100%;margin:0;background:#0f0d0b;overflow:hidden;}
   linear-gradient(to bottom,rgba(60,40,15,0),rgba(60,40,15,.45)),
   repeating-linear-gradient(to bottom,#efe6cf 0,#efe6cf 1px,#d2c6a2 1px,#d2c6a2 2px);
   box-shadow:inset 0 -1px 0 rgba(70,50,25,.55);}
+
+/* spread-sheet mode: one image holds two facing pages; show the left or right half */
+.br-face img.br-half-l{inset:auto;top:0;left:0;width:200%;height:100%;}
+.br-face img.br-half-r{inset:auto;top:0;left:-100%;width:200%;height:100%;}
+.br-jump{background:#15120f;color:#f4ece0;border:1px solid rgba(212,175,110,.35);border-radius:5px;padding:.3em .4em;font-family:inherit;font-size:.9rem;max-width:46vw;}
