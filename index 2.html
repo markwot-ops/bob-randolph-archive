@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bob Randolph — El Tecolote Blanco</title>
+<link rel="stylesheet" href="assets/css/app.css">
+<style>
+  /* Landing-page-only overrides */
+  html { scroll-behavior: smooth; }
+  .hero { min-height: 100vh; }
+  #what { scroll-margin-top: 1.5rem; }
+  .hero-cta {
+    cursor: pointer;
+    background: var(--accent);
+    color: #f8f2e6;
+    font-size: 0.82rem;
+    padding: 0.62em 1.25em;
+    transition: background .15s ease, transform .1s ease;
+  }
+  .hero-cta:hover { background: var(--accent-soft); }
+  .hero-cta:active { transform: translateY(1px); }
+  .hero-cta .arrow { margin-left: 0.5em; }
+
+  /* Intro light-sweep over the name + alias */
+  .hero-copy { position: relative; overflow: hidden; }
+  .hero-sweep {
+    position: absolute; top: 0; bottom: 0; left: 0;
+    width: 45%; pointer-events: none; opacity: 0;
+    background: linear-gradient(100deg,
+      transparent 0%, rgba(255,255,255,0) 38%,
+      rgba(255,255,255,0.92) 50%,
+      rgba(255,255,255,0) 62%, transparent 100%);
+    mix-blend-mode: screen;
+    transform: translateX(-160%) skewX(-14deg);
+  }
+  .hero-copy.swept .hero-sweep {
+    animation: heroSweep 1.15s cubic-bezier(.4,0,.2,1) forwards;
+  }
+  @keyframes heroSweep {
+    0%   { transform: translateX(-160%) skewX(-14deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateX(260%) skewX(-14deg); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-copy.swept .hero-sweep { animation: none; }
+  }
+  .sound-toggle {
+    position: fixed; right: 1rem; bottom: 1rem; z-index: 60;
+    background: var(--accent); color: #f8f2e6; border: none;
+    border-radius: 999px; padding: 0.55em 1.05em; font-size: 0.82rem;
+    cursor: pointer; opacity: 0.94; box-shadow: 0 2px 12px rgba(0,0,0,.35);
+  }
+  .sound-toggle:hover { background: var(--accent-soft); }
+
+  /* ---- Home v2: one full-screen view; the right side dissolves to the archive statement ---- */
+  html, body.home-page { height: 100%; }
+  body.home-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; background:#18130f; }
+  body.home-page .site-header { flex: 0 0 auto; }
+  .hero-full { flex: 1 1 auto; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+  .hero-full .hero-media { min-height: 0; height: 100%; }
+  .hero-full .hero-copy { position: relative; overflow: hidden; padding: 0; display: block; }
+  .pane {
+    position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(1.6rem, 5vw, 4rem) clamp(1.4rem, 5vw, 4rem);
+    transition: opacity .95s ease, filter .95s ease, transform .95s ease, visibility 0s linear 0s;
+  }
+  .pane-b { justify-content: flex-start; overflow-y: auto; padding-top: clamp(1.4rem, 3vh, 2.4rem); padding-bottom: 4.5rem; opacity: 0; visibility: hidden; filter: blur(10px); transform: scale(.985);
+            transition: opacity 1s ease .35s, filter 1s ease .35s, transform 1s ease .35s, visibility 0s linear 0s; scrollbar-width: thin; scrollbar-color: #6b4a3d #18130f; }
+  .revealed .pane-a { opacity: 0; filter: blur(12px); transform: scale(1.03); pointer-events: none; visibility: hidden;
+                      transition: opacity .95s ease, filter .95s ease, transform .95s ease, visibility 0s linear .95s; }
+  .revealed .pane-b { opacity: 1; filter: none; transform: none; visibility: visible; }
+  .pane-b .hero-name { font-size: clamp(2.2rem, 4.2vw, 3.6rem); line-height: .95; margin: 0 0 .35rem; border: 0; padding: 0; }
+  .pane-b .hero-name .surname { display: inline; margin-left: .18em; }
+  .pane-b .hero-alias { font-size: clamp(.95rem, 1.5vw, 1.1rem); margin: 0 0 1rem; }
+  .pane-b .hero-kicker { margin-bottom: .6rem; }
+  .reveal h2 { font-family: var(--serif); font-weight: normal; font-size: clamp(1.4rem, 2.1vw, 1.7rem); color: #f8f2e6; margin: 0 0 .4rem; border: 0; padding: 0; }
+  .reveal h3 { font-family: var(--sans); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #d3a08a; margin: .95rem 0 .2rem; border: 0; padding: 0; }
+  .reveal p { font-size: clamp(.92rem, 1.05vw, 1rem); line-height: 1.5; color: #e9dfc9; margin: 0 0 .3rem; max-width: 46rem; }
+  .reveal a { color: #e7b9a6; text-decoration: underline; text-underline-offset: 2px; }
+  .reveal a:hover { color: #fff; }
+  .reveal .credit { margin-top: 1.5rem; padding-top: .9rem; border-top: 1px solid rgba(233,223,201,.18); font-size: .88rem; font-style: italic; opacity: .8; }
+  .reveal > * { opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+  .revealed .reveal > * { opacity: 1; transform: none; transition-delay: calc(.75s + var(--i, 0) * .11s); }
+  .reveal-back { position: absolute; top: .9rem; right: 1.1rem; z-index: 3; background: transparent; border: 1px solid rgba(233,223,201,.3);
+                 color: #e9dfc9; border-radius: 999px; padding: .3em .85em; font-family: var(--sans); font-size: .74rem; letter-spacing: .08em; cursor: pointer; opacity: .75; }
+  .reveal-back:hover { opacity: 1; }
+  button.hero-cta { border: 0; font-family: var(--sans); }
+  .sound-toggle { right: auto; left: 1rem; }
+  @media (prefers-reduced-motion: reduce) { .pane, .pane-b, .reveal > * { transition-duration: .01s !important; transition-delay: 0s !important; } }
+  @media (max-width: 720px) {
+    body.home-page { display: block; height: auto; overflow: auto; }
+    .hero-full { min-height: calc(100dvh - 96px); grid-template-rows: auto auto; }
+    .hero-full .hero-media { height: 42vh; min-height: 260px; }
+    .hero-full .hero-copy { overflow: visible; }
+    .pane { position: static; min-height: 46vh; }
+    .pane-b { display: none; opacity: 1; visibility: visible; filter: none; transform: none; overflow: visible; }
+    .revealed .pane-a { display: none; }
+    .revealed .pane-b { display: flex; animation: paneIn .9s ease both; }
+    @keyframes paneIn { from { opacity: 0; filter: blur(8px); } to { opacity: 1; filter: none; } }
+    .reveal-back { top: .6rem; }
+  }
+</style>
+</head>
+<body class="home-page">
+
+<header class="site-header site-header--compact">
+  <div class="wordmark">Bob Randolph &middot; Archive</div>
+  <nav class="site-nav">
+    <a href="index.html" class="active">Home</a><a href="books/index.html">Books</a>
+    <a href="about.html">About Bob</a>
+    <a href="chapbooks/index.html">Chapbooks</a>
+    <a href="photography/index.html">Photography</a>
+    <a href="readings/index.html">Taped Live Readings</a>
+    <a href="master-index.html">Full Index (1,775 poems)</a>
+  </nav>
+</header>
+
+<section class="hero hero-full" id="hero">
+  <div class="hero-media">
+    <img src="assets/img/photography/bob.jpg" alt="Bob Randolph, mid-poem, reading aloud from a chapbook">
+  </div>
+  <div class="hero-copy">
+    <div class="pane pane-a">
+      <p class="hero-kicker">A Working Archive &mdash; Prototype</p>
+      <h1 class="hero-name">Bob<span class="surname">Randolph</span></h1>
+      <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
+      <button type="button" class="hero-role hero-cta" aria-controls="what" aria-expanded="false">Revolutionary Poet<span class="arrow" aria-hidden="true"> &rarr;</span></button>
+    </div>
+
+    <div class="pane pane-b" id="what" aria-hidden="true">
+      <button type="button" class="reveal-back" aria-label="Back to the title">&larr; Back</button>
+      <p class="hero-kicker">A Working Archive &mdash; Prototype</p>
+      <h2 class="hero-name" style="font-family:var(--serif);font-weight:normal;color:#f8f2e6;">Bob<span class="surname">Randolph</span></h2>
+      <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
+
+      <div class="reveal">
+        <div style="--i:0">
+          <h2>What this is &hellip;</h2>
+          <p>A permanent, freely accessible archive of Bob Randolph's body of work, given a page of its own, in his own words and in his own hand where a page survives to show it. The plan:</p>
+        </div>
+        <div style="--i:1">
+          <h3>Text</h3>
+          <p>Every poem transcribed to HTML for search and reading, paired with a toggle to view the original scanned page &mdash; so nothing is silently &ldquo;corrected&rdquo; out of Bob's own spelling, line breaks, or layout. Organized chapbook by chapbook, the way Bob himself published them, with the full 1,775-poem master index underneath as the complete catalogue.</p>
+        </div>
+        <div style="--i:2">
+          <h3>Audio &amp; Video</h3>
+          <p>Extemporaneous B-roll of Bob doing live readings &mdash; digitized off the original tapes clip by clip up live on the <a href="readings/index.html">Taped Live Readings</a> page. His documentary photography - a second body of work in its own right, selects are not just illustration for the poems &mdash; see <a href="photography/index.html">Photography</a>.</p>
+        </div>
+        <div style="--i:3">
+          <h3>Print Planning</h3>
+          <p>A print-on-demand edition of Bob's seminal work, <em>The Picture of Dorian America</em>, edited by Mark Wotton, with its own ISBN, so the collection enters library and bookstore catalogs the way a traditionally published book would.</p>
+        </div>
+        <div style="--i:4">
+          <h3>Translation Planned</h3>
+          <p>Every poem page is already built to hold more than one language side by side &mdash; the language switcher on each poem page is live, waiting for translated text. English is the only language populated so far.</p>
+        </div>
+        <div style="--i:5">
+          <h3>Start here</h3>
+          <p><a href="chapbooks/yokohama-rickshaw-boy/index.html">Yokohama Rickshaw Boy</a> &mdash; the first of more than a dozen chapbooks, with live poem pages. Browse the <a href="master-index.html">full 1,775-poem master index</a>, Bob's own numbered and coded catalogue of everything he wrote.</p>
+        </div>
+        <p class="credit" style="--i:6">Site built by Mark Wotton, continuing a promise made to Bob.</p>
+      </div>
+    </div>
+    <span class="hero-sweep" aria-hidden="true"></span>
+  </div>
+</section>
+
+<audio id="introAudio" preload="auto">
+  <source src="assets/audio/sea-coast-intro.m4a" type="audio/mp4">
+</audio>
+<button type="button" class="sound-toggle" id="soundToggle" hidden>Pause audio</button>
+
+<script>
+(function () {
+  var hero = document.getElementById('hero');
+  var heroCopy = document.querySelector('.hero-copy');
+  var cta = document.querySelector('.hero-cta');
+  var back = document.querySelector('.reveal-back');
+  var paneB = document.getElementById('what');
+  var intro = document.getElementById('introAudio');
+  var tog = document.getElementById('soundToggle');
+  var audioCtx = null;
+  function runSweep(){ if(!heroCopy) return; heroCopy.classList.remove('swept'); void heroCopy.offsetWidth; heroCopy.classList.add('swept'); }
+  function swish(){ try{ var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return; if(!audioCtx) audioCtx=new AC(); if(audioCtx.state==='suspended') audioCtx.resume(); var t=audioCtx.currentTime,d=0.5; var o=audioCtx.createOscillator(); o.type='sawtooth'; o.frequency.setValueAtTime(1500,t); o.frequency.exponentialRampToValueAtTime(220,t+d); var b=audioCtx.createBiquadFilter(); b.type='bandpass'; b.Q.value=0.9; b.frequency.setValueAtTime(1300,t); b.frequency.exponentialRampToValueAtTime(420,t+d); var g=audioCtx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.22,t+0.05); g.gain.exponentialRampToValueAtTime(0.0001,t+d); o.connect(b); b.connect(g); g.connect(audioCtx.destination); o.start(t); o.stop(t+d+0.03); }catch(e){} }
+  window.addEventListener('load', runSweep);
+
+  function reveal(withSound) {
+    hero.classList.add('revealed');
+    cta.setAttribute('aria-expanded', 'true');
+    paneB.setAttribute('aria-hidden', 'false');
+    paneB.scrollTop = 0;
+    if (window.matchMedia('(max-width:720px)').matches) { heroCopy.scrollIntoView({behavior:'smooth', block:'start'}); }
+    if (withSound) {
+      runSweep(); swish();
+      if (intro) { try { intro.currentTime = 0; var p = intro.play(); if (p && p.catch) p.catch(function(){}); } catch(e) {} }
+      if (tog) { tog.hidden = false; tog.textContent = 'Pause audio'; }
+    }
+  }
+  function unreveal() {
+    hero.classList.remove('revealed');
+    cta.setAttribute('aria-expanded', 'false');
+    paneB.setAttribute('aria-hidden', 'true');
+    cta.focus({preventScroll:true});
+  }
+  if (cta) cta.addEventListener('click', function () { reveal(true); });
+  if (back) back.addEventListener('click', unreveal);
+  if (tog && intro) {
+    tog.addEventListener('click', function () {
+      if (intro.paused) { if (intro.ended) intro.currentTime = 0; intro.play(); tog.textContent = 'Pause audio'; }
+      else { intro.pause(); tog.textContent = 'Play audio'; }
+    });
+    intro.addEventListener('ended', function () { tog.textContent = 'Replay audio'; });
+  }
+  if (location.hash === '#what') reveal(false);
+})();
+</script>
+
+</body>
+</html>
