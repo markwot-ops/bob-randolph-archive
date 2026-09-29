@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Books — Bob Randolph Archive</title>
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .shelf { display:flex; flex-wrap:wrap; gap:3.2rem 5rem; align-items:flex-start; justify-content:center;
+           padding:2.2rem 1.5rem 0; margin:2rem 0 0; position:relative;
+           width:min(1100px,96vw); left:50%; transform:translateX(-50%); box-sizing:border-box; }
+  .shelf-book { display:flex; flex-direction:column; align-items:center; text-decoration:none; color:inherit;
+                max-width:100%; transition:transform .25s ease; }
+  .shelf-book:hover, .shelf-book:focus-visible { transform:translateY(-8px); }
+  .bk-cover { display:flex; align-items:flex-end; justify-content:center; height:340px; }
+  .shelf-book img { height:340px; width:auto; max-width:100%; display:block;
+                    filter:drop-shadow(0 14px 18px rgba(0,0,0,.45)); }
+  .shelf-book .bk-title { margin-top:1.1rem; font-size:1.15rem; font-weight:600; text-align:center; max-width:22em; }
+  .shelf-book .bk-sub { margin-top:.25rem; font-size:.92rem; opacity:.72; text-align:center; max-width:24em; }
+  .shelf-note { text-align:center; opacity:.7; margin-top:2.6rem; font-size:.95rem; }
+  @media (max-width:600px){ .shelf-book img{ height:250px; } .bk-cover{ height:250px; } .shelf{ gap:2.4rem 2rem; } }
+</style>
+</head>
+<body>
+
+<header class="site-header site-header--compact">
+  <div class="wordmark">Bob Randolph &middot; Archive</div>
+  <nav class="site-nav">
+    <a href="../index.html">Home</a><a href="index.html" class="active">Books</a>
+    <a href="../about.html">About Bob</a>
+    <a href="../chapbooks/index.html">Chapbooks</a>
+    <a href="../photography/index.html">Photography</a>
+    <a href="../readings/index.html">Taped Live Readings</a>
+    <a href="../master-index.html">Full Index (1,775 poems)</a>
+  </nav>
+</header>
+<header class="masthead">
+  <div class="masthead-title">
+    <p class="masthead-kicker">A Working Archive &mdash; Prototype</p>
+    <h1 class="masthead-name">Bob <span class="surname">Randolph</span></h1>
+    <p class="masthead-subtitle">El Tecolote Blanco &middot; the White Owl &middot; Revolutionary Poet</p>
+  </div>
+</header>
+
+<main>
+  <h2>Books</h2>
+  <p>Bob's work, presented as bound books. Click a book to open it.</p>
+
+  <div class="shelf">
+    <a class="shelf-book" href="../chapbooks/dorian-america/book.html" aria-label="Open The Picture of Dorian America">
+      <span class="bk-cover"><img src="../assets/book/cover-front-thumb.jpg" alt="The Picture of Dorian America &mdash; leather-bound book"></span>
+      <span class="bk-title">The Picture of Dorian America</span>
+      <span class="bk-sub">Poems &amp; photographs &middot; selected and edited by Mark Wotton</span>
+    </a>
+    <a class="shelf-book" href="../chapbooks/at-my-age/book.html" aria-label="Open At my Age I can say whatever I damn well please">
+      <span class="bk-cover"><img src="../assets/book/at-my-age-thumb.jpg" alt="At my Age I can say whatever I damn well please &mdash; Poet Bob Randolph"></span>
+      <span class="bk-title">At my Age I can say whatever I damn well please</span>
+      <span class="bk-sub">Poet Bob Randolph &middot; and other unpublished work</span>
+    </a>
+  </div>
+  <p class="shelf-note">More books will be added here as the chapbooks are catalogued.</p>
+</main>
+
+</body>
+</html>

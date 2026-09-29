@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Picture of Dorian America — the book</title>
+<title>At my Age I can say whatever I damn well please — Bob Randolph</title>
 <link rel="stylesheet" href="../../assets/book/reader.css">
 </head>
 <body>
@@ -13,13 +13,12 @@
 <script>
 BookReader({
   root: document.getElementById('book'),
-  layout: BookLayouts.landscape,          /* landscape open-book frame (pages are 11 x 8.5) */
+  layout: BookLayouts.portrait,           /* standard-size (portrait) open-book frame */
   base: '../../assets/book/',
-  front: 'cover-front.jpg',               /* closed leather cover, spine left */
-  back: 'cover-back.jpg',                 /* closed leather back cover, spine right */
+  front: 'at-my-age-cover.jpg',           /* closed cover; no back cover supplied yet */
   page: function(n){ return 'pages/p' + ('00' + n).slice(-3) + '.jpg'; },
-  total: 197,                             /* p1 = original cover art, p197 = closing page */
-  leftStart: 2,                           /* first spread = pp. 2-3 */
+  total: 5,                               /* placeholder pages until the poems are loaded */
+  leftStart: 2,
   homeHref: '../../index.html',
   backHref: '../../books/index.html',
   backLabel: 'Books'

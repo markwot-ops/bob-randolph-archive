@@ -4,9 +4,9 @@
 function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;}
 window.BookReader=function(cfg){
   var root=cfg.root,lay=cfg.layout,base=cfg.base||'',page=cfg.page,total=cfg.total,
-      leftStart=cfg.leftStart==null?2:cfg.leftStart,hasCov=!!cfg.front,off=hasCov?1:0;
+      leftStart=cfg.leftStart==null?2:cfg.leftStart,hasCov=!!cfg.front,hasBack=hasCov&&!!cfg.back,off=hasCov?1:0;
   var spreads=[];for(var p=leftStart;p<=total;p+=2)spreads.push([p>=1?p:0,(p+1<=total)?p+1:0]);
-  var nViews=spreads.length+(hasCov?2:0),cur=0,busy=false,single=false,half='l',api={};
+  var nViews=spreads.length+(hasCov?1:0)+(hasBack?1:0),cur=0,busy=false,single=false,half='l',api={};
   root.classList.add('br');root.innerHTML='';
   var bar=el('div','br-bar');
   bar.innerHTML=(cfg.homeHref?'<a href="'+cfg.homeHref+'">Home</a>':'')+
@@ -15,10 +15,11 @@ window.BookReader=function(cfg){
     '<button class="br-btn" data-a="next" aria-label="Next page">&rsaquo;</button>';
   root.appendChild(bar);
   var stage=el('div','br-stage');root.appendChild(stage);
-  var closed=null,imgF,imgB;
-  if(hasCov){closed=el('div','br-closed');imgF=el('img');imgB=el('img','br-off');
-    imgF.src=base+cfg.front;imgB.src=base+cfg.back;imgF.alt='Front cover';imgB.alt='Back cover';
-    closed.appendChild(imgF);closed.appendChild(imgB);stage.appendChild(closed);}
+  var closed=null,imgF,imgB=null;
+  if(hasCov){closed=el('div','br-closed');imgF=el('img');
+    imgF.src=base+cfg.front;imgF.alt='Front cover';closed.appendChild(imgF);
+    if(hasBack){imgB=el('img','br-off');imgB.src=base+cfg.back;imgB.alt='Back cover';closed.appendChild(imgB);}
+    stage.appendChild(closed);}
   var view=el('div','br-view'),bk=el('div','br-bk');view.appendChild(bk);stage.appendChild(view);
   var fr=el('img','br-frame');fr.src=base+lay.frame;fr.alt='';bk.appendChild(fr);
   /* page-stack depth: fore-edge + bottom edge of each block, thickness follows position in the book */
@@ -39,10 +40,10 @@ window.BookReader=function(cfg){
   function setImg(s,n){if(n)s.i.src=url(n);else s.i.removeAttribute('src');}
   function pre(n){if(n){var i=new Image();i.src=url(n);}}
   function spreadOf(v){return spreads[v-off];}
-  function isClosed(v){return hasCov&&(v===0||v===nViews-1);}
+  function isClosed(v){return hasCov&&(v===0||(hasBack&&v===nViews-1));}
   function setStacks(v){
     var span=Math.max(1,total-leftStart),tl,tr;
-    if(v<=0&&hasCov){tl=0;tr=1;}else if(hasCov&&v>=nViews-1){tl=1;tr=0;}
+    if(v<=0&&hasCov){tl=0;tr=1;}else if(hasBack&&v>=nViews-1){tl=1;tr=0;}
     else{var s=spreadOf(v),l=s[0]||leftStart,r=s[1]||total;
       tl=Math.max(0,Math.min(1,(l-leftStart)/span));tr=Math.max(0,Math.min(1,(total-r)/span));}
     // never fully flat: front/back boards + a few leaves are always present
@@ -63,7 +64,7 @@ window.BookReader=function(cfg){
     [spreads[v-off+1],spreads[v-off-1]].forEach(function(x){if(x){pre(x[0]);pre(x[1]);}});}
   function state(v){
     root.classList.toggle('br-st-closed',isClosed(v));root.classList.toggle('br-st-open',!isClosed(v));
-    if(hasCov){imgF.classList.toggle('br-off',v===nViews-1);imgB.classList.toggle('br-off',v!==nViews-1);}
+    if(hasBack){imgF.classList.toggle('br-off',v===nViews-1);imgB.classList.toggle('br-off',v!==nViews-1);}
     bPrev.disabled=v<=0;bNext.disabled=v>=nViews-1;setStacks(v);
     try{history.replaceState(null,'','#'+v);}catch(e){}}
   function flip(v0,v1){
