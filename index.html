@@ -57,7 +57,9 @@
   /* ---- Home v2: one full-screen view; the right side dissolves to the archive statement ---- */
   html, body.home-page { height: 100%; }
   body.home-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; background:#18130f; }
-  body.home-page .site-header { flex: 0 0 auto; }
+  body.home-page .masthead { flex: 0 0 auto; }
+  .masthead--bar { border-bottom-width: 3px; }
+  .masthead--bar nav.site-nav { border-bottom: 0; }
   .hero-full { flex: 1 1 auto; min-height: 0; grid-template-rows: minmax(0, 1fr); }
   .hero-full .hero-media { min-height: 0; height: 100%; }
   .hero-full .hero-copy { position: relative; overflow: hidden; padding: 0; display: block; }
@@ -105,18 +107,16 @@
 </head>
 <body class="home-page">
 
-<header class="site-header site-header--compact">
-  <div class="wordmark">Bob Randolph &middot; Archive</div>
+<header class="masthead masthead--bar">
   <nav class="site-nav">
     <a href="index.html" class="active">Home</a><a href="books/index.html">Books</a>
     <a href="about.html">About Bob</a>
     <a href="chapbooks/index.html">Chapbooks</a>
     <a href="photography/index.html">Photography</a>
     <a href="readings/index.html">Taped Live Readings</a>
-    <a href="master-index.html">Full Index (1,775 poems)</a>
+    <a href="master-index.html">Full Archive (1,775 poems)</a>
   </nav>
 </header>
-
 <section class="hero hero-full" id="hero">
   <div class="hero-media">
     <img src="assets/img/photography/bob.jpg" alt="Bob Randolph, mid-poem, reading aloud from a chapbook">
