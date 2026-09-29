@@ -7,7 +7,8 @@ window.BookReader=function(cfg){
       leftStart=cfg.leftStart==null?2:cfg.leftStart,hasCov=!!cfg.front,hasBack=hasCov&&!!cfg.back,off=hasCov?1:0;
   var spreads=[];for(var p=leftStart;p<=total;p+=2)spreads.push([p>=1?p:0,(p+1<=total)?p+1:0]);
   var nViews=spreads.length+(hasCov?1:0)+(hasBack?1:0),cur=0,busy=false,single=false,half='l',api={};
-  root.classList.add('br');root.innerHTML='';
+  var flat=!!cfg.flat;
+  root.classList.add('br');if(flat)root.classList.add('br-flat');root.innerHTML='';
   var bar=el('div','br-bar');
   bar.innerHTML=(cfg.homeHref?'<a href="'+cfg.homeHref+'">Home</a>':'')+
     (cfg.backHref?'<a href="'+cfg.backHref+'">&larr; '+(cfg.backLabel||'Back')+'</a>':'')+
@@ -23,7 +24,7 @@ window.BookReader=function(cfg){
     if(hasBack){imgB=el('img','br-off');imgB.src=base+cfg.back;imgB.alt='Back cover';closed.appendChild(imgB);}
     stage.appendChild(closed);}
   var view=el('div','br-view'),bk=el('div','br-bk');view.appendChild(bk);stage.appendChild(view);
-  var fr=el('img','br-frame');fr.src=base+lay.frame;fr.alt='';bk.appendChild(fr);
+  if(!flat){var fr=el('img','br-frame');fr.src=base+lay.frame;fr.alt='';bk.appendChild(fr);}
   /* page-stack depth: fore-edge + bottom edge of each block, thickness follows position in the book */
   function pct(o){return 'left:'+o.x*100+'%;top:'+o.y*100+'%;width:'+o.w*100+'%;height:'+o.h*100+'%';}
   function mkStack(side){
@@ -32,10 +33,13 @@ window.BookReader=function(cfg){
     b.style.top=(g.y+g.h)*100+'%';b.style.left=g.x*100+'%';b.style.width=g.w*100+'%';
     if(side==='L'){e.style.right=(100-g.x*100)+'%';}else{e.style.left=(g.x+g.w)*100+'%';}
     bk.appendChild(e);bk.appendChild(b);return {e:e,b:b,max:sm,bmax:bm};}
-  var STL=mkStack('L'),STR=mkStack('R');
+  var STL=flat?null:mkStack('L'),STR=flat?null:mkStack('R');
   function slot(side){var s=el('div','br-slot'),f=el('div','br-face'),i=el('img');f.appendChild(i);s.appendChild(f);s.style.cssText=pct(lay[side]);bk.appendChild(s);return {s:s,i:i};}
   var SL=slot('L'),SR=slot('R');
-  var sh=el('img','br-shade');sh.src=base+lay.shade;sh.alt='';bk.appendChild(sh);
+  if(flat){ /* plain staple-bound chapbook: pages as scanned, spine shadow + two staples */
+    var sp=el('div','br-spine');bk.appendChild(sp);
+    [26,72].forEach(function(t){var st=el('div','br-staple');st.style.top=t+'%';bk.appendChild(st);});
+  }else{var sh=el('img','br-shade');sh.src=base+lay.shade;sh.alt='';bk.appendChild(sh);}
   var bPrev=bar.querySelector('[data-a=prev]')||{},bNext=bar.querySelector('[data-a=next]')||{},jumpSel=bar.querySelector('.br-jump');
 
   /* pages come either as one file per page (cfg.page) or as spread sheets holding two facing pages (cfg.sheet) */
@@ -47,6 +51,7 @@ window.BookReader=function(cfg){
   function spreadOf(v){return spreads[v-off];}
   function isClosed(v){return hasCov&&(v===0||(hasBack&&v===nViews-1));}
   function setStacks(v){
+    if(flat)return;
     var span=Math.max(1,total-leftStart),tl,tr;
     if(v<=0&&hasCov){tl=0;tr=1;}else if(hasBack&&v>=nViews-1){tl=1;tr=0;}
     else{var s=spreadOf(v),l=s[0]||leftStart,r=s[1]||total;

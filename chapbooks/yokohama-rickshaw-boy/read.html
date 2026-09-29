@@ -13,9 +13,10 @@
 <script>
 BookReader({
   root: document.getElementById('book'),
-  layout: BookLayouts.chapbook,            /* open-book frame sized to this chapbook's pages */
+  layout: BookLayouts.flat,                /* plain staple-bound chapbook: pages exactly as scanned */
+  flat: true,
   base: '../../assets/book/',
-  front: 'yokohama-cover.jpg',             /* closed cover; no back cover supplied */
+  front: 'yokohama-cover-scan.jpg',        /* the original cover scan, shown as a single page */
   sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },  /* two facing pages per image */
   total: 169,
   leftStart: 0,                            /* first spread = blank | p.1 */
