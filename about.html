@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About Bob Randolph — El Tecolote Blanco</title>
 <link rel="stylesheet" href="assets/css/app.css">
+<style>
+  main.ab-main { max-width: 1140px; }
+  .ab-split { display: grid; grid-template-columns: minmax(240px, 36%) minmax(0, 1fr); gap: 2.6rem; align-items: start; }
+  .ab-photos { display: flex; flex-direction: column; gap: 1.4rem; }
+  .ab-photos img { width: 100%; height: auto; display: block; border-radius: 2px; box-shadow: 0 8px 22px rgba(0,0,0,.32); }
+  .ab-text > h2:first-child { margin-top: 0; }
+  @media (max-width: 820px) { .ab-split { grid-template-columns: 1fr; gap: 1.6rem; } .ab-text { order: -1; } .ab-photos { max-width: 420px; margin: 0 auto; } }
+</style>
 </head>
 <body>
 
@@ -25,12 +33,20 @@
   </div>
 </header>
 
-<figure class="page-anchor">
-  <img src="assets/img/photography/sproul-plaza.jpg" alt="Bob Randolph speaking into a microphone at an outdoor rally, papers in hand">
-  <figcaption>Bob addressing a rally, date unknown. Photograph selected by Harold, from Bob's personal archive.</figcaption>
-</figure>
-
-<main>
+<main class="ab-main">
+  <div class="ab-split">
+    <div class="ab-photos">
+      <img src="assets/img/photography/wheelbarrow-photo-scan.jpg" alt="Bob Randolph as a small child in a wheelbarrow beside a Model T, dated Feb. 1924" loading="lazy">
+      <img src="assets/img/photography/umbrella.jpg" alt="Bob Randolph as a boy holding a furled umbrella, with a dog and an older girl on a porch" loading="lazy">
+      <img src="assets/img/photography/bob-photo-37.jpg" alt="Bob Randolph as a boy standing beside an older man holding a straw hat" loading="lazy">
+      <img src="assets/img/photography/boyscout.jpg" alt="Bob Randolph marching in a Boy Scout uniform in a parade, April 1935" loading="lazy">
+      <img src="assets/img/photography/bob-photo-16.jpg" alt="Bob Randolph kneeling among a group of children" loading="lazy">
+      <img src="assets/img/photography/bob-photo-34.jpg" alt="Bob Randolph reading from a paper at a podium" loading="lazy">
+      <img src="assets/img/photography/bob-photo-23.jpg" alt="Bob Randolph smiling at his desk beside a typewriter" loading="lazy">
+      <img src="assets/img/photography/sproul-plaza.jpg" alt="Bob Randolph speaking into a microphone at an outdoor rally, papers in hand" loading="lazy">
+      <img src="assets/img/photography/bob.jpg" alt="Bob Randolph reading aloud from a chapbook in his nineties" loading="lazy">
+    </div>
+    <div class="ab-text">
   <h2>About Bob</h2>
   <p>
     Bob Randolph wrote for decades under his own name and under the pen name
@@ -81,6 +97,8 @@
   <div class="placeholder-block">
     This page will grow as more biographical material, photographs, and firsthand
     detail are added &mdash; it's a starting sketch, not the final word.
+  </div>
+    </div>
   </div>
 </main>
 

@@ -44,7 +44,7 @@ window.BookReader=function(cfg){
 
   /* pages come either as one file per page (cfg.page) or as spread sheets holding two facing pages (cfg.sheet) */
   /* optional page-turn sounds (cfg.sounds = list of files under base) */
-  var snd=(cfg.sounds||[]).map(function(u){var a=new Audio(base+u);a.preload='auto';a.volume=0.6;return a;});
+  var snd=(cfg.sounds||[]).map(function(u){var a=new Audio(base+u);a.preload='auto';a.volume=0.42;return a;});
   function swish(){if(!snd.length)return;try{var a=snd[Math.floor(Math.random()*snd.length)];a.currentTime=0;var p=a.play();if(p&&p.catch)p.catch(function(){});}catch(e){}}
   function url(n){if(!n)return '';return cfg.sheet?cfg.sheet(Math.floor((n-leftStart)/2)):page(n);}
   function halfOf(n){return ((n-leftStart)%2===0)?'br-half-l':'br-half-r';}
