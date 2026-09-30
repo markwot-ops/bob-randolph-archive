@@ -36,9 +36,11 @@ window.BookReader=function(cfg){
   var STL=flat?null:mkStack('L'),STR=flat?null:mkStack('R');
   function slot(side){var s=el('div','br-slot'),f=el('div','br-face'),i=el('img');f.appendChild(i);s.appendChild(f);s.style.cssText=pct(lay[side]);bk.appendChild(s);return {s:s,i:i};}
   var SL=slot('L'),SR=slot('R');
-  if(flat){ /* plain staple-bound chapbook: pages as scanned, spine shadow + two staples */
+  if(flat){ /* plain chapbook: pages as scanned; spine shadow + two staples unless cfg.spine===false (spiral-bound scans) */
+    if(cfg.spine!==false){
     var sp=el('div','br-spine');bk.appendChild(sp);
     [26,72].forEach(function(t){var st=el('div','br-staple');st.style.top=t+'%';bk.appendChild(st);});
+    }
   }else{var sh=el('img','br-shade');sh.src=base+lay.shade;sh.alt='';bk.appendChild(sh);}
   var bPrev=bar.querySelector('[data-a=prev]')||{},bNext=bar.querySelector('[data-a=next]')||{},jumpSel=bar.querySelector('.br-jump');
 

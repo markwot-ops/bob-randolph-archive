@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zumi the Cockatoo — Bob Randolph</title>
+<link rel="stylesheet" href="../../assets/book/reader.css">
+</head>
+<body>
+<div id="book"></div>
+<script src="../../assets/book/layouts.js"></script>
+<script src="../../assets/book/reader.js"></script>
+<script>
+BookReader({
+  root: document.getElementById('book'),
+  layout: BookLayouts.flat,                /* plain chapbook: pages exactly as photographed */
+  flat: true,
+  spine: false,                            /* spiral-bound: the spiral is in the photographs */
+  sounds: ['turn-1.mp3','turn-2.mp3'],     /* page-turn swish */
+  base: '../../assets/book/',
+  front: 'zumi-cover-scan.jpg',            /* cover photograph */
+  back: 'zumi-back-scan.jpg',              /* back cover: the green inside-cover page (from the first spread), reused */
+  sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },   /* two facing pages per image */
+  total: 44,                               /* 22 photographed spreads = 44 pages */
+  leftStart: 1,                            /* first spread = green inside cover | first poem */
+  homeHref: '../../index.html',
+  backHref: '../index.html',
+  backLabel: 'Chapbooks',
+  noArrows: true                           /* pages turn by clicking the page */
+});
+</script>
+</body>
+</html>
