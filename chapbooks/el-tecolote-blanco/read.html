@@ -15,7 +15,7 @@ BookReader({
   root: document.getElementById('book'),
   layout: BookLayouts.flat,                /* plain chapbook: pages exactly as photographed */
   flat: true,
-  sounds: ['turn-1.mp3','turn-2.mp3'],     /* page-turn swish */
+  sounds: ['swish-1.wav','swish-2.wav'],     /* page-turn swish */
   base: '../../assets/book/',
   front: 'tecolote-cover-scan.jpg',        /* cover photograph */
   page: function(n){ return 'pages/p' + ('00' + n).slice(-3) + '.jpg'; },
