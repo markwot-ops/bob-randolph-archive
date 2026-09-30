@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Mother Never Did Have Dinner Ready on Time \u2014 Bob Randolph</title>
+<link rel="stylesheet" href="../../assets/book/reader.css">
+</head>
+<body>
+<div id="book"></div>
+<script src="../../assets/book/layouts.js"></script>
+<script src="../../assets/book/reader.js"></script>
+<script>
+BookReader({
+  root: document.getElementById('book'),
+  layout: BookLayouts.flat,
+  flat: true,
+  spine: false,
+  sounds: ['swish-1.wav','swish-2.wav'],
+  base: '../../assets/book/',
+  front: 'cover-my-mother.jpg',                        /* cover photograph; interior pages to be added */
+  page: function(n){ return 'pages/p' + ('00' + n).slice(-3) + '.jpg'; },
+  total: -1,                              /* cover only for now: no interior pages yet */
+  leftStart: 0,
+  homeHref: '../../index.html',
+  backHref: '../index.html',
+  backLabel: 'Chapbooks',
+  noArrows: true
+});
+</script>
+</body>
+</html>
