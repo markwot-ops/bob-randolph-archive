@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>El Tecolote Blanco: A Bob Randolph Sampler \u2014 Bob Randolph</title>
+<title>El Tecolote Blanco: A Bob Randolph Sampler — Bob Randolph</title>
 <link rel="stylesheet" href="../../assets/book/reader.css">
 </head>
 <body>
@@ -13,19 +13,20 @@
 <script>
 BookReader({
   root: document.getElementById('book'),
-  layout: BookLayouts.flat,
+  layout: BookLayouts.flat,                /* plain chapbook: pages exactly as photographed */
   flat: true,
-  spine: false,
-  sounds: ['swish-1.wav','swish-2.wav'],
+  spine: false,                            /* spiral-bound: the spiral is in the photographs */
+  sounds: ['swish-1.wav','swish-2.wav'],   /* page-turn swish */
   base: '../../assets/book/',
-  front: 'cover-tecolote-sampler.jpg',                        /* cover photograph; interior pages to be added */
-  page: function(n){ return 'pages/p' + ('00' + n).slice(-3) + '.jpg'; },
-  total: -1,                              /* cover only for now: no interior pages yet */
+  front: 'cover-tecolote-sampler.jpg',     /* the cover photograph */
+  sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },   /* two facing pages per image */
+  total: 129,                              /* 65 photographed spreads; pp. 12-13 are a placeholder */
   leftStart: 0,
+  jump: [["Title page", 1], ["Introduction by Eldridge Cleaver", 2], ["Table of Contents", 4], ["1. A Letter to Walt Whitman", 5], ["12. The Epic of El Tecolote Blanco", 11], ["16. Hands", 13], ["18. The Battle of Hastings", 14], ["21. I am writing for the Sioux and the Wolves", 15], ["25. A Letter to Vincent van Gogh", 17], ["30. Ship of Fools", 20], ["34. Why I cannot read certain poems on the air", 22], ["36. A 3000 mile straight jacket", 23], ["38. Affirmative Action", 24], ["41. Fast food chain", 25], ["42. The liquor companies", 26], ["43. Tyrannesaurus Capital", 26], ["46. We're living in an economy that has left the country", 28], ["50. These cities of the damned", 30], ["53. Minds in the homeland of the empire", 31], ["59. Murder by the state", 34], ["61. My society eats raw meat in many languages", 35], ["63. The juices in me", 36], ["64. When you are in my arms . . .", 37], ["66. Love is like air", 38], ["67. Our gift", 38], ["69. Motel in Red Bluff", 39], ["74. My insignificant other", 42], ["76. 69", 43], ["77. Things women experience", 43], ["80. Running an office", 45], ["81. A woman's roots are like the roots of an oak", 45], ["86. The last of the redwoods", 48], ["88. Manzanita", 49], ["90. Little triangles of water", 50], ["92. The curving surfaces of the future", 51], ["95. A man of color", 52], ["96. Those who play guitars must win", 53], ["98. Jesus had 28 disciples", 54], ["100. The triangle", 55], ["101. Dance reggae in my graveyard", 55], ["103. As we get older", 56], ["104. Letting go", 57], ["105. The continuity of life", 57], ["106. I am not afraid of death", 58], ["107. How poetry might change the world", 58], ["109. Poets are only maggots", 59], ["109. 100 words", 59], ["110. Hinted at by poets", 60], ["112. The poetry ghetto", 61], ["113. Poems are everywhere", 61], ["114. A letter to my parents", 62], ["120. When it looks like I am really dying", 65]],
   homeHref: '../../index.html',
   backHref: '../index.html',
   backLabel: 'Chapbooks',
-  noArrows: true
+  noArrows: true                           /* pages turn by clicking the page */
 });
 </script>
 </body>
