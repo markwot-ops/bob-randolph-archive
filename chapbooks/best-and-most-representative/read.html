@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>the poetry Bob Randolph considers his best and most representative \u2014 Bob Randolph</title>
+<link rel="stylesheet" href="../../assets/book/reader.css">
+</head>
+<body>
+<div id="book"></div>
+<script src="../../assets/book/layouts.js"></script>
+<script src="../../assets/book/reader.js"></script>
+<script>
+BookReader({
+  root: document.getElementById('book'),
+  layout: BookLayouts.flat,                /* plain chapbook: pages exactly as photographed */
+  flat: true,
+  spine: false,                            /* spiral-bound: the spiral is in the photographs */
+  sounds: ['swish-1.wav','swish-2.wav'],   /* page-turn swish */
+  base: '../../assets/book/',
+  front: 'best-cover-scan.jpg',            /* cover photograph */
+  back: 'best-back-scan.jpg',              /* back cover photograph */
+  sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },   /* two facing pages per image */
+  total: 139,                              /* 70 photographed spreads; printed p. 1 is on spread 3 */
+  leftStart: 0,
+  jump: [["Table of contents", 1], ["1. requiem for capitalism. and all the rest of us", 3], ["13. Vietnam Memorial Wall, the", 9], ["29. Miwok trails, the", 17], ["31. picture of Dorian America, The", 18], ["41. thirty feet", 23], ["44. way it s'posed to be, the", 25], ["46. and that's the truth", 26], ["47. Hannibal and his elephants", 26], ["49. clothesline between galaxies, a", 27], ["57. Dance reggae in my graveyard", 31], ["59. footprint that I am, The", 32], ["60. Impoverishing people", 33], ["61. Rendezvous for dinner", 33], ["65. Gods, pay attention to this bolero on this earth", 35], ["70. stone, a", 38], ["72. island off the coast of Italy, an", 39], ["74. seacoasts of the world, the", 40], ["76. Poetry town", 41], ["78. Hands", 42], ["80. Harper's Ferry", 43], ["81. battle of Hastings, the", 43], ["84. most famous blow jobs in history, The", 45], ["86. Our national anus", 46], ["87. poet's memories are alive, A", 46], ["88. Capitalist reality", 47], ["89. different worlds", 47], ["91. accumulation of capital, the", 48], ["93. my insignificant other", 49], ["94. love cheeks", 50], ["95. statues in department store windows", 50], ["98. 100 years after my death", 52], ["101. government's got you covered, the", 53], ["104. these cities of the damned", 55], ["106. tow trucks", 56], ["107. life's journey", 56], ["108. ashes", 57], ["109. I am writing for the Sioux and the wolves", 57], ["113. my arms around the universe", 59], ["117. stains of power", 61], ["120. what can we learn from the homeless?", 63], ["121. what do we learn from the insane?", 63], ["122. acupoetry", 64], ["123. every poet", 64], ["124. How poetry might change the world", 65], ["126. my country is like a stopped-up flush toilet", 66], ["129. suburban time bomb", 67], ["133. tiny green insect, a", 69], ["134. real wealthy, the", 70]],
+  homeHref: '../../index.html',
+  backHref: '../index.html',
+  backLabel: 'Chapbooks',
+  noArrows: true                           /* pages turn by clicking the page */
+});
+</script>
+</body>
+</html>
