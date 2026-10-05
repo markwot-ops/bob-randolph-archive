@@ -14,8 +14,12 @@ window.BookReader=function(cfg){
     (cfg.backHref?'<a href="'+cfg.backHref+'">&larr; '+(cfg.backLabel||'Back')+'</a>':'')+
     '<span class="br-sp"></span>'+
     (cfg.jump?'<select class="br-jump" aria-label="Jump to poem"><option value="">Jump to poem\u2026</option>'+cfg.jump.map(function(j){return '<option value="'+j[1]+'">'+String(j[0]).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</option>';}).join('')+'</select>':'')+
-    (cfg.noArrows?'':'<button class="br-btn" data-a="prev" aria-label="Previous page">&lsaquo;</button>'+
-    '<button class="br-btn" data-a="next" aria-label="Next page">&rsaquo;</button>');
+    (cfg.noArrows?'':'<button class="br-btn" data-a="first" aria-label="Front of the book" title="Front of the book">|&lsaquo;</button>'+
+    '<button class="br-btn" data-a="back10" aria-label="Back 10 spreads" title="Back 10 spreads (20 pages)">&laquo;</button>'+
+    '<button class="br-btn" data-a="prev" aria-label="Previous page" title="Previous page">&lsaquo;</button>'+
+    '<button class="br-btn" data-a="next" aria-label="Next page" title="Next page">&rsaquo;</button>'+
+    '<button class="br-btn" data-a="fwd10" aria-label="Forward 10 spreads" title="Forward 10 spreads (20 pages)">&raquo;</button>'+
+    '<button class="br-btn" data-a="last" aria-label="Back of the book" title="Back of the book">&rsaquo;|</button>');
   root.appendChild(bar);
   var stage=el('div','br-stage');root.appendChild(stage);
   var closed=null,imgF,imgB=null;
@@ -42,7 +46,8 @@ window.BookReader=function(cfg){
     [26,72].forEach(function(t){var st=el('div','br-staple');st.style.top=t+'%';bk.appendChild(st);});
     }
   }else{var sh=el('img','br-shade');sh.src=base+lay.shade;sh.alt='';bk.appendChild(sh);}
-  var bPrev=bar.querySelector('[data-a=prev]')||{},bNext=bar.querySelector('[data-a=next]')||{},jumpSel=bar.querySelector('.br-jump');
+  var bPrev=bar.querySelector('[data-a=prev]')||{},bNext=bar.querySelector('[data-a=next]')||{},jumpSel=bar.querySelector('.br-jump'),
+      bFirst=bar.querySelector('[data-a=first]')||{},bBack10=bar.querySelector('[data-a=back10]')||{},bFwd10=bar.querySelector('[data-a=fwd10]')||{},bLast=bar.querySelector('[data-a=last]')||{};
 
   /* pages come either as one file per page (cfg.page) or as spread sheets holding two facing pages (cfg.sheet) */
   /* optional page-turn sounds (cfg.sounds = list of files under base) */
@@ -80,7 +85,7 @@ window.BookReader=function(cfg){
   function state(v){
     root.classList.toggle('br-st-closed',isClosed(v));root.classList.toggle('br-st-open',!isClosed(v));
     if(hasBack){imgF.classList.toggle('br-off',v===nViews-1);imgB.classList.toggle('br-off',v!==nViews-1);}
-    bPrev.disabled=v<=0;bNext.disabled=v>=nViews-1;setStacks(v);
+    bPrev.disabled=v<=0;bNext.disabled=v>=nViews-1;bFirst.disabled=bBack10.disabled=v<=0;bFwd10.disabled=bLast.disabled=v>=nViews-1;setStacks(v);
     try{history.replaceState(null,'','#'+v);}catch(e){}}
   function flip(v0,v1){
     var s0=spreadOf(v0),s1=spreadOf(v1),fwd=v1>v0;busy=true;
@@ -115,13 +120,18 @@ window.BookReader=function(cfg){
     else if(single)half='r';
     show(cur-1);};
   bPrev.onclick=api.prev;bNext.onclick=api.next;
+  /* fast navigation: jump 10 spreads at a time, or straight to the front / back of the book */
+  function jumpTo(v){busy=false;half='l';show(v,true);}
+  bFirst.onclick=function(){jumpTo(0);};bLast.onclick=function(){jumpTo(nViews-1);};
+  bBack10.onclick=function(){jumpTo(Math.max(0,cur-10));};bFwd10.onclick=function(){jumpTo(Math.min(nViews-1,cur+10));};
   if(jumpSel)jumpSel.onchange=function(){var v=parseInt(this.value,10);this.value='';if(!isNaN(v)){busy=false;show(v,true);}};
   if(closed)closed.onclick=function(){show(cur===0?1:cur-1);};
   /* click a page to turn it: right page = forward, left page = back (phones: left third = back, rest = forward) */
   SL.s.onclick=function(e){if(single){var r=SL.s.getBoundingClientRect();e.clientX-r.left<r.width*0.3?api.prev():api.next();}else api.prev();};
   SR.s.onclick=function(e){if(single){var r=SR.s.getBoundingClientRect();e.clientX-r.left<r.width*0.3?api.prev():api.next();}else api.next();};
   document.addEventListener('keydown',function(e){
-    if(e.key==='ArrowRight'||e.key==='PageDown')api.next();else if(e.key==='ArrowLeft'||e.key==='PageUp')api.prev();});
+    if(e.key==='ArrowRight'||e.key==='PageDown')api.next();else if(e.key==='ArrowLeft'||e.key==='PageUp')api.prev();
+    else if(e.key==='Home')jumpTo(0);else if(e.key==='End')jumpTo(nViews-1);});
   var tx=null;stage.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
   stage.addEventListener('touchend',function(e){if(tx==null)return;var dx=e.changedTouches[0].clientX-tx;tx=null;
     if(Math.abs(dx)>50){dx<0?api.next():api.prev();}},{passive:true});
