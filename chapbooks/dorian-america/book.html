@@ -17,8 +17,13 @@ BookReader({
   base: '../../assets/book/',
   front: 'cover-front.jpg',               /* closed leather cover, spine left */
   back: 'cover-back.jpg',                 /* closed leather back cover, spine right */
-  page: function(n){ return 'pages/p' + ('00' + n).slice(-3) + '.jpg'; },
-  total: 197,                             /* p1 = original cover art, p197 = closing page */
+  /* first spread = 'First Edition' page | the girl and 'The end of the world?' page, both on paper;
+     the old grey inside cover and its blank pages are skipped, so every later page is shifted by two files */
+  page: function(n){
+    var f = (n === 2) ? 4 : (n === 3) ? 3 : n + 2;
+    return 'pages/p' + ('00' + f).slice(-3) + '.jpg';
+  },
+  total: 195,                             /* last page = blank paper (file p197) */
   leftStart: 2,                           /* first spread = pp. 2-3 */
   homeHref: '../../index.html',
   backHref: '../../books/index.html',
