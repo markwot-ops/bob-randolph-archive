@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The World, as Seen Through the Eyes of Poet Bob Randolph — Bob Randolph</title>
+<link rel="stylesheet" href="../../assets/book/reader.css">
+</head>
+<body>
+<div id="book"></div>
+<script src="../../assets/book/layouts.js"></script>
+<script src="../../assets/book/reader.js"></script>
+<script>
+BookReader({
+  root: document.getElementById('book'),
+  layout: BookLayouts.flat,                /* plain chapbook: pages exactly as photographed */
+  flat: true,
+  spine: false,                            /* spiral-bound: the spiral is in the photographs */
+  sounds: ['swish-1.wav','swish-2.wav'],   /* page-turn swish */
+  base: '../../assets/book/',
+  front: 'world-cover-scan.jpg',           /* cover photograph */
+  back: 'world-back-scan.jpg',             /* back cover photograph */
+  sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },   /* two facing pages per image */
+  total: 264,                              /* 132 photographed spreads */
+  leftStart: 1,
+  homeHref: '../../index.html',
+  backHref: '../index.html',
+  backLabel: 'Chapbooks',
+  noArrows: true,                          /* pages turn by clicking the page */
+  fastNav: true                            /* plus front / back 10 spreads / forward 10 spreads / back of the book */
+});
+</script>
+</body>
+</html>
