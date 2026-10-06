@@ -14,7 +14,10 @@ window.BookReader=function(cfg){
     (cfg.backHref?'<a href="'+cfg.backHref+'">&larr; '+(cfg.backLabel||'Back')+'</a>':'')+
     '<span class="br-sp"></span>'+
     (cfg.jump?'<select class="br-jump" aria-label="Jump to poem"><option value="">Jump to poem\u2026</option>'+cfg.jump.map(function(j){return '<option value="'+j[1]+'">'+String(j[0]).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</option>';}).join('')+'</select>':'')+
-    (cfg.noArrows?'':'<button class="br-btn" data-a="first" aria-label="Front of the book" title="Front of the book">|&lsaquo;</button>'+
+    (cfg.noArrows?(cfg.fastNav?'<button class="br-btn" data-a="first" aria-label="Front of the book" title="Front of the book">|&lsaquo;</button>'+
+    '<button class="br-btn" data-a="back10" aria-label="Back 10 spreads" title="Back 10 spreads (20 pages)">&laquo;</button>'+
+    '<button class="br-btn" data-a="fwd10" aria-label="Forward 10 spreads" title="Forward 10 spreads (20 pages)">&raquo;</button>'+
+    '<button class="br-btn" data-a="last" aria-label="Back of the book" title="Back of the book">&rsaquo;|</button>':''):'<button class="br-btn" data-a="first" aria-label="Front of the book" title="Front of the book">|&lsaquo;</button>'+
     '<button class="br-btn" data-a="back10" aria-label="Back 10 spreads" title="Back 10 spreads (20 pages)">&laquo;</button>'+
     '<button class="br-btn" data-a="prev" aria-label="Previous page" title="Previous page">&lsaquo;</button>'+
     '<button class="br-btn" data-a="next" aria-label="Next page" title="Next page">&rsaquo;</button>'+
