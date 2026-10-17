@@ -16,6 +16,7 @@
   .vid-card video { width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; border-radius: 4px; }
   .vid-card h3 { font-size: 0.98rem; margin: 0.5rem 0 0; font-weight: 600; }
   .vid-card iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; display: block; border: 0; background: #000; border-radius: 4px; }
+  .vid-card .yt, .vid-card .yt iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; display: block; border: 0; background: #000; border-radius: 4px; }
   .vid-card .src { font-size: 0.8rem; opacity: 0.7; margin: 0.2rem 0 0; }
 </style>
 </head>
@@ -131,12 +132,12 @@
     </figure>
 
     <figure class="vid-card">
-      <iframe src="https://www.youtube.com/embed/2pJANYveGdE?start=14&cc_load_policy=0" title="Poems Are Everywhere" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div class="yt" data-vid="2pJANYveGdE" data-start="14" title="Poems Are Everywhere"></div>
       <h3>Poems Are Everywhere</h3>
     </figure>
 
     <figure class="vid-card">
-      <iframe src="https://www.youtube.com/embed/JUSPpvaIgzw?start=1" title="Bob Randolph poem 2" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div class="yt" data-vid="JUSPpvaIgzw" data-start="1" title="Bob Randolph poem 2"></div>
       <h3>Bob Randolph Poem 2</h3>
       <p class="src">Hosted on YouTube</p>
     </figure>
@@ -167,6 +168,23 @@
     zin.addEventListener('click', function () { apply(parseInt(range.value, 10) + 1); });
     out.addEventListener('click', function () { apply(parseInt(range.value, 10) - 1); });
   })();
+</script>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  // YouTube players: set start point and keep captions off
+  function onYouTubeIframeAPIReady() {
+    document.querySelectorAll('.yt').forEach(function (el) {
+      new YT.Player(el, {
+        videoId: el.getAttribute('data-vid'),
+        playerVars: { start: parseInt(el.getAttribute('data-start'), 10) || 0, cc_load_policy: 0, rel: 0, playsinline: 1 },
+        events: {
+          onReady: function (e) { try { e.target.unloadModule('captions'); e.target.unloadModule('cc'); } catch (x) {} },
+          onStateChange: function (e) { if (e.data === 1) { try { e.target.unloadModule('captions'); e.target.unloadModule('cc'); } catch (x) {} } }
+        }
+      });
+    });
+  }
 </script>
 
 </body>
