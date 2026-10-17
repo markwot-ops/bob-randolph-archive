@@ -15,6 +15,8 @@
   .vid-card { margin: 0; }
   .vid-card video { width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; border-radius: 4px; }
   .vid-card h3 { font-size: 0.98rem; margin: 0.5rem 0 0; font-weight: 600; }
+  .vid-card iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; display: block; border: 0; background: #000; border-radius: 4px; }
+  .vid-card .src { font-size: 0.8rem; opacity: 0.7; margin: 0.2rem 0 0; }
 </style>
 </head>
 <body>
@@ -126,6 +128,18 @@
         <a href="../assets/video/bob-on-ducks.mp4">Download</a>
       </video>
       <h3>Bob on Ducks</h3>
+    </figure>
+
+    <figure class="vid-card">
+      <iframe src="https://www.youtube.com/embed/2pJANYveGdE" title="Bob Randolph poem 1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Bob Randolph Poem 1</h3>
+      <p class="src">Posted to YouTube by revolutionarypoet69, 2008</p>
+    </figure>
+
+    <figure class="vid-card">
+      <iframe src="https://www.youtube.com/embed/JUSPpvaIgzw" title="Bob Randolph poem 2" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Bob Randolph Poem 2</h3>
+      <p class="src">Hosted on YouTube</p>
     </figure>
 
   </div>
