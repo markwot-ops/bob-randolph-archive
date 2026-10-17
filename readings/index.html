@@ -132,7 +132,7 @@
     </figure>
 
     <figure class="vid-card">
-      <div class="yt" data-vid="2pJANYveGdE" data-start="14" title="Poems Are Everywhere"></div>
+      <div class="yt" data-vid="2pJANYveGdE" data-start="14" data-end="57" data-fade="3" title="Poems Are Everywhere"></div>
       <h3>Poems Are Everywhere</h3>
     </figure>
 
@@ -172,15 +172,41 @@
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-  // YouTube players: set start point and keep captions off
+  // YouTube players: start point, optional end point with audio fade-out, captions off
   function onYouTubeIframeAPIReady() {
     document.querySelectorAll('.yt').forEach(function (el) {
+      var startAt = parseInt(el.getAttribute('data-start'), 10) || 0;
+      var endAt = parseInt(el.getAttribute('data-end'), 10) || 0;
+      var fade = parseFloat(el.getAttribute('data-fade')) || 0;
+      var timer = null;
+      var vars = { start: startAt, cc_load_policy: 0, rel: 0, playsinline: 1 };
+      if (endAt) { vars.end = endAt; }
+      function noCaps(p) { try { p.unloadModule('captions'); p.unloadModule('cc'); } catch (x) {} }
+      function watch(p) {
+        if (timer) { clearInterval(timer); }
+        timer = setInterval(function () {
+          try {
+            var t = p.getCurrentTime();
+            if (endAt && fade && t >= endAt - fade) {
+              var v = Math.max(0, Math.round(100 * (endAt - t) / fade));
+              p.setVolume(v);
+            }
+            if (endAt && t >= endAt) { p.pauseVideo(); clearInterval(timer); }
+          } catch (x) {}
+        }, 100);
+      }
       new YT.Player(el, {
         videoId: el.getAttribute('data-vid'),
-        playerVars: { start: parseInt(el.getAttribute('data-start'), 10) || 0, cc_load_policy: 0, rel: 0, playsinline: 1 },
+        playerVars: vars,
         events: {
-          onReady: function (e) { try { e.target.unloadModule('captions'); e.target.unloadModule('cc'); } catch (x) {} },
-          onStateChange: function (e) { if (e.data === 1) { try { e.target.unloadModule('captions'); e.target.unloadModule('cc'); } catch (x) {} } }
+          onReady: function (e) { noCaps(e.target); },
+          onStateChange: function (e) {
+            if (e.data === 1) {
+              noCaps(e.target);
+              try { if (endAt && e.target.getCurrentTime() < endAt - fade) { e.target.setVolume(100); } } catch (x) {}
+              if (endAt) { watch(e.target); }
+            } else if (timer) { clearInterval(timer); }
+          }
         }
       });
     });
