@@ -19,8 +19,9 @@ BookReader({
   sounds: ['swish-1.wav','swish-2.wav'],   /* page-turn swish */
   base: '../../assets/book/',
   front: 'cover-hand-grenades.jpg',        /* cover photograph */
+  back: 'hand-grenades-back.jpg',          /* back cover photograph */
   sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },   /* two facing pages per image */
-  total: 196,                              /* 98 photographed spreads (pages 134–135 missing, shown as a note card) */
+  total: 236,                              /* 118 photographed spreads (pages 134–135 missing, shown as a note card) */
   leftStart: 1,
   homeHref: '../../index.html',
   backHref: '../index.html',
