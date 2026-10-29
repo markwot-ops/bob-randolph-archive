@@ -103,6 +103,19 @@
     @keyframes paneIn { from { opacity: 0; filter: blur(8px); } to { opacity: 1; filter: none; } }
     .reveal-back { top: .6rem; }
   }
+  /* glowing star beside the Revolutionary Poet link */
+  .cta-row { display: inline-flex; align-items: center; gap: .55em; }
+  .hero-star { color: #f0c674; font-size: 1.25em; line-height: 1; display: inline-block;
+    transform-origin: center;
+    text-shadow: 0 0 6px rgba(240,198,116,.85), 0 0 14px rgba(240,198,116,.5);
+    animation: starTwinkle 2.6s ease-in-out infinite; }
+  @keyframes starTwinkle {
+    0%, 100% { opacity: .6; transform: scale(.85) rotate(0deg);
+      text-shadow: 0 0 4px rgba(240,198,116,.55), 0 0 9px rgba(240,198,116,.3); }
+    50% { opacity: 1; transform: scale(1.2) rotate(18deg);
+      text-shadow: 0 0 10px rgba(240,198,116,.95), 0 0 22px rgba(240,198,116,.6), 0 0 34px rgba(240,198,116,.35); }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-star { animation: none; opacity: .9; } }
 </style>
 </head>
 <body class="home-page">
@@ -124,15 +137,15 @@
   </div>
   <div class="hero-copy">
     <div class="pane pane-a">
-      <p class="hero-kicker">Working Archive &mdash; Prototype</p>
+      <p class="hero-kicker">A Working Archive</p>
       <h1 class="hero-name">Bob<span class="surname">Randolph</span></h1>
       <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
-      <button type="button" class="hero-role hero-cta" aria-controls="what" aria-expanded="false">Revolutionary Poet<span class="arrow" aria-hidden="true"> &rarr;</span></button>
+      <span class="cta-row"><button type="button" class="hero-role hero-cta" aria-controls="what" aria-expanded="false">Revolutionary Poet<span class="arrow" aria-hidden="true"> &rarr;</span></button><span class="hero-star" aria-hidden="true">&#10038;</span></span>
     </div>
 
     <div class="pane pane-b" id="what" aria-hidden="true">
       <button type="button" class="reveal-back" aria-label="Back to the title">&larr; Back</button>
-      <p class="hero-kicker">Working Archive &mdash; Prototype</p>
+      <p class="hero-kicker">A Working Archive</p>
       <h2 class="hero-name" style="font-family:var(--serif);font-weight:normal;color:#f8f2e6;">Bob<span class="surname">Randolph</span></h2>
       <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
 

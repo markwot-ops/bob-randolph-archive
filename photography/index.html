@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Photography — Bob Randolph Archive</title>
 <link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* Masonry: photos at their natural aspect, no 4:3 letterbox, no empty strips */
+  .photo-grid { display:block; column-count:4; column-gap:1rem; margin:1.6rem 0; }
+  @media (max-width:1000px){ .photo-grid{ column-count:3; } }
+  @media (max-width:680px){ .photo-grid{ column-count:2; } }
+  @media (max-width:420px){ .photo-grid{ column-count:1; } }
+  .photo-grid figure { break-inside:avoid; -webkit-column-break-inside:avoid; margin:0 0 1rem;
+    background:#fff; border:1px solid var(--rule); border-radius:4px; overflow:hidden; }
+  .photo-grid img { display:block; width:100%; height:auto; aspect-ratio:auto;
+    object-fit:fill; background:#fff; }
+  .photo-grid figcaption { font-family:var(--sans); font-size:.82rem; color:var(--ink-soft); padding:.45rem .7rem; }
+  /* figures without a caption simply have no strip */
+</style>
 </head>
 <body>
 
@@ -19,7 +32,7 @@
     <a href="../master-index.html">Full Archive (1,775 poems)</a>
   </nav>
   <div class="masthead-title">
-    <p class="masthead-kicker">A Working Archive &mdash; Prototype</p>
+    <p class="masthead-kicker">A Working Archive</p>
     <h1 class="masthead-name">Bob <span class="surname">Randolph</span></h1>
     <p class="masthead-subtitle">El Tecolote Blanco &middot; the White Owl &middot; Revolutionary Poet</p>
   </div>
@@ -33,7 +46,7 @@
     the poetry. Some images pair naturally with a poem; many won't, and don't need to.
   </p>
 
-  <div class="badge progress" style="margin-bottom:1rem;">26 photos loaded &middot; first cut, placeholders</div>
+  <div class="badge progress" style="margin-bottom:1rem;">26 photographs &middot; a first selection</div>
 
   <div class="photo-grid">
     <figure><img src="../assets/img/photography/chevy-rough-edit.jpg" alt="Chevy, rough edit" loading="lazy"><figcaption>Chevy (rough edit)</figcaption></figure>

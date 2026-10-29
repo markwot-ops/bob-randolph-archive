@@ -6,23 +6,48 @@
 <title>Books — Bob Randolph Archive</title>
 <link rel="stylesheet" href="../assets/css/app.css">
 <style>
-  .shelf { display:flex; flex-wrap:wrap; gap:2.4rem 5rem; align-items:flex-start; justify-content:center;
-           padding:.4rem 1.5rem 0; margin:.4rem 0 0; position:relative;
-           width:min(1100px,96vw); left:50%; transform:translateX(-50%); box-sizing:border-box; }
+  main.books-main { padding-top: 1.6rem; }
+
+  /* Featured: the one actually-published book — holds prominence */
+  .featured-book { display:flex; gap:2.6rem; align-items:flex-start;
+    width:min(60rem,94vw); margin:0 auto; box-sizing:border-box;
+    background:#fff; border:1px solid var(--rule); border-radius:6px;
+    padding:2.2rem; box-shadow:0 16px 44px rgba(0,0,0,.09); }
+  .featured-book .fb-cover { flex:0 0 auto; display:block; }
+  .featured-book .fb-cover img { width:230px; max-width:38vw; height:auto; display:block;
+    border-radius:2px; filter:drop-shadow(0 12px 22px rgba(0,0,0,.4)); transition:transform .25s ease; }
+  .featured-book .fb-cover:hover img { transform:translateY(-6px); }
+  .fb-body { flex:1 1 300px; min-width:240px; }
+  .pub-tag { display:inline-block; font-family:var(--sans); font-size:.66rem; letter-spacing:.2em;
+    text-transform:uppercase; color:#f8f2e6; background:var(--accent); padding:.32em .75em; border-radius:3px; }
+  .fb-title { font-family:var(--serif); font-weight:normal; line-height:1.18; font-size:1.55rem; margin:.85rem 0 .25rem; }
+  .fb-meta { font-family:var(--sans); font-size:.85rem; color:var(--ink-soft); margin:0 0 1rem; }
+  .fb-body p { line-height:1.65; }
+  .fb-cta { margin-top:.5rem; }
+  @media (max-width:640px){ .featured-book{ flex-direction:column; align-items:center; padding:1.5rem; }
+    .featured-book .fb-cover img{ width:200px; max-width:70vw; } .fb-body{ text-align:left; } }
+
+  /* Aspiring: edited collections being prepared (never released in Bob's lifetime) */
+  .books-aspiring { margin-top:3.8rem; }
+  .books-aspiring > h2 { font-family:var(--serif); font-weight:normal; font-style:italic; text-align:center;
+    font-size:1.5rem; margin:0 0 .3rem; }
+  .books-aspiring > .sec-note { text-align:center; color:var(--ink-soft); font-family:var(--sans);
+    font-size:.85rem; max-width:40rem; margin:0 auto 2rem; }
+  .shelf { display:flex; flex-wrap:wrap; gap:2.4rem 5rem; align-items:flex-end; justify-content:center;
+           padding:.4rem 1.5rem 0; margin:0 auto; width:min(900px,94vw); box-sizing:border-box; }
   .shelf-book { display:flex; flex-direction:column; align-items:center; text-decoration:none; color:inherit;
                 max-width:100%; transition:transform .25s ease; }
   .shelf-book:hover, .shelf-book:focus-visible { transform:translateY(-8px); }
-  .bk-cover { display:flex; align-items:flex-end; justify-content:center; height:340px; }
-  .shelf-book img { height:340px; width:auto; max-width:100%; display:block;
+  .bk-cover { display:flex; align-items:flex-end; justify-content:center; height:280px; }
+  .shelf-book img { height:280px; width:auto; max-width:100%; display:block;
                     filter:drop-shadow(0 14px 18px rgba(0,0,0,.45)); }
-  .shelf-book .bk-title { margin-top:1.1rem; font-size:1.15rem; font-weight:600; text-align:center; max-width:22em; }
-  .shelf-book .bk-sub { margin-top:.25rem; font-size:.92rem; opacity:.72; text-align:center; max-width:24em; }
-  main.books-main { padding-top: 1.6rem; }
-  .shelf-note { text-align:center; opacity:.7; margin-top:2.6rem; font-size:.95rem; }
-  @media (max-width:600px){ .shelf-book img{ height:250px; } .bk-cover{ height:250px; } .shelf{ gap:2.4rem 2rem; } }
-  .bk-text { max-width: 46rem; margin: 2.6rem auto 0; }
+  .shelf-book .bk-title { margin-top:1.1rem; font-size:1.1rem; font-weight:600; text-align:center; max-width:22em; }
+  .shelf-book .bk-sub { margin-top:.25rem; font-size:.9rem; opacity:.72; text-align:center; max-width:24em; }
+  @media (max-width:600px){ .shelf-book img{ height:230px; } .bk-cover{ height:230px; } .shelf{ gap:2.4rem 2rem; } }
+  .bk-text { max-width: 46rem; margin: 2.4rem auto 0; }
   .bk-text h3.bk-sec { font-family: inherit; font-weight: normal; font-style: italic; font-size: 1.25rem; text-align: center; margin: 1.8rem 0 .5rem; border: 0; padding: 0; }
   .bk-text p { line-height: 1.65; }
+  .shelf-note { text-align:center; opacity:.7; margin-top:2.6rem; font-size:.95rem; }
 </style>
 </head>
 <body>
@@ -38,7 +63,7 @@
     <a href="../master-index.html">Full Archive (1,775 poems)</a>
   </nav>
   <div class="masthead-title">
-    <p class="masthead-kicker">A Working Archive &mdash; Prototype</p>
+    <p class="masthead-kicker">A Working Archive</p>
     <h1 class="masthead-name">Bob <span class="surname">Randolph</span></h1>
     <p class="masthead-subtitle">El Tecolote Blanco &middot; the White Owl &middot; Revolutionary Poet</p>
   </div>
@@ -46,36 +71,47 @@
 
 <main class="books-main">
 
-  <div class="shelf">
-    <a class="shelf-book" href="../chapbooks/dorian-america/book.html" aria-label="Open The Picture of Dorian America">
-      <span class="bk-cover"><img src="../assets/book/cover-front-thumb.jpg" alt="The Picture of Dorian America &mdash; leather-bound book"></span>
-      <span class="bk-title">The Picture of Dorian America</span>
-      <span class="bk-sub">by Bob Randolph, Revolutionary Poet</span>
+  <!-- FEATURED: the one book Bob actually published — holds prominence -->
+  <section class="featured-book">
+    <a class="fb-cover" href="../chapbooks/i-am-writing-of-hand-grenades/read.html" aria-label="Open I Am Writing of Hand Grenades, Butterflies and Kisses">
+      <img src="../assets/book/cover-hand-grenades.jpg" alt="I Am Writing of Hand Grenades, Butterflies and Kisses &mdash; Bob Randolph">
     </a>
-    <a class="shelf-book" href="../chapbooks/at-my-age/book.html" aria-label="Open Unpublished work of Bob Randolph">
-      <span class="bk-cover"><img src="../assets/book/at-my-age-thumb.jpg" alt="At my Age I can say whatever I damn well please &mdash; Poet Bob Randolph"></span>
-      <span class="bk-title">Unpublished work of Bob Randolph</span>
-      <span class="bk-sub">Curated by Mark Wotton</span>
-    </a>
-    <a class="shelf-book" href="../chapbooks/i-am-writing-of-hand-grenades/read.html" aria-label="Open I Am Writing of Hand Grenades, Butterflies and Kisses">
-      <span class="bk-cover"><img src="../assets/book/cover-hand-grenades.jpg" alt="I Am Writing of Hand Grenades, Butterflies and Kisses &mdash; Bob Randolph"></span>
-      <span class="bk-title">I Am Writing of Hand Grenades, Butterflies and Kisses</span>
-      <span class="bk-sub">by Bob Randolph</span>
-    </a>
-  </div>
-  <div class="bk-text">
-    <h3 class="bk-sec">The Picture of Dorian America</h3>
-    <p><em>The Picture of Dorian America</em> grew out of a two-year collaboration (2008&ndash;2009) between Bob and Mark Wotton, with their mutual friend Harold Murphree, who went through thousands of Bob's documentary photographs to choose the images. The book was meant to represent Bob's best work, and to Bob &ldquo;best&rdquo; meant the fiercely raw political expos&eacute;s of dirty wars and capitalism. The two of them worked in constant, productive tension, because the book also had to hold what Mark saw just as clearly: the beauty of Bob's prose on nature, everyday life and the universe. Weaving all of that into a book that still carried his revolutionary poetry at full strength was the feat. The book was drafted under Bob's own imprint, Randolph House Press, as a fully edited, print-ready manuscript that was never released in his lifetime. A print-on-demand edition, with its own ISBN so it enters library and bookstore catalogs the way a traditionally published book would, will finally give it a first real publication. That, along with the rest of his work, is what this archive exists to do.</p>
-    <p>For Harold, the book was a swan song. Bob consciously supported him in his last months, and Harold died unexpectedly. The book is dedicated to his memory.</p>
-    <p>Bob considered <em>The Picture of Dorian America</em> his seminal work, which is where the book gets its title, an echo of Oscar Wilde's <em>The Picture of Dorian Gray</em>. In Wilde's novel the worldly voice at Dorian's ear is Lord Henry Wotton, and the editor who carried Bob's book forward is Mark Wotton. Mark can't vouch for any family connection, but nobody planned the echo.</p>
+    <div class="fb-body">
+      <span class="pub-tag">Published &middot; 1991</span>
+      <h2 class="fb-title">I Am Writing of Hand Grenades, Butterflies and Kisses</h2>
+      <p class="fb-meta">Bob Randolph &middot; Randolph House Press, Berkeley &middot; ISBN 1-881969-25-8</p>
+      <p>The one book Bob brought out as a full trade edition rather than a chapbook &mdash; a 214-page paperback published under his own imprint, with cover artwork by Larry Melnick and its own ISBN. It is a real, catalogued book: copies still turn up in the used-book trade (listed, for example, through <a href="https://biblio.co.uk/book/i-writing-hand-grenades-butterflies-kisses/d/24056577" target="_blank" rel="noopener">biblio.co.uk</a>). It is presented here in full, every page photographed from Bob&rsquo;s own copy, front cover to back. Pages 134&ndash;135 are missing from this copy and will be added later.</p>
+      <p class="fb-cta"><a class="btn" href="../chapbooks/i-am-writing-of-hand-grenades/read.html">Read the book &rarr;</a></p>
+    </div>
+  </section>
 
-    <h3 class="bk-sec">Unpublished Work of Bob Randolph</h3>
-    <p>This second book is curated by Mark Wotton. Its cover lists <em>I AM WRITING OF HAND GRENADES, BUTTERFLIES AND KISSES</em>, <em>THOSE WHO PLAY GUITARS MUST WIN</em>, <em>YOKOHAMA RICKSHAW BOY</em>, <em>THE GREAT FIELD OF GRAVITY CALLED LOVE</em> and <em>GOD IS THE SPACE BETWEEN PLUS AND MINUS</em>, &ldquo;and other unpublished work.&rdquo; Its pages will be added as the chapbooks are catalogued.</p>
+  <!-- ASPIRING: edited collections being prepared, never released in Bob's lifetime -->
+  <section class="books-aspiring">
+    <h2>Edited collections in preparation</h2>
+    <p class="sec-note">Volumes assembled from Bob&rsquo;s work and headed toward their first real publication &mdash; fully drafted, but never released in his lifetime.</p>
+    <div class="shelf">
+      <a class="shelf-book" href="../chapbooks/dorian-america/book.html" aria-label="Open The Picture of Dorian America">
+        <span class="bk-cover"><img src="../assets/book/cover-front-thumb.jpg" alt="The Picture of Dorian America &mdash; leather-bound book"></span>
+        <span class="bk-title">The Picture of Dorian America</span>
+        <span class="bk-sub">by Bob Randolph, Revolutionary Poet</span>
+      </a>
+      <a class="shelf-book" href="../chapbooks/at-my-age/book.html" aria-label="Open Unpublished work of Bob Randolph">
+        <span class="bk-cover"><img src="../assets/book/at-my-age-thumb.jpg" alt="At my Age I can say whatever I damn well please &mdash; Poet Bob Randolph"></span>
+        <span class="bk-title">Unpublished work of Bob Randolph</span>
+        <span class="bk-sub">Curated by Mark Wotton</span>
+      </a>
+    </div>
+    <div class="bk-text">
+      <h3 class="bk-sec">The Picture of Dorian America</h3>
+      <p><em>The Picture of Dorian America</em> grew out of a two-year collaboration (2008&ndash;2009) between Bob and Mark Wotton, with their mutual friend Harold Murphree, who went through thousands of Bob's documentary photographs to choose the images. The book was meant to represent Bob's best work, and to Bob &ldquo;best&rdquo; meant the fiercely raw political expos&eacute;s of dirty wars and capitalism. The two of them worked in constant, productive tension, because the book also had to hold what Mark saw just as clearly: the beauty of Bob's prose on nature, everyday life and the universe. Weaving all of that into a book that still carried his revolutionary poetry at full strength was the feat. The book was drafted under Bob's own imprint, Randolph House Press, as a fully edited, print-ready manuscript that was never released in his lifetime. A print-on-demand edition, with its own ISBN so it enters library and bookstore catalogs the way a traditionally published book would, will finally give it a first real publication. That, along with the rest of his work, is what this archive exists to do.</p>
+      <p>For Harold, the book was a swan song. Bob consciously supported him in his last months, and Harold died unexpectedly. The book is dedicated to his memory.</p>
+      <p>Bob considered <em>The Picture of Dorian America</em> his seminal work, which is where the book gets its title, an echo of Oscar Wilde's <em>The Picture of Dorian Gray</em>. In Wilde's novel the worldly voice at Dorian's ear is Lord Henry Wotton, and the editor who carried Bob's book forward is Mark Wotton. Mark can't vouch for any family connection, but nobody planned the echo.</p>
 
-    <h3 class="bk-sec">I Am Writing of Hand Grenades, Butterflies and Kisses</h3>
-    <p>Randolph House Press, Berkeley, October 1991 &mdash; a 214-page paperback with cover artwork by Larry Melnick, catalogued under <strong>ISBN 1-881969-25-8</strong>. This is the one book Bob brought out as a full trade edition rather than a chapbook: published under his own imprint, assigned its own ISBN, and still turning up today in the used-book trade (it is listed, for example, through <a href="https://biblio.co.uk/book/i-writing-hand-grenades-butterflies-kisses/d/24056577" target="_blank" rel="noopener">biblio.co.uk</a>). One of the titles named on the cover of the volume above, it is presented here in full &mdash; every page photographed from Bob&rsquo;s own copy, front cover to back. Pages 134&ndash;135 are missing from this copy and will be added later.</p>
-  </div>
-  <p class="shelf-note">More books will be added here as the chapbooks are catalogued.</p>
+      <h3 class="bk-sec">Unpublished Work of Bob Randolph</h3>
+      <p>This second book is curated by Mark Wotton. Its cover lists <em>I AM WRITING OF HAND GRENADES, BUTTERFLIES AND KISSES</em>, <em>THOSE WHO PLAY GUITARS MUST WIN</em>, <em>YOKOHAMA RICKSHAW BOY</em>, <em>THE GREAT FIELD OF GRAVITY CALLED LOVE</em> and <em>GOD IS THE SPACE BETWEEN PLUS AND MINUS</em>, &ldquo;and other unpublished work.&rdquo; Its pages will be added as the chapbooks are catalogued.</p>
+    </div>
+    <p class="shelf-note">More editions will be added here as the chapbooks are catalogued.</p>
+  </section>
 </main>
 
 </body>
