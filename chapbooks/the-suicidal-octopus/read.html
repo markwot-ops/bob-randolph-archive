@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Suicidal Octopus — Bob Randolph</title>
+<link rel="stylesheet" href="../../assets/book/reader.css">
+</head>
+<body>
+<div id="book"></div>
+<script src="../../assets/book/layouts.js"></script>
+<script src="../../assets/book/reader.js"></script>
+<script>
+BookReader({
+  root: document.getElementById('book'),
+  layout: BookLayouts.flat,                /* plain chapbook: pages exactly as photographed */
+  flat: true,
+  spine: false,                            /* spiral-bound: the spiral is in the photographs */
+  sounds: ['swish-1.wav','swish-2.wav'],   /* page-turn swish */
+  base: '../../assets/book/',
+  front: 'cover-suicidal-octopus.jpg',     /* cover photograph */
+  sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },   /* two facing pages per image */
+  total: 224,                              /* 112 photographed spreads */
+  leftStart: 1,
+  jump: [
+    ["Table of contents", 1],
+    ["— Observations on Capitalism —", 2],
+    ["Why I cannot read certain poems on the air", 2],
+    ["The stains of power", 3],
+    ["Power among the nations", 5],
+    ["The center of the earth", 5],
+    ["Olduvai Gorge estates", 7],
+    ["Tyrannosaurus capital", 7],
+    ["The Prophet motive", 9],
+    ["Drinking the 3rd world's blood", 9],
+    ["A vibrant economy", 11],
+    ["Bourgeois man", 11],
+    ["The modern banker", 12],
+    ["Another lesson on capitalism", 13],
+    ["Corporate vouchers", 13],
+    ["How much love is there in this product?", 14],
+    ["You and your folks were just incidental", 15],
+    ["A suicidal octopus", 18],
+    ["How many of us are sick of those who control this world as it is?", 18],
+    ["We're living in an economy that has left the country", 19],
+    ["A requiem for capitalism and all the rest of us", 21],
+    ["The roar of the ice", 25],
+    ["— Of Struggles in the Third World —", 25],
+    ["Beneficiaries", 25],
+    ["Chiclets", 27],
+    ["There's trouble in Tahiti", 28],
+    ["Highest and best use at Subic Bay", 29],
+    ["El Salvador", 30],
+    ["Notice in Florida to birds flying south", 31],
+    ["A day to remember", 32],
+    ["I fix typewriters for the revolution", 33],
+    ["Planning for the revolution", 34],
+    ["When I get home I will have to be in 2 places at once", 35],
+    ["Observations in Cuba 30 years later", 38],
+    ["A revolution is --- Nicaragua is", 38],
+    ["Socialism is a failure", 40],
+    ["Devastation — an American foreign policy", 40],
+    ["Hiroshima", 41],
+    ["The Vietnam Memorial Wall", 42],
+    ["The Kurd-Saddam reach Accord", 51],
+    ["— The U.S. Reaches Throughout the World —", 51],
+    ["An eight course TV dinner", 51],
+    ["The way it's s'posed to be", 52],
+    ["The typographers tomato patch", 53],
+    ["Your life is shaped by a thousand things", 54],
+    ["Soft targets", 55],
+    ["Let's talk about visions", 57],
+    ["The world situation", 59],
+    ["Minds in the homeland of the empire", 60],
+    ["Saddam Hussein is a fool", 63],
+    ["The white house", 65],
+    ["Saudi Sandbox", 66],
+    ["President George Bush", 67],
+    ["Jeep Cherokee", 67],
+    ["More on Jeep Cherokees", 68],
+    ["Do you suppose government leaders ever fart", 69],
+    ["?? (untitled)", 70],
+    ["My country is like a stopped-up flush toilet", 71],
+    ["— The War Machine —", 73],
+    ["Attack Iraq!", 73],
+    ["Dear Pentagon", 74],
+    ["Just tell us when we move", 78],
+    ["America's Buchenwald", 78],
+    ["But look at the jobs that will be lost", 80],
+    ["The profit motive", 81],
+    ["No one to talk to", 82],
+    ["Merde de cheval", 84],
+    ["Multinational coalition against Iraq", 85],
+    ["Baby Marti and the \"Blue Cube\"", 86],
+    ["An air base in Turkey", 88],
+    ["— At Home in the U.S. —", 89],
+    ["A 3000 mile straight jacket", 89],
+    ["Don't worry", 90],
+    ["We're in deep shit", 91],
+    ["Who are these people?", 92],
+    ["What we're all doing at 3 A.M.", 93],
+    ["Old Woman", 96],
+    ["The Best country in the world", 96],
+    ["We're tops — sleaze bags and all", 97],
+    ["The American Kurds", 98],
+    ["The grandmother in the French class", 98],
+    ["We never heard of Rodney King", 100],
+    ["Stealth bombers in the Oakland hills", 102],
+    ["The University of California's vaseline project", 103],
+    ["Rocks", 106],
+    ["Paper Mills", 107],
+    ["But the Main pollution is", 107],
+    ["My continuing political activity", 108],
+    ["A vision — over the shoulder", 110]
+  ],
+  homeHref: '../../index.html',
+  backHref: '../index.html',
+  backLabel: 'Chapbooks',
+  noArrows: true,                          /* pages turn by clicking the page */
+  fastNav: true
+});
+</script>
+</body>
+</html>
