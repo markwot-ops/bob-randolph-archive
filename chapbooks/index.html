@@ -7,37 +7,40 @@
 <link rel="stylesheet" href="../assets/css/app.css">
 <style>
   main.cb-main { max-width: 1140px; }
-
-  /* "The Last Chapman" essay is the script: it floats to the left; the chapbook
-     slates stack in the column to its right while it runs, then flow across the
-     full width of the page once the script ends. */
   .cb-split { display: block; }
-  .cb-split::after { content: ""; display: block; clear: both; }
 
-  .cb-text { float: left; width: calc(100% - 440px); min-width: 20rem; max-width: 100%;
-    margin: 0 0 1.4rem 0; }
-  .cb-text > h2:first-child { margin-top: 0; }
-  .cb-text h3.cb-title { font-family: inherit; font-weight: normal; font-style: italic;
-    font-size: 1.35rem; text-align: center; margin: .2rem 0 1rem; }
-  .cb-text h3.bk-sec, .cb-text h4 { font-family: inherit; font-weight: normal; font-style: italic;
-    font-size: 1.15rem; color: var(--ink); margin: 1.6rem 0 .4rem; }
-  .cb-text p { line-height: 1.65; }
+  /* "The Last Chapman" runs across the top in two columns, so the script fills
+     the width at a readable measure; the uniform slates form a 3-across grid beneath. */
+  .cb-text { margin: 0 0 2.6rem; }
+  .cb-text > h2 { margin: 0 0 .2rem; }
+  .cb-title { font-family: inherit; font-weight: normal; font-style: italic; font-size: 1.5rem;
+    text-align: center; margin: .2rem 0 1.3rem; }
+  .cb-essay { column-count: 2; column-gap: 3rem; }
+  .cb-essay > :first-child { margin-top: 0; }
+  .cb-essay h4 { font-family: inherit; font-weight: normal; font-style: italic; font-size: 1.15rem;
+    color: var(--ink); margin: 1.4rem 0 .4rem; break-after: avoid; }
+  .cb-essay p { line-height: 1.6; margin: 0 0 1rem; }
 
-  /* the slates: uniform size, flowing flush to the right edge */
-  .cb-stack { display: block; text-align: right; }
-  .cb-card { display: inline-flex; gap: 1rem; align-items: flex-start; vertical-align: top; text-align: left;
-    width: 400px; max-width: 100%; margin: 0 0 1.9rem 1.5rem; box-sizing: border-box; }
-  .cb-thumb { flex: 0 0 177px; display: block; }
-  .cb-thumb img { width: 177px; height: auto; display: block; border: 1px solid rgba(0,0,0,.18);
-    box-sizing: border-box; transition: transform .2s ease; }
+  /* the slates: every one the same size, three across */
+  .cb-stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+  .cb-card { display: flex; flex-direction: column; height: 420px; overflow: hidden; margin: 0; }
+  .cb-thumb { display: flex; justify-content: center; align-items: flex-start; height: 224px;
+    margin: 0 0 .75rem; flex: 0 0 auto; }
+  .cb-thumb img { height: 224px; width: auto; max-width: 100%; display: block;
+    border: 1px solid rgba(0,0,0,.18); box-sizing: border-box; transition: transform .2s ease; }
   .cb-thumb:hover img, .cb-thumb:focus-visible img { transform: translateY(-4px); }
   .cb-card-text { min-width: 0; }
-  .cb-card-text h3 { margin-top: 0; font-size: 1.02rem; line-height: 1.3; }
-  .cb-card-text p { margin: .5rem 0 0; font-size: .92rem; }
+  .cb-card-text h3 { margin: 0; font-size: .95rem; line-height: 1.22; }
+  .cb-card-text h3 .badge { vertical-align: middle; }
+  .cb-card-text p { margin: .45rem 0 0; font-size: .88rem; line-height: 1.4; }
 
-  @media (max-width: 880px) {
-    .cb-text { float: none; width: auto; max-width: 46rem; margin: 0 auto 1.8rem; }
-    .cb-card { width: 100%; }
+  @media (max-width: 900px) {
+    .cb-essay { column-count: 1; }
+    .cb-stack { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .cb-stack { grid-template-columns: 1fr; }
+    .cb-card { height: auto; }
   }
 </style>
 </head>
@@ -62,18 +65,17 @@
 <main class="cb-main">
   <div class="cb-split">
     <div class="cb-text">
-  <h2>Chapbooks</h2>
-  <div class="cb-essay">
-    <h3 class="cb-title">The Last Chapman</h3>
+      <h2>Chapbooks</h2>
+      <h3 class="cb-title">The Last Chapman</h3>
+      <div class="cb-essay">
+        <p>A chapbook is a small, inexpensive booklet&mdash;usually under fifty pages, saddle-stitched or stapled at the spine, and bound tightly around a single theme or a connected run of poems. The name stretches back to the &ldquo;chapman,&rdquo; the old English word for the itinerant peddlers who carried woodcut-illustrated booklets in their packs, selling them door-to-door for pennies. Popular across Europe from the sixteenth to the eighteenth centuries, these pocket-sized prints democratized literacy, carrying everything from bawdy ballads and folklore to radical religious tracts. In the mid-twentieth century, this low-fidelity medium was revived by the American Beat poets. In the smoky, postwar air of San Francisco, the chapbook became the ultimate weapon against mainstream publishing houses&mdash;a way to get uncensored, counterculture writing into readers' hands quickly, cheaply, and with the ink practically still wet. This raw, DIY lineage is exactly how Bob distributed his own work. He published the way the Beats did, operating in that same fertile slipstream of North Beach and Berkeley, a world fueled by self-published mimeo-machine zines and politically charged verse.</p>
 
-    <p>A chapbook is a small, inexpensive booklet&mdash;usually under fifty pages, saddle-stitched or stapled at the spine, and bound tightly around a single theme or a connected run of poems. The name stretches back to the &ldquo;chapman,&rdquo; the old English word for the itinerant peddlers who carried woodcut-illustrated booklets in their packs, selling them door-to-door for pennies. Popular across Europe from the sixteenth to the eighteenth centuries, these pocket-sized prints democratized literacy, carrying everything from bawdy ballads and folklore to radical religious tracts. In the mid-twentieth century, this low-fidelity medium was revived by the American Beat poets. In the smoky, postwar air of San Francisco, the chapbook became the ultimate weapon against mainstream publishing houses&mdash;a way to get uncensored, counterculture writing into readers' hands quickly, cheaply, and with the ink practically still wet. This raw, DIY lineage is exactly how Bob distributed his own work. He published the way the Beats did, operating in that same fertile slipstream of North Beach and Berkeley, a world fueled by self-published mimeo-machine zines and politically charged verse.</p>
-
-    <h4>A Voice Forged in Jazz and Verse</h4>
-    <p>Bob&rsquo;s writing style was defined by its relentless, rhythmic urgency. His poems did not sit quietly on the page; they were written to be read aloud, inheriting the jazz-infused cadence of early performance poetry and the booming power of public rallies. He stripped away academic pretense in favor of a raw, colloquial voice&mdash;pairing cosmic imagery of space and time travel with the gritty, concrete realities of street-level resistance. By publishing his collection, <em>El Tecolote Blanco: A Bob Randolph Sampler</em>, through his own independent Randolph House Press in Berkeley, Bob ensured his typography&mdash;haphazardly aligned and stamped onto cheap paper&mdash;carried the same rebellious energy as the words themselves.</p>
+        <h4>A Voice Forged in Jazz and Verse</h4>
+        <p>Bob&rsquo;s writing style was defined by its relentless, rhythmic urgency. His poems did not sit quietly on the page; they were written to be read aloud, inheriting the jazz-infused cadence of early performance poetry and the booming power of public rallies. He stripped away academic pretense in favor of a raw, colloquial voice&mdash;pairing cosmic imagery of space and time travel with the gritty, concrete realities of street-level resistance. By publishing his collection, <em>El Tecolote Blanco: A Bob Randolph Sampler</em>, through his own independent Randolph House Press in Berkeley, Bob ensured his typography&mdash;haphazardly aligned and stamped onto cheap paper&mdash;carried the same rebellious energy as the words themselves.</p>
 
         <h4>Dedications and Covers</h4>
-    <p>Bob dedicated <em>El Tecolote Blanco: Space and Time Travel</em> to Eldridge Cleaver, and Cleaver wrote the introduction to <em>El Tecolote Blanco: A Bob Randolph Sampler</em> (1995). The cover of <em>I AM WRITING OF HAND GRENADES, BUTTERFLIES AND KISSES</em> (Randolph House Press, October 1991) carries artwork by Larry Melnick, a Berkeley painter.</p>
-  </div>
+        <p>Bob dedicated <em>El Tecolote Blanco: Space and Time Travel</em> to Eldridge Cleaver, and Cleaver wrote the introduction to <em>El Tecolote Blanco: A Bob Randolph Sampler</em> (1995). The cover of <em>I AM WRITING OF HAND GRENADES, BUTTERFLIES AND KISSES</em> (Randolph House Press, October 1991) carries artwork by Larry Melnick, a Berkeley painter.</p>
+      </div>
     </div>
 
     <div class="cb-stack">
@@ -81,8 +83,7 @@
       <a class="cb-thumb" href="el-tecolote-blanco/read.html" aria-label="Open El Tecolote Blanco: Space and Time Travel"><img src="../assets/book/tecolote-cover-scan.jpg" alt="Cover of El Tecolote Blanco: Space and Time Travel"></a>
       <div class="cb-card-text">
     <h3>El Tecolote Blanco: Space and Time Travel <span class="badge progress">scanned pages &middot; in progress</span></h3>
-    <p>~50 poems, dedicated to Eldridge Cleaver, introduction by Rev. Tom Sanders. Physical copy only &mdash;
-    the cover, table of contents and introduction are up; the poems follow as page photographs arrive.</p>
+    <p>~50 poems, dedicated to Eldridge Cleaver; introduction by Rev. Tom Sanders.</p>
     <p><a href="el-tecolote-blanco/read.html">Open this chapbook &rarr;</a></p>
       </div>
     </div>
@@ -90,7 +91,7 @@
       <a class="cb-thumb" href="el-tecolote-blanco-sampler/read.html" aria-label="Open El Tecolote Blanco: A Bob Randolph Sampler"><img src="../assets/book/cover-tecolote-sampler.jpg" alt="Cover of El Tecolote Blanco: A Bob Randolph Sampler"></a>
       <div class="cb-card-text">
     <h3>El Tecolote Blanco: A Bob Randolph Sampler <span class="badge progress">scanned pages &middot; live</span></h3>
-    <p>The complete 120-page sampler, with Eldridge Cleaver&rsquo;s introduction. Pages 12&ndash;13 are still to be photographed.</p>
+    <p>The complete 120-page sampler, with Eldridge Cleaver&rsquo;s introduction.</p>
     <p><a href="el-tecolote-blanco-sampler/read.html">Open this chapbook &rarr;</a></p>
       </div>
     </div>
@@ -98,7 +99,7 @@
       <a class="cb-thumb" href="yokohama-rickshaw-boy/read.html" aria-label="Open Yokohama Rickshaw Boy"><img src="../assets/book/yokohama-cover-scan.jpg" alt="Cover of Yokohama Rickshaw Boy"></a>
       <div class="cb-card-text">
     <h3>Yokohama Rickshaw Boy <span class="badge progress">scanned pages &middot; live</span></h3>
-    <p>Subtitled &ldquo;a book about &lsquo;Sketches of Strangers.&rsquo;&rdquo; Mostly dated 1989&ndash;1991.</p>
+    <p>&ldquo;A book about &lsquo;Sketches of Strangers.&rsquo;&rdquo; Mostly 1989&ndash;1991.</p>
     <p><a href="yokohama-rickshaw-boy/index.html">Open this chapbook &rarr;</a></p>
       </div>
     </div>
@@ -106,7 +107,7 @@
       <a class="cb-thumb" href="zumi-the-cockatoo/read.html" aria-label="Open Zumi the Cockatoo, a book about nature"><img src="../assets/book/zumi-cover-scan.jpg" alt="Cover of Zumi the Cockatoo, a book about nature"></a>
       <div class="cb-card-text">
     <h3>Zumi the Cockatoo <span class="badge progress">scanned pages &middot; live</span></h3>
-    <p>Subtitled &ldquo;book about nature.&rdquo; Opens with the title poem, &ldquo;Zumi the cockatoo&rdquo; (January 1991).</p>
+    <p>&ldquo;Book about nature.&rdquo; Opens with the title poem (January 1991).</p>
     <p><a href="zumi-the-cockatoo/read.html">Open this chapbook &rarr;</a></p>
       </div>
     </div>
@@ -114,7 +115,7 @@
       <a class="cb-thumb" href="the-world/read.html" aria-label="Open The World, as seen through the eyes of poet Bob Randolph"><img src="../assets/book/world-cover-scan.jpg" alt="Cover of The World, as seen through the eyes of poet Bob Randolph, November 1994"></a>
       <div class="cb-card-text">
     <h3>The World, as Seen Through the Eyes of Poet Bob Randolph <span class="badge progress">scanned pages &middot; live</span></h3>
-    <p>November 1994. Opens with Bob&rsquo;s own numbered index of 110 poems, followed by the poems themselves.</p>
+    <p>November 1994. Bob&rsquo;s own numbered index of 110 poems, then the poems.</p>
     <p><a href="the-world/read.html">Open this chapbook &rarr;</a></p>
       </div>
     </div>
@@ -122,7 +123,7 @@
       <a class="cb-thumb" href="best-and-most-representative/read.html" aria-label="Open the poetry Bob Randolph considers his best and most representative"><img src="../assets/book/best-cover-scan.jpg" alt="Cover of the poetry Bob Randolph considers his best and most representative"></a>
       <div class="cb-card-text">
     <h3>The Poetry Bob Randolph Considers His Best and Most Representative <span class="badge progress">scanned pages &middot; live</span></h3>
-    <p>&ldquo;Or another way, the things he cares about the most.&rdquo; 134 pages, with its own table of contents; opens with &ldquo;A requiem for capitalism and all the rest of us.&rdquo;</p>
+    <p>&ldquo;The things he cares about the most.&rdquo; 134 pages, with its own contents.</p>
     <p><a href="best-and-most-representative/read.html">Open this chapbook &rarr;</a></p>
       </div>
     </div>
@@ -130,7 +131,7 @@
       <a class="cb-thumb" href="the-3rd-planet/read.html" aria-label="Open The 3rd Planet from the Sun Is in Flames"><img src="../assets/book/cover-3rd-planet.jpg" alt="Cover of The 3rd Planet from the Sun Is in Flames, May 1999"></a>
       <div class="cb-card-text">
     <h3>The 3rd Planet from the Sun Is in Flames <span class="badge progress">scanned pages &middot; live</span></h3>
-    <p>Subtitled &ldquo;thoughts for the late 20th and early 21st centuries.&rdquo; May 1999. Pages 140&ndash;141 are missing from this copy and will be added later.</p>
+    <p>&ldquo;Thoughts for the late 20th and early 21st centuries.&rdquo; May 1999.</p>
     <p><a href="the-3rd-planet/read.html">Open this chapbook &rarr;</a></p>
       </div>
     </div>
@@ -138,7 +139,7 @@
       <a class="cb-thumb" href="exploring-our-fears-of-death/read.html" aria-label="Open Exploring Our Fears of Death"><img src="../assets/book/cover-exploring-fears.jpg" alt="Cover of Exploring Our Fears of Death"></a>
       <div class="cb-card-text">
     <h3>Exploring Our Fears of Death <span class="badge planned">cover only</span></h3>
-    <p>&ldquo;Is there a hereafter? I don&rsquo;t think we really know.&rdquo; Cover is up; the pages follow as photographs arrive.</p>
+    <p>&ldquo;Is there a hereafter? I don&rsquo;t think we really know.&rdquo;</p>
     <p><a href="exploring-our-fears-of-death/read.html">View the cover &rarr;</a></p>
       </div>
     </div>
@@ -146,7 +147,7 @@
       <a class="cb-thumb" href="saving-our-planet/read.html" aria-label="Open Saving Our Planet?"><img src="../assets/book/cover-saving-our-planet.jpg" alt="Cover of Saving Our Planet? Let&rsquo;s start with the oak trees in Berkeley"></a>
       <div class="cb-card-text">
     <h3>Saving Our Planet? <span class="badge planned">cover only</span></h3>
-    <p>&ldquo;Let&rsquo;s start with the oak trees in Berkeley.&rdquo; Cover is up; the pages follow as photographs arrive.</p>
+    <p>&ldquo;Let&rsquo;s start with the oak trees in Berkeley.&rdquo;</p>
     <p><a href="saving-our-planet/read.html">View the cover &rarr;</a></p>
       </div>
     </div>
@@ -154,7 +155,7 @@
       <a class="cb-thumb" href="my-mother-never-did-have-dinner-ready/read.html" aria-label="Open My Mother Never Did Have Dinner Ready on Time"><img src="../assets/book/cover-my-mother.jpg" alt="Cover of My Mother Never Did Have Dinner Ready on Time, a book on aging"></a>
       <div class="cb-card-text">
     <h3>My Mother Never Did Have Dinner Ready on Time <span class="badge planned">cover only</span></h3>
-    <p>A book on aging. Cover is up; the pages follow as photographs arrive.</p>
+    <p>A book on aging.</p>
     <p><a href="my-mother-never-did-have-dinner-ready/read.html">View the cover &rarr;</a></p>
       </div>
     </div>
