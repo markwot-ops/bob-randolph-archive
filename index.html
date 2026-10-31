@@ -93,40 +93,27 @@
      little smaller (and trimmed 7.5%/6.5%), opening the room the statement unfolds
      into — to his right, then beneath him — all on one screen. */
   @media (min-width: 721px) {
-    .revealed.hero-full { display: block; }
-    /* Bob stays large — ~85-90% of his original size — and snaps up into the top-left
-       fast; the statement fills everything to his right and below (no wasted space). */
-    .revealed .hero-media {
-      float: left;
-      width: clamp(340px, 35vw, 480px);
-      height: clamp(380px, 80vh, 700px);
-      margin: clamp(.5rem,1.4vh,1.1rem) clamp(1.3rem,2.6vw,2.2rem) .6rem clamp(1.1rem,2.4vw,2.2rem);
-      clip-path: inset(7.5% 0 6.5% 0);
-      animation: bobShift .26s cubic-bezier(.2,.75,.2,1) both;
+    /* Bob keeps his full-size column; on reveal he blows back out to full size with a
+       quick rack-focus pull (defocus -> snap sharp) in the split second the statement
+       lands in the right column. Script stays stable; no scroll. */
+    .revealed .hero-media img { animation: bobRack .55s cubic-bezier(.2,.7,.2,1) both; }
+    @keyframes bobRack {
+      0%   { transform: scale(1.09); filter: grayscale(1) contrast(1.12) brightness(.92) blur(7px); opacity: .5; }
+      55%  { filter: grayscale(1) contrast(1.12) brightness(.92) blur(2.5px); }
+      100% { transform: none; filter: grayscale(1) contrast(1.12) brightness(.92) blur(0); opacity: 1; }
     }
-    .revealed .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-    @keyframes bobShift {
-      from { transform: translate(10px, 18px) scale(1.05); opacity: .55; }
-      to   { transform: none; opacity: 1; }
-    }
-    .revealed .hero-copy { overflow: visible; }
-    .revealed .pane-b {
-      display: block; position: static; inset: auto; height: auto; max-height: none; overflow: visible;
-      padding: clamp(.7rem,1.8vh,1.4rem) clamp(1.4rem,3vw,2.6rem) .7rem clamp(1.4rem,3vw,2.6rem);
-      opacity: 1; visibility: visible; filter: none; transform: none;
-    }
-    /* fill the full width — kill the wasted black on the right */
+    .revealed .pane-b { overflow-y: auto;
+      padding: clamp(1.2rem,3vh,2.4rem) clamp(1.4rem,4vw,3.4rem) clamp(1rem,2vh,1.6rem); }
     .revealed .reveal p, .revealed .reveal h2, .revealed .reveal h3 { max-width: none; }
-    /* script lands fast and stays stable */
-    .revealed .reveal > * { transition-duration: .2s; transition-delay: calc(var(--i,0) * .025s); }
-    .revealed .pane-b .reveal-back { top: .7rem; right: 1.1rem; }
+    /* statement lands fast and stays stable */
+    .revealed .reveal > * { transition-duration: .22s; transition-delay: calc(var(--i,0) * .03s); }
     .revealed .pane-b > .hero-kicker { margin-bottom: .3rem; }
-    .revealed .pane-b > .hero-name { font-size: clamp(1.6rem,2.8vw,2.4rem); margin-bottom: .18rem; }
-    .revealed .pane-b > .hero-alias { font-size: clamp(.88rem,1.3vw,1.05rem); margin-bottom: .55rem; }
-    .revealed .reveal h2 { font-size: clamp(1.05rem,1.6vw,1.35rem); margin-bottom: .18rem; }
-    .revealed .reveal h3 { margin: .5rem 0 .08rem; }
-    .revealed .reveal p { font-size: clamp(.82rem,1vw,.96rem); line-height: 1.42; margin-bottom: .22rem; }
-    .revealed .reveal .credit { margin-top: .7rem; padding-top: .5rem; }
+    .revealed .pane-b > .hero-name { font-size: clamp(1.7rem,3vw,2.6rem); margin-bottom: .2rem; }
+    .revealed .pane-b > .hero-alias { font-size: clamp(.9rem,1.3vw,1.1rem); margin-bottom: .6rem; }
+    .revealed .reveal h2 { font-size: clamp(1.1rem,1.7vw,1.4rem); margin-bottom: .2rem; }
+    .revealed .reveal h3 { margin: .55rem 0 .1rem; }
+    .revealed .reveal p { font-size: clamp(.84rem,1vw,.98rem); line-height: 1.45; margin-bottom: .25rem; }
+    .revealed .reveal .credit { margin-top: .8rem; padding-top: .55rem; }
   }
   button.hero-cta { border: 0; font-family: var(--sans); }
   .sound-toggle { right: auto; left: 1rem; }
@@ -232,10 +219,6 @@
           <p>A print-on-demand edition of Bob's seminal work, <em>The Picture of Dorian America</em>, edited by Mark Wotton, with its own ISBN, so the collection enters library and bookstore catalogs the way a traditionally published book would.</p>
         </div>
         <div style="--i:4">
-          <h3>Translations Planned</h3>
-          <p>Every poem page is already built to hold more than one language side by side &mdash; the language switcher on each poem page is live, waiting for translated text. English is the only language populated, so far.&nbsp; Spanish and French, next.</p>
-        </div>
-        <div style="--i:5">
           <h3>Start here</h3>
           <p><a href="chapbooks/yokohama-rickshaw-boy/read.html">Yokohama Rickshaw Boy</a> &mdash; the first of dozens of chapbooks, with live poem pages. Browse the <a href="master-index.html">full 1,775-poem archive</a> as Bob himself numbered, coded and catalogued every poem he wrote.</p>
         </div>
