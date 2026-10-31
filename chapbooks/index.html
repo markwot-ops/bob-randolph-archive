@@ -204,10 +204,10 @@
     if (prev) prev.hidden = cur === 0;
     if (next) next.hidden = cur === pages.length - 1;
     if (no) no.textContent = (cur + 1) + ' / ' + pages.length;
-    try { document.querySelector('main').scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
   }
-  if (next) next.onclick = function () { show(cur + 1); };
-  if (prev) prev.onclick = function () { show(cur - 1); };
+  function turn(i) { show(i); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); } }
+  if (next) next.onclick = function () { turn(cur + 1); };
+  if (prev) prev.onclick = function () { turn(cur - 1); };
   show(0);
 })();
 </script>
