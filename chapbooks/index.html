@@ -7,23 +7,40 @@
 <link rel="stylesheet" href="../assets/css/app.css">
 <style>
   main.cb-main { max-width: 1140px; }
-  /* Essay as a full-width intro on top, chapbook cards as a grid below */
-  .cb-split { display: flex; flex-direction: column; }
-  .cb-text { order: -1; max-width: 46rem; margin: 0 auto 1.4rem; }
+
+  /* "The Last Chapman" essay is the script: it floats to the left; the chapbook
+     slates stack in the column to its right while it runs, then flow across the
+     full width of the page once the script ends. */
+  .cb-split { display: block; }
+  .cb-split::after { content: ""; display: block; clear: both; }
+
+  .cb-xref { text-align: center; font-family: var(--sans); font-size: .9rem; color: var(--ink-soft);
+    max-width: 46rem; margin: 0 auto 1.8rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); }
+
+  .cb-text { float: left; width: 30rem; max-width: 100%; margin: 0 2.4rem 1.2rem 0; }
   .cb-text > h2:first-child { margin-top: 0; }
-  .cb-text h3.bk-sec, .cb-text h4 { font-family: inherit; font-weight: normal; font-style: italic; font-size: 1.2rem; color: var(--ink); margin: 1.8rem 0 .4rem; text-align: center; }
+  .cb-text h3.cb-title { font-family: inherit; font-weight: normal; font-style: italic;
+    font-size: 1.35rem; text-align: center; margin: .2rem 0 1rem; }
+  .cb-text h3.bk-sec, .cb-text h4 { font-family: inherit; font-weight: normal; font-style: italic;
+    font-size: 1.15rem; color: var(--ink); margin: 1.6rem 0 .4rem; }
   .cb-text p { line-height: 1.65; }
-  .cb-xref { order: -1; text-align:center; font-family:var(--sans); font-size:.9rem; color:var(--ink-soft);
-    max-width:46rem; margin:0 auto 1.8rem; padding-top:1.2rem; border-top:1px solid var(--rule); }
-  .cb-stack { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.5rem 2.2rem; }
-  @media (max-width: 720px) { .cb-stack { grid-template-columns: 1fr; } }
-  .cb-card { display: flex; gap: 1.1rem; align-items: flex-start; margin: 0; }
-  .cb-thumb { flex: 0 0 118px; display: block; }
-  .cb-thumb img { width: 118px; height: auto; display: block; border: 1px solid rgba(0,0,0,.18); box-sizing: border-box; transition: transform .2s ease; }
+
+  /* the slates */
+  .cb-stack { display: block; }
+  .cb-card { display: inline-flex; gap: 1rem; align-items: flex-start; vertical-align: top;
+    width: 400px; max-width: 100%; margin: 0 1.5rem 1.9rem 0; box-sizing: border-box; }
+  .cb-thumb { flex: 0 0 177px; display: block; }
+  .cb-thumb img { width: 177px; height: auto; display: block; border: 1px solid rgba(0,0,0,.18);
+    box-sizing: border-box; transition: transform .2s ease; }
   .cb-thumb:hover img, .cb-thumb:focus-visible img { transform: translateY(-4px); }
   .cb-card-text { min-width: 0; }
-  .cb-card-text h3 { margin-top: 0; font-size: 1.05rem; }
-  .cb-card-text p { margin: .5rem 0 0; font-size: .95rem; }
+  .cb-card-text h3 { margin-top: 0; font-size: 1.02rem; line-height: 1.3; }
+  .cb-card-text p { margin: .5rem 0 0; font-size: .92rem; }
+
+  @media (max-width: 880px) {
+    .cb-text { float: none; width: auto; max-width: 46rem; margin: 0 auto 1.8rem; }
+    .cb-card { width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -47,6 +64,22 @@
 <main class="cb-main">
   <div class="cb-split">
     <p class="cb-xref">Several of these chapbooks are also gathered into Bob&rsquo;s edited volumes &mdash; see the <a href="../books/index.html">Books</a> page, where his one published book, <em>I Am Writing of Hand Grenades, Butterflies and Kisses</em>, now lives.</p>
+
+    <div class="cb-text">
+  <h2>Chapbooks</h2>
+  <div class="cb-essay">
+    <h3 class="cb-title">The Last Chapman</h3>
+
+    <p>A chapbook is a small, inexpensive booklet&mdash;usually under fifty pages, saddle-stitched or stapled at the spine, and bound tightly around a single theme or a connected run of poems. The name stretches back to the &ldquo;chapman,&rdquo; the old English word for the itinerant peddlers who carried woodcut-illustrated booklets in their packs, selling them door-to-door for pennies. Popular across Europe from the sixteenth to the eighteenth centuries, these pocket-sized prints democratized literacy, carrying everything from bawdy ballads and folklore to radical religious tracts. In the mid-twentieth century, this low-fidelity medium was revived by the American Beat poets. In the smoky, postwar air of San Francisco, the chapbook became the ultimate weapon against mainstream publishing houses&mdash;a way to get uncensored, counterculture writing into readers' hands quickly, cheaply, and with the ink practically still wet. This raw, DIY lineage is exactly how Bob distributed his own work. He published the way the Beats did, operating in that same fertile slipstream of North Beach and Berkeley, a world fueled by self-published mimeo-machine zines and politically charged verse.</p>
+
+    <h4>A Voice Forged in Jazz and Verse</h4>
+    <p>Bob&rsquo;s writing style was defined by its relentless, rhythmic urgency. His poems did not sit quietly on the page; they were written to be read aloud, inheriting the jazz-infused cadence of early performance poetry and the booming power of public rallies. He stripped away academic pretense in favor of a raw, colloquial voice&mdash;pairing cosmic imagery of space and time travel with the gritty, concrete realities of street-level resistance. By publishing his collection, <em>El Tecolote Blanco: A Bob Randolph Sampler</em>, through his own independent Randolph House Press in Berkeley, Bob ensured his typography&mdash;haphazardly aligned and stamped onto cheap paper&mdash;carried the same rebellious energy as the words themselves.</p>
+
+        <h4>Dedications and Covers</h4>
+    <p>Bob dedicated <em>El Tecolote Blanco: Space and Time Travel</em> to Eldridge Cleaver, and Cleaver wrote the introduction to <em>El Tecolote Blanco: A Bob Randolph Sampler</em> (1995). The cover of <em>I AM WRITING OF HAND GRENADES, BUTTERFLIES AND KISSES</em> (Randolph House Press, October 1991) carries artwork by Larry Melnick, a Berkeley painter.</p>
+  </div>
+    </div>
+
     <div class="cb-stack">
     <div class="card cb-card">
       <a class="cb-thumb" href="el-tecolote-blanco/read.html" aria-label="Open El Tecolote Blanco: Space and Time Travel"><img src="../assets/book/tecolote-cover-scan.jpg" alt="Cover of El Tecolote Blanco: Space and Time Travel"></a>
@@ -129,20 +162,6 @@
     <p><a href="my-mother-never-did-have-dinner-ready/read.html">View the cover &rarr;</a></p>
       </div>
     </div>
-    </div>
-    <div class="cb-text">
-  <h2>Chapbooks</h2>
-  <div class="cb-essay">
-    <h3 class="cb-title">The Last Chapman</h3>
-
-    <p>A chapbook is a small, inexpensive booklet&mdash;usually under fifty pages, saddle-stitched or stapled at the spine, and bound tightly around a single theme or a connected run of poems. The name stretches back to the &ldquo;chapman,&rdquo; the old English word for the itinerant peddlers who carried woodcut-illustrated booklets in their packs, selling them door-to-door for pennies. Popular across Europe from the sixteenth to the eighteenth centuries, these pocket-sized prints democratized literacy, carrying everything from bawdy ballads and folklore to radical religious tracts. In the mid-twentieth century, this low-fidelity medium was revived by the American Beat poets. In the smoky, postwar air of San Francisco, the chapbook became the ultimate weapon against mainstream publishing houses&mdash;a way to get uncensored, counterculture writing into readers' hands quickly, cheaply, and with the ink practically still wet. This raw, DIY lineage is exactly how Bob distributed his own work. He published the way the Beats did, operating in that same fertile slipstream of North Beach and Berkeley, a world fueled by self-published mimeo-machine zines and politically charged verse.</p>
-
-    <h4>A Voice Forged in Jazz and Verse</h4>
-    <p>Bob&rsquo;s writing style was defined by its relentless, rhythmic urgency. His poems did not sit quietly on the page; they were written to be read aloud, inheriting the jazz-infused cadence of early performance poetry and the booming power of public rallies. He stripped away academic pretense in favor of a raw, colloquial voice&mdash;pairing cosmic imagery of space and time travel with the gritty, concrete realities of street-level resistance. By publishing his collection, <em>El Tecolote Blanco: A Bob Randolph Sampler</em>, through his own independent Randolph House Press in Berkeley, Bob ensured his typography&mdash;haphazardly aligned and stamped onto cheap paper&mdash;carried the same rebellious energy as the words themselves.</p>
-
-        <h4>Dedications and Covers</h4>
-    <p>Bob dedicated <em>El Tecolote Blanco: Space and Time Travel</em> to Eldridge Cleaver, and Cleaver wrote the introduction to <em>El Tecolote Blanco: A Bob Randolph Sampler</em> (1995). The cover of <em>I AM WRITING OF HAND GRENADES, BUTTERFLIES AND KISSES</em> (Randolph House Press, October 1991) carries artwork by Larry Melnick, a Berkeley painter.</p>
-  </div>
     </div>
   </div>
 </main>
