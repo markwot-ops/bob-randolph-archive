@@ -7,40 +7,38 @@
 <link rel="stylesheet" href="../assets/css/app.css">
 <style>
   main.cb-main { max-width: 1140px; }
+
+  /* The Last Chapman essay floats as a left column; the uniform slates stack
+     flush to the right beside it, then wrap down to the bottom once it ends. */
   .cb-split { display: block; }
+  .cb-split::after { content: ""; display: block; clear: both; }
 
-  /* "The Last Chapman" runs across the top in two columns, so the script fills
-     the width at a readable measure; the uniform slates form a 3-across grid beneath. */
-  .cb-text { margin: 0 0 2.6rem; }
+  .cb-text { float: left; width: calc(100% - 430px); min-width: 20rem; max-width: 100%; margin: 0 0 1.4rem 0; }
   .cb-text > h2 { margin: 0 0 .2rem; }
-  .cb-title { font-family: inherit; font-weight: normal; font-style: italic; font-size: 1.5rem;
-    text-align: center; margin: .2rem 0 1.3rem; }
-  .cb-essay { column-count: 2; column-gap: 3rem; }
-  .cb-essay > :first-child { margin-top: 0; }
+  .cb-title { font-family: inherit; font-weight: normal; font-style: italic; font-size: 1.4rem;
+    text-align: center; margin: .2rem 0 1.1rem; }
   .cb-essay h4 { font-family: inherit; font-weight: normal; font-style: italic; font-size: 1.15rem;
-    color: var(--ink); margin: 1.4rem 0 .4rem; break-after: avoid; }
-  .cb-essay p { line-height: 1.6; margin: 0 0 1rem; }
+    color: var(--ink); margin: 1.5rem 0 .4rem; }
+  .cb-essay p { line-height: 1.65; margin: 0 0 1rem; }
 
-  /* the slates: every one the same size, three across */
-  .cb-stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
-  .cb-card { display: flex; flex-direction: column; height: 420px; overflow: hidden; margin: 0; }
-  .cb-thumb { display: flex; justify-content: center; align-items: flex-start; height: 224px;
-    margin: 0 0 .75rem; flex: 0 0 auto; }
-  .cb-thumb img { height: 224px; width: auto; max-width: 100%; display: block;
-    border: 1px solid rgba(0,0,0,.18); box-sizing: border-box; transition: transform .2s ease; }
+  /* the slates: every one the same size, flush to the right edge */
+  .cb-stack { display: block; text-align: right; }
+  .cb-card { display: inline-flex; gap: 1rem; align-items: flex-start; vertical-align: top; text-align: left;
+    width: 400px; height: 264px; overflow: hidden; margin: 0 0 1.6rem 1.5rem; box-sizing: border-box; }
+  .cb-thumb { flex: 0 0 177px; height: 228px; display: block; }
+  .cb-thumb img { width: 177px; height: 228px; object-fit: contain; background: #fff;
+    border: 1px solid rgba(0,0,0,.18); box-sizing: border-box; display: block; transition: transform .2s ease; }
   .cb-thumb:hover img, .cb-thumb:focus-visible img { transform: translateY(-4px); }
   .cb-card-text { min-width: 0; }
   .cb-card-text h3 { margin: 0; font-size: .95rem; line-height: 1.22; }
-  .cb-card-text h3 .badge { vertical-align: middle; }
-  .cb-card-text p { margin: .45rem 0 0; font-size: .88rem; line-height: 1.4; }
+  .cb-card-text p { margin: .45rem 0 0; font-size: .86rem; line-height: 1.38; }
 
   @media (max-width: 900px) {
-    .cb-essay { column-count: 1; }
-    .cb-stack { grid-template-columns: repeat(2, 1fr); }
+    .cb-text { float: none; width: auto; max-width: 46rem; margin: 0 auto 1.8rem; }
+    .cb-stack { text-align: center; }
   }
-  @media (max-width: 560px) {
-    .cb-stack { grid-template-columns: 1fr; }
-    .cb-card { height: auto; }
+  @media (max-width: 460px) {
+    .cb-card { width: 100%; height: auto; }
   }
 </style>
 </head>
@@ -66,8 +64,8 @@
   <div class="cb-split">
     <div class="cb-text">
       <h2>Chapbooks</h2>
-      <h3 class="cb-title">The Last Chapman</h3>
       <div class="cb-essay">
+        <h3 class="cb-title">The Last Chapman</h3>
         <p>A chapbook is a small, inexpensive booklet&mdash;usually under fifty pages, saddle-stitched or stapled at the spine, and bound tightly around a single theme or a connected run of poems. The name stretches back to the &ldquo;chapman,&rdquo; the old English word for the itinerant peddlers who carried woodcut-illustrated booklets in their packs, selling them door-to-door for pennies. Popular across Europe from the sixteenth to the eighteenth centuries, these pocket-sized prints democratized literacy, carrying everything from bawdy ballads and folklore to radical religious tracts. In the mid-twentieth century, this low-fidelity medium was revived by the American Beat poets. In the smoky, postwar air of San Francisco, the chapbook became the ultimate weapon against mainstream publishing houses&mdash;a way to get uncensored, counterculture writing into readers' hands quickly, cheaply, and with the ink practically still wet. This raw, DIY lineage is exactly how Bob distributed his own work. He published the way the Beats did, operating in that same fertile slipstream of North Beach and Berkeley, a world fueled by self-published mimeo-machine zines and politically charged verse.</p>
 
         <h4>A Voice Forged in Jazz and Verse</h4>
