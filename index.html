@@ -88,6 +88,35 @@
   .reveal-back { position: absolute; top: .9rem; right: 1.1rem; z-index: 3; background: transparent; border: 1px solid rgba(233,223,201,.3);
                  color: #e9dfc9; border-radius: 999px; padding: .3em .85em; font-family: var(--sans); font-size: .74rem; letter-spacing: .08em; cursor: pointer; opacity: .75; }
   .reveal-back:hover { opacity: 1; }
+
+  /* Revealed state (desktop): shrink Bob's photo into a top-left block and let the
+     whole statement wrap beside and under it, so it all fits one screen, no scroll. */
+  @media (min-width: 721px) {
+    .revealed.hero-full { display: block; }
+    .revealed .hero-media {
+      float: left;
+      width: clamp(170px, 23vw, 290px);
+      height: auto; min-height: 0; max-height: 46vh;
+      margin: clamp(1rem,2.4vh,1.8rem) clamp(1.3rem,2.4vw,2rem) .55rem clamp(1.4rem,4vw,3.2rem);
+      border-radius: 2px;
+    }
+    .revealed .hero-media img { height: auto; }
+    .revealed .hero-copy { overflow: visible; }
+    .revealed .pane-b {
+      display: block;
+      position: static; inset: auto; height: auto; max-height: none; overflow: visible;
+      padding: clamp(1rem,2.4vh,1.8rem) clamp(1.4rem,4vw,3.2rem) .8rem clamp(1.4rem,4vw,3.2rem);
+      opacity: 1; visibility: visible; filter: none; transform: none;
+    }
+    .revealed .pane-b .reveal-back { top: .7rem; right: 1.1rem; }
+    .revealed .pane-b > .hero-kicker { margin-bottom: .25rem; }
+    .revealed .pane-b > .hero-name { font-size: clamp(1.5rem,2.8vw,2.3rem); margin-bottom: .15rem; }
+    .revealed .pane-b > .hero-alias { font-size: clamp(.82rem,1.2vw,1rem); margin-bottom: .55rem; }
+    .revealed .reveal h2 { font-size: clamp(1.05rem,1.6vw,1.3rem); margin-bottom: .15rem; }
+    .revealed .reveal h3 { margin: .5rem 0 .08rem; }
+    .revealed .reveal p { font-size: clamp(.8rem,.95vw,.93rem); line-height: 1.4; margin-bottom: .18rem; }
+    .revealed .reveal .credit { margin-top: .7rem; padding-top: .5rem; }
+  }
   button.hero-cta { border: 0; font-family: var(--sans); }
   .sound-toggle { right: auto; left: 1rem; }
   @media (prefers-reduced-motion: reduce) { .pane, .pane-b, .reveal > * { transition-duration: .01s !important; transition-delay: 0s !important; } }

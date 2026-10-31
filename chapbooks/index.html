@@ -14,10 +14,8 @@
   .cb-split { display: block; }
   .cb-split::after { content: ""; display: block; clear: both; }
 
-  .cb-xref { text-align: center; font-family: var(--sans); font-size: .9rem; color: var(--ink-soft);
-    max-width: 46rem; margin: 0 auto 1.8rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); }
-
-  .cb-text { float: left; width: 30rem; max-width: 100%; margin: 0 2.4rem 1.2rem 0; }
+  .cb-text { float: left; width: calc(100% - 440px); min-width: 20rem; max-width: 100%;
+    margin: 0 0 1.4rem 0; }
   .cb-text > h2:first-child { margin-top: 0; }
   .cb-text h3.cb-title { font-family: inherit; font-weight: normal; font-style: italic;
     font-size: 1.35rem; text-align: center; margin: .2rem 0 1rem; }
@@ -25,10 +23,10 @@
     font-size: 1.15rem; color: var(--ink); margin: 1.6rem 0 .4rem; }
   .cb-text p { line-height: 1.65; }
 
-  /* the slates */
-  .cb-stack { display: block; }
-  .cb-card { display: inline-flex; gap: 1rem; align-items: flex-start; vertical-align: top;
-    width: 400px; max-width: 100%; margin: 0 1.5rem 1.9rem 0; box-sizing: border-box; }
+  /* the slates: uniform size, flowing flush to the right edge */
+  .cb-stack { display: block; text-align: right; }
+  .cb-card { display: inline-flex; gap: 1rem; align-items: flex-start; vertical-align: top; text-align: left;
+    width: 400px; max-width: 100%; margin: 0 0 1.9rem 1.5rem; box-sizing: border-box; }
   .cb-thumb { flex: 0 0 177px; display: block; }
   .cb-thumb img { width: 177px; height: auto; display: block; border: 1px solid rgba(0,0,0,.18);
     box-sizing: border-box; transition: transform .2s ease; }
@@ -63,8 +61,6 @@
 </header>
 <main class="cb-main">
   <div class="cb-split">
-    <p class="cb-xref">Several of these chapbooks are also gathered into Bob&rsquo;s edited volumes &mdash; see the <a href="../books/index.html">Books</a> page, where his one published book, <em>I Am Writing of Hand Grenades, Butterflies and Kisses</em>, now lives.</p>
-
     <div class="cb-text">
   <h2>Chapbooks</h2>
   <div class="cb-essay">
