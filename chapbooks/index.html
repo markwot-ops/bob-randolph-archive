@@ -8,12 +8,16 @@
 <style>
   main.cb-main { max-width: 1140px; }
 
-  /* The Last Chapman essay floats as a left column; the uniform slates stack
-     flush to the right beside it, then wrap down to the bottom once it ends. */
-  .cb-split { display: block; }
-  .cb-split::after { content: ""; display: block; clear: both; }
+  /* The Chapbooks "shelf" turns like a book: page 1 is the essay with the first
+     chapbooks beside and beneath it; the arrow turns the page to the rest. */
+  .cb-page { animation: cbTurn .5s cubic-bezier(.2,.7,.2,1) both; }
+  .cb-page[hidden] { display: none; }
+  @keyframes cbTurn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
 
-  .cb-text { float: left; width: calc(100% - 358px); min-width: 20rem; max-width: 100%; margin: 0 0 1.4rem 0; }
+  .cb-page1 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.7rem; }
+  .cb-page1 .cb-text { grid-column: 1 / 3; grid-row: 1 / 3; align-self: start; }
+  .cb-page2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.7rem; }
+
   .cb-text > h2 { margin: 0 0 .2rem; }
   .cb-title { font-family: inherit; font-weight: normal; font-style: italic; font-size: 1.4rem;
     text-align: center; margin: .2rem 0 1.1rem; }
@@ -21,11 +25,8 @@
     color: var(--ink); margin: 1.5rem 0 .4rem; }
   .cb-essay p { line-height: 1.65; margin: 0 0 1rem; }
 
-  /* the slates: every one the same size, flush to the right edge */
-  .cb-stack { display: block; text-align: right; font-size: 0; }
-  .cb-card { display: inline-flex; flex-direction: column; vertical-align: top; text-align: left;
-    width: 342px; height: 410px; overflow: hidden; margin: 0 0 1.7rem 1rem; box-sizing: border-box;
-    font-size: 1rem; }
+  /* uniform slates */
+  .cb-card { display: flex; flex-direction: column; height: 410px; overflow: hidden; margin: 0; }
   .cb-thumb { display: flex; justify-content: center; align-items: flex-start; height: 228px;
     margin: 0 0 .75rem; flex: 0 0 auto; }
   .cb-thumb img { height: 228px; width: auto; max-width: 100%; display: block;
@@ -35,12 +36,24 @@
   .cb-card-text h3 { margin: 0; font-size: .95rem; line-height: 1.22; }
   .cb-card-text p { margin: .45rem 0 0; font-size: .88rem; line-height: 1.4; }
 
+  /* page-turn control */
+  .cb-pager { display: flex; justify-content: center; align-items: center; gap: 1.6rem;
+    margin-top: 2.2rem; padding-top: 1.4rem; border-top: 1px solid var(--rule); }
+  .cb-turn { font-family: var(--sans); font-size: .82rem; letter-spacing: .04em; cursor: pointer;
+    background: var(--accent); color: #f8f2e6; border: 0; border-radius: 3px; padding: .62em 1.3em;
+    transition: background .15s ease, transform .1s ease; }
+  .cb-turn:hover { background: var(--accent-soft); }
+  .cb-turn:active { transform: translateY(1px); }
+  .cb-pageno { font-family: var(--sans); font-size: .82rem; color: var(--ink-soft); letter-spacing: .08em; }
+
   @media (max-width: 900px) {
-    .cb-text { float: none; width: auto; max-width: 46rem; margin: 0 auto 1.8rem; }
-    .cb-stack { text-align: center; }
+    .cb-page1, .cb-page2 { grid-template-columns: repeat(2, 1fr); }
+    .cb-page1 .cb-text { grid-column: 1 / 3; grid-row: auto; }
   }
-  @media (max-width: 460px) {
-    .cb-card { width: 100%; height: auto; }
+  @media (max-width: 560px) {
+    .cb-page1, .cb-page2 { grid-template-columns: 1fr; }
+    .cb-page1 .cb-text { grid-column: 1; }
+    .cb-card { height: auto; }
   }
 </style>
 </head>
@@ -63,11 +76,13 @@
   </div>
 </header>
 <main class="cb-main">
-  <div class="cb-split">
+
+  <!-- PAGE 1: the essay, with the first chapbooks beside and beneath it -->
+  <section class="cb-page cb-page1" aria-label="Chapbooks, page 1">
     <div class="cb-text">
       <h2>Chapbooks</h2>
+      <h3 class="cb-title">The Last Chapman</h3>
       <div class="cb-essay">
-        <h3 class="cb-title">The Last Chapman</h3>
         <p>A chapbook is a small, inexpensive booklet&mdash;usually under fifty pages, saddle-stitched or stapled at the spine, and bound tightly around a single theme or a connected run of poems. The name stretches back to the &ldquo;chapman,&rdquo; the old English word for the itinerant peddlers who carried woodcut-illustrated booklets in their packs, selling them door-to-door for pennies. Popular across Europe from the sixteenth to the eighteenth centuries, these pocket-sized prints democratized literacy, carrying everything from bawdy ballads and folklore to radical religious tracts. In the mid-twentieth century, this low-fidelity medium was revived by the American Beat poets. In the smoky, postwar air of San Francisco, the chapbook became the ultimate weapon against mainstream publishing houses&mdash;a way to get uncensored, counterculture writing into readers' hands quickly, cheaply, and with the ink practically still wet. This raw, DIY lineage is exactly how Bob distributed his own work. He published the way the Beats did, operating in that same fertile slipstream of North Beach and Berkeley, a world fueled by self-published mimeo-machine zines and politically charged verse.</p>
 
         <h4>A Voice Forged in Jazz and Verse</h4>
@@ -78,15 +93,6 @@
       </div>
     </div>
 
-    <div class="cb-stack">
-    <div class="card cb-card">
-      <a class="cb-thumb" href="el-tecolote-blanco/read.html" aria-label="Open El Tecolote Blanco: Space and Time Travel"><img src="../assets/book/tecolote-cover-scan.jpg" alt="Cover of El Tecolote Blanco: Space and Time Travel"></a>
-      <div class="cb-card-text">
-    <h3>El Tecolote Blanco: Space and Time Travel <span class="badge progress">scanned pages &middot; in progress</span></h3>
-    <p>~50 poems, dedicated to Eldridge Cleaver; introduction by Rev. Tom Sanders.</p>
-    <p><a href="el-tecolote-blanco/read.html">Open this chapbook &rarr;</a></p>
-      </div>
-    </div>
     <div class="card cb-card">
       <a class="cb-thumb" href="el-tecolote-blanco-sampler/read.html" aria-label="Open El Tecolote Blanco: A Bob Randolph Sampler"><img src="../assets/book/cover-tecolote-sampler.jpg" alt="Cover of El Tecolote Blanco: A Bob Randolph Sampler"></a>
       <div class="cb-card-text">
@@ -101,6 +107,14 @@
     <h3>Yokohama Rickshaw Boy <span class="badge progress">scanned pages &middot; live</span></h3>
     <p>&ldquo;A book about &lsquo;Sketches of Strangers.&rsquo;&rdquo; Mostly 1989&ndash;1991.</p>
     <p><a href="yokohama-rickshaw-boy/index.html">Open this chapbook &rarr;</a></p>
+      </div>
+    </div>
+    <div class="card cb-card">
+      <a class="cb-thumb" href="el-tecolote-blanco/read.html" aria-label="Open El Tecolote Blanco: Space and Time Travel"><img src="../assets/book/tecolote-cover-scan.jpg" alt="Cover of El Tecolote Blanco: Space and Time Travel"></a>
+      <div class="cb-card-text">
+    <h3>El Tecolote Blanco: Space and Time Travel <span class="badge progress">scanned pages &middot; in progress</span></h3>
+    <p>~50 poems, dedicated to Eldridge Cleaver; introduction by Rev. Tom Sanders.</p>
+    <p><a href="el-tecolote-blanco/read.html">Open this chapbook &rarr;</a></p>
       </div>
     </div>
     <div class="card cb-card">
@@ -119,6 +133,10 @@
     <p><a href="the-world/read.html">Open this chapbook &rarr;</a></p>
       </div>
     </div>
+  </section>
+
+  <!-- PAGE 2: the rest of the chapbooks -->
+  <section class="cb-page cb-page2" aria-label="Chapbooks, page 2" hidden>
     <div class="card cb-card">
       <a class="cb-thumb" href="best-and-most-representative/read.html" aria-label="Open the poetry Bob Randolph considers his best and most representative"><img src="../assets/book/best-cover-scan.jpg" alt="Cover of the poetry Bob Randolph considers his best and most representative"></a>
       <div class="cb-card-text">
@@ -159,13 +177,40 @@
     <p><a href="my-mother-never-did-have-dinner-ready/read.html">View the cover &rarr;</a></p>
       </div>
     </div>
-    </div>
+  </section>
+
+  <div class="cb-pager">
+    <button class="cb-turn" data-dir="prev" hidden>&larr; First chapbooks</button>
+    <span class="cb-pageno">1 / 2</span>
+    <button class="cb-turn" data-dir="next">More chapbooks &rarr;</button>
   </div>
 </main>
 
 <footer class="site-footer">
   Built by Mark Wotton, continuing a promise made to Bob Randolph.
 </footer>
+
+<script>
+(function () {
+  var pages = [].slice.call(document.querySelectorAll('.cb-page'));
+  var prev = document.querySelector('.cb-turn[data-dir=prev]');
+  var next = document.querySelector('.cb-turn[data-dir=next]');
+  var no = document.querySelector('.cb-pageno');
+  var cur = 0;
+  function show(i) {
+    cur = Math.max(0, Math.min(pages.length - 1, i));
+    pages.forEach(function (p, k) { p.hidden = k !== cur; });
+    var el = pages[cur]; el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
+    if (prev) prev.hidden = cur === 0;
+    if (next) next.hidden = cur === pages.length - 1;
+    if (no) no.textContent = (cur + 1) + ' / ' + pages.length;
+    try { document.querySelector('main').scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
+  }
+  if (next) next.onclick = function () { show(cur + 1); };
+  if (prev) prev.onclick = function () { show(cur - 1); };
+  show(0);
+})();
+</script>
 
 </body>
 </html>
