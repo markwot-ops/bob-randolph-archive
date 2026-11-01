@@ -66,7 +66,7 @@ html,body{height:100%;margin:0;background:#0f0d0b;overflow:hidden;}
 /* spread-sheet mode: one image holds two facing pages; show the left or right half */
 .br-face img.br-half-l{inset:auto;top:0;left:0;width:200%;height:100%;}
 .br-face img.br-half-r{inset:auto;top:0;left:-100%;width:200%;height:100%;}
-.br-jump{background:#15120f;color:#f4ece0;border:1px solid rgba(212,175,110,.35);border-radius:5px;padding:.3em .4em;font-family:inherit;font-size:.9rem;max-width:46vw;}
+.br-jump{background:#15120f;color:#f4ece0;border:1px solid rgba(212,175,110,.35);border-radius:5px;padding:.3em .4em;font-family:inherit;font-size:.9rem;width:300px;max-width:46vw;text-overflow:ellipsis;}
 
 /* ---- flat theme: staple-bound chapbook, pages exactly as scanned (no leather frame, no cream tint) ---- */
 .br-flat .br-view{filter:drop-shadow(0 16px 40px rgba(0,0,0,.6));}
