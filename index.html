@@ -78,7 +78,7 @@
   .pane-b .hero-kicker { margin-bottom: .6rem; }
   .reveal h2 { font-family: var(--serif); font-weight: normal; font-size: clamp(1.4rem, 2.1vw, 1.7rem); color: #f8f2e6; margin: 0 0 .4rem; border: 0; padding: 0; }
   .reveal h3 { font-family: var(--sans); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #d3a08a; margin: .95rem 0 .2rem; border: 0; padding: 0; }
-  .reveal p { font-size: clamp(.92rem, 1.05vw, 1rem); line-height: 1.5; color: #e9dfc9; margin: 0 0 .3rem; max-width: 46rem; }
+  .reveal p { font-size: 1rem; line-height: 1.6; color: #e9dfc9; margin: 0 0 1rem; max-width: 42rem; }
   .reveal a { color: #e7b9a6; text-decoration: underline; text-underline-offset: 2px; }
   .reveal a:hover { color: #fff; }
   .reveal .credit { margin-top: 1.5rem; padding-top: .9rem; border-top: 1px solid rgba(233,223,201,.18); font-size: .88rem; font-style: italic; opacity: .8; }
@@ -87,14 +87,6 @@
   .reveal-back { position: absolute; top: .9rem; right: 1.1rem; z-index: 3; background: transparent; border: 1px solid rgba(233,223,201,.3);
                  color: #e9dfc9; border-radius: 999px; padding: .3em .85em; font-family: var(--sans); font-size: .74rem; letter-spacing: .08em; cursor: pointer; opacity: .75; }
   .reveal-back:hover { opacity: 1; }
-
-  /* Option B title: big name, then a dignified standfirst, then the alias */
-  .hero-standfirst { font-family: var(--serif); font-weight: normal; letter-spacing: .01em;
-    font-size: clamp(1.15rem, 2.2vw, 1.7rem); line-height: 1.25; color: #f1e7d4; margin: 0 0 .9rem; }
-  /* the closing sentiment line */
-  .reveal-coda { font-family: var(--serif); font-style: italic; color: var(--accent-soft);
-    font-size: clamp(1.1rem, 1.7vw, 1.45rem); line-height: 1.3; margin: 1rem 0 .5rem; }
-  .reveal-start { font-size: clamp(.9rem, 1.05vw, 1rem); color: #e9dfc9; }
 
   /* Revealed state (desktop): on reveal, Bob glides up and to the left and settles a
      little smaller (and trimmed 7.5%/6.5%), opening the room the statement unfolds
@@ -114,12 +106,12 @@
     .revealed .reveal p, .revealed .reveal h2, .revealed .reveal h3 { max-width: none; }
     /* statement lands fast and stays stable */
     .revealed .reveal > * { transition-duration: .22s; transition-delay: calc(var(--i,0) * .03s); }
+    .revealed .pane-b > .hero-kicker { margin-bottom: .3rem; }
     .revealed .pane-b > .hero-name { font-size: clamp(1.7rem,3vw,2.6rem); margin-bottom: .2rem; }
-    .revealed .pane-b > .hero-standfirst { font-size: clamp(1rem,1.5vw,1.3rem); margin-bottom: .45rem; }
-    .revealed .pane-b > .hero-alias { font-size: clamp(.9rem,1.3vw,1.1rem); margin-bottom: .8rem; }
+    .revealed .pane-b > .hero-alias { font-size: clamp(.9rem,1.3vw,1.1rem); margin-bottom: .6rem; }
     .revealed .reveal h2 { font-size: clamp(1.1rem,1.7vw,1.4rem); margin-bottom: .2rem; }
     .revealed .reveal h3 { margin: .55rem 0 .1rem; }
-    .revealed .reveal p { font-size: clamp(.84rem,1vw,.98rem); line-height: 1.45; margin-bottom: .25rem; }
+    .revealed .reveal p { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
     .revealed .reveal .credit { margin-top: .8rem; padding-top: .55rem; }
   }
   button.hero-cta { border: 0; font-family: var(--sans); }
@@ -198,23 +190,22 @@
   </div>
   <div class="hero-copy">
     <div class="pane pane-a">
+      <p class="hero-kicker">A Working Archive</p>
       <h1 class="hero-name">Bob<span class="surname">Randolph</span></h1>
-      <p class="hero-standfirst">The Collected Works of a Revolutionary Poet</p>
       <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
-      <span class="cta-row"><button type="button" class="hero-role hero-cta" aria-controls="what" aria-expanded="false">Enter the archive<span class="arrow" aria-hidden="true"> &rarr;</span></button><span class="sparkle" aria-hidden="true"><span class="spark spark-main"></span><span class="glint g1"></span><span class="glint g2"></span><span class="glint g3"></span></span></span>
+      <span class="cta-row"><button type="button" class="hero-role hero-cta" aria-controls="what" aria-expanded="false">Revolutionary Poet<span class="arrow" aria-hidden="true"> &rarr;</span></button><span class="sparkle" aria-hidden="true"><span class="spark spark-main"></span><span class="glint g1"></span><span class="glint g2"></span><span class="glint g3"></span></span></span>
     </div>
 
     <div class="pane pane-b" id="what" aria-hidden="true">
       <button type="button" class="reveal-back" aria-label="Back to the title">&larr; Back</button>
+      <p class="hero-kicker">A Working Archive</p>
       <h2 class="hero-name" style="font-family:var(--serif);font-weight:normal;color:#f8f2e6;">Bob<span class="surname">Randolph</span></h2>
-      <p class="hero-standfirst">The Collected Works of a Revolutionary Poet</p>
       <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
 
       <div class="reveal">
-        <p style="--i:0">A permanent, freely accessible home for the life's work of poet Bob Randolph &mdash; El Tecolote Blanco, the White Owl. Every poem is transcribed for reading and search and set beside its original scanned page, so nothing is &ldquo;corrected&rdquo; out of his own spelling, line breaks, or layout &mdash; arranged chapbook by chapbook as Bob published them, over the full <a href="master-index.html">1,775-poem index</a> he numbered and coded himself. Around the poems stand his <a href="photography/index.html">documentary photography</a>, <a href="readings/index.html">taped live readings</a> in his own voice, and a print edition of <em>The Picture of Dorian America</em> now in preparation.</p>
-        <p class="reveal-coda" style="--i:1">His life's work, as he wanted it &mdash; widely, freely, forever.</p>
-        <p class="reveal-start" style="--i:2">Start with <a href="chapbooks/yokohama-rickshaw-boy/read.html">Yokohama Rickshaw Boy</a> &middot; Browse the <a href="master-index.html">full 1,775-poem archive</a> &middot; <a href="books/index.html">Books</a> &middot; <a href="about.html">About Bob</a></p>
-        <p class="credit" style="--i:3">Site built by Mark Wotton, continuing a promise made to Bob.</p>
+        <p style="--i:0">A permanent, freely accessible archive of Revolutionary Poet Bob Randolph's body of work &mdash; his own words in his own hand where a page survives to show it. Every poem is transcribed to HTML for search and reading, paired with a toggle to a PDF of the original scanned page, so nothing is silently &ldquo;corrected&rdquo; out of Bob's own spelling, line breaks, or layout. It is organized chapbook by chapbook, the way Bob himself published them, with the full <a href="master-index.html">1,775-poem master index</a> underneath as the complete catalogue.</p>
+        <p style="--i:1">Alongside the poems are extemporaneous B-roll of Bob's <a href="readings/index.html">Taped Live Readings</a> and a selection of his documentary photography &mdash; a body of work in its own right, curated by Harold Murphree (see <a href="photography/index.html">Photography</a>) &mdash; plus a print-on-demand edition of his seminal work, <em>The Picture of Dorian America</em>, edited by Mark Wotton with its own ISBN, so the collection enters library and bookstore catalogs the way a traditionally published book would. Start with <a href="chapbooks/yokohama-rickshaw-boy/read.html">Yokohama Rickshaw Boy</a>, the first of dozens of chapbooks with live poem pages, or browse the <a href="master-index.html">full 1,775-poem archive</a> as Bob himself numbered, coded and catalogued every poem he wrote.</p>
+        <p class="credit" style="--i:2">Site built by Mark Wotton, continuing a promise made to Bob.</p>
       </div>
     </div>
     <span class="hero-sweep" aria-hidden="true"></span>
