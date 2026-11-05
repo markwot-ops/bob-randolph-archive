@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cuban Poems — Bob Randolph</title>
+<link rel="stylesheet" href="../../assets/book/reader.css">
+</head>
+<body>
+<div id="book"></div>
+<script src="../../assets/book/layouts.js"></script>
+<script src="../../assets/book/reader.js"></script>
+<script>
+BookReader({
+  root: document.getElementById('book'),
+  layout: BookLayouts.flat,
+  flat: true,
+  spine: false,
+  sounds: ['swish-1.wav','swish-2.wav'],
+  base: '../../assets/book/',
+  front: 'cover-cuban.jpg',
+  back: 'cuban-back.jpg',
+  sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },
+  total: 78,
+  leftStart: 1,
+  jump: [
+    ["Introduction", 1],
+    ["Table of contents", 2],
+    ["Now that I am home I choose to be in two places at once", 4],
+    ["When I get home I will have to be in two places at once", 6],
+    ["Yo estoy acostumbrada", 8],
+    ["Life now in Cuba", 9],
+    ["I will be permanently partly Cuban", 10],
+    ["The Third World", 11],
+    ["Makers of thin faces", 12],
+    ["Let's skip the 21st century", 13],
+    ["They sit in doorways", 14],
+    ["Sentados en los umbrales", 14],
+    ["Love between two continents", 16],
+    ["El amor entre dos continentes", 16],
+    ["The Atlantic that could have been Cuba", 18],
+    ["La Atlántida pudo haber sido Cuba", 18],
+    ["90 miles", 19],
+    ["A 90 millas de aquí", 19],
+    ["I fix typewriters for the revolution", 20],
+    ["Cuban air", 21],
+    ["Mother Cuba's forehead", 22],
+    ["Cuba is like an ancestral home", 22],
+    ["Havana piano concert", 23],
+    ["A cold beer at a museum", 23],
+    ["Museums in the tropics", 24],
+    ["Tinajones", 24],
+    ["A magic paper", 25],
+    ["Royal palm trees", 25],
+    ["Our watches have stopped", 26],
+    ["A pause in time is happening now", 26],
+    ["Yoruba myth in Havana", 27],
+    ["To Imai", 29],
+    ["Para Imai", 29],
+    ["A goddess of survival", 31],
+    ["Diosa de la supervivencia", 31],
+    ["The mucous of beliefs", 32],
+    ["Beliefs are like gravity", 32],
+    ["It is possible that …", 33],
+    ["I'm at the Dallas airport", 34],
+    ["American journalists", 34],
+    ["Corporate expansion", 35],
+    ["Guts", 35],
+    ["The U.S. from 41,000 feet", 36],
+    ["The cheetahs are losing their race for survival", 36]
+  ],
+  homeHref: '../../index.html',
+  backHref: '../index.html',
+  backLabel: 'Chapbooks',
+  noArrows: true
+});
+</script>
+</body>
+</html>
