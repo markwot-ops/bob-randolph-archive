@@ -117,13 +117,34 @@
   button.hero-cta { border: 0; font-family: var(--sans); }
   .sound-toggle { right: auto; left: 1rem; }
   @media (prefers-reduced-motion: reduce) { .pane, .pane-b, .reveal > * { transition-duration: .01s !important; transition-delay: 0s !important; } }
-  /* Home v3: the cue opens a motion panel beside Bob — a clip of him walking, shot live */
-  .pane-video { padding: 0 !important; display: block !important; overflow: hidden; background: #18130f; }
-  .walk-video { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;
-    filter: grayscale(1) contrast(1.08) brightness(.95); background: #18130f; }
-  .revealed .pane-video { padding: 0 !important; }
+  /* Home v4: the cue opens a small motion window over the branding, which only shifts a little */
+  #hero { position: relative; }
+  .clip-window {
+    position: absolute; z-index: 6; margin: 0;
+    right: clamp(1.1rem, 4vw, 3.2rem); bottom: clamp(1.1rem, 5vh, 3.2rem);
+    width: clamp(260px, 33vw, 460px); aspect-ratio: 16 / 9;
+    background: #000; border: 1px solid rgba(233,223,201,.22); border-radius: 5px; overflow: hidden;
+    box-shadow: 0 20px 55px rgba(0,0,0,.6);
+    opacity: 0; transform: translateY(16px) scale(.98); pointer-events: none;
+    transition: opacity .85s ease, transform .85s ease;
+  }
+  .playing .clip-window { opacity: 1; transform: none; pointer-events: auto; }
+  .clip-window .clip-video { width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: grayscale(1) contrast(1.06) brightness(.98); }
+  .clip-close {
+    position: absolute; top: .3rem; right: .4rem; z-index: 2; width: 1.9em; height: 1.9em; line-height: 1;
+    display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer;
+    background: rgba(24,19,15,.6); color: #f4ede0; font-size: 1.05rem; opacity: .8;
+  }
+  .clip-close:hover { opacity: 1; background: rgba(24,19,15,.85); }
+  /* the big branding gives a little room when the clip is up, but stays dominant */
+  .playing .pane-a { transition: transform .85s cubic-bezier(.4,0,.2,1); transform: translateY(-7%); }
   @media (max-width: 720px) {
-    .revealed .pane-video { position: static; height: 46vh; display: block !important; }
+    .clip-window { right: 50%; transform: translate(50%, 16px) scale(.98); bottom: clamp(.7rem, 2vh, 1.3rem);
+      width: min(84vw, 400px); }
+    .playing .clip-window { transform: translate(50%, 0); }
+    .playing .pane-a { transform: none; }
+    .playing .hero-media { height: 24vh !important; min-height: 0 !important; }
   }
   @media (max-width: 720px) {
     body.home-page { display: block; height: auto; overflow: auto; }
@@ -201,17 +222,18 @@
       <p class="hero-kicker">A Working Archive</p>
       <h1 class="hero-name">Bob<span class="surname">Randolph</span></h1>
       <p class="hero-alias">El Tecolote Blanco &mdash; the White Owl</p>
-      <span class="cta-row"><button type="button" class="hero-role hero-cta" aria-controls="what" aria-expanded="false">Revolutionary Poet<span class="arrow" aria-hidden="true"> &rarr;</span></button><span class="sparkle" aria-hidden="true"><span class="spark spark-main"></span><span class="glint g1"></span><span class="glint g2"></span><span class="glint g3"></span></span></span>
+      <span class="cta-row"><button type="button" class="hero-role hero-cta" aria-controls="clipWindow" aria-expanded="false">Revolutionary Poet<span class="arrow" aria-hidden="true"> &rarr;</span></button><span class="sparkle" aria-hidden="true"><span class="spark spark-main"></span><span class="glint g1"></span><span class="glint g2"></span><span class="glint g3"></span></span></span>
     </div>
 
-    <div class="pane pane-b pane-video" id="what" aria-hidden="true">
-      <button type="button" class="reveal-back" aria-label="Back to the title">&larr; Back</button>
-      <video class="walk-video" id="walkVideo" playsinline muted preload="auto" poster="assets/img/walk-poster.jpg">
-        <source src="assets/video/bob-walking.mp4" type="video/mp4">
-      </video>
-    </div>
     <span class="hero-sweep" aria-hidden="true"></span>
   </div>
+
+  <figure class="clip-window" id="clipWindow" aria-hidden="true">
+    <video class="clip-video" id="clipVideo" playsinline preload="auto" poster="assets/img/walk-feature-poster.jpg">
+      <source src="assets/video/walk-feature.mp4" type="video/mp4">
+    </video>
+    <button type="button" class="clip-close" id="clipClose" aria-label="Close clip">&times;</button>
+  </figure>
 </section>
 
 <audio id="introAudio" preload="auto">
@@ -225,69 +247,80 @@
   var heroCopy = document.querySelector('.hero-copy');
   var cta = document.querySelector('.hero-cta');
   var back = document.querySelector('.reveal-back');
-  var paneB = document.getElementById('what');
   var intro = document.getElementById('introAudio');
-  var walk = document.getElementById('walkVideo');
+  var clip = document.getElementById('clipVideo');
+  var win = document.getElementById('clipWindow');
+  var closeBtn = document.getElementById('clipClose');
   var tog = document.getElementById('soundToggle');
   var audioCtx = null;
+  var praiseStarted = false;
   function runSweep(){ if(!heroCopy) return; heroCopy.classList.remove('swept'); void heroCopy.offsetWidth; heroCopy.classList.add('swept'); }
   function swish(){ try{ var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return; if(!audioCtx) audioCtx=new AC(); if(audioCtx.state==='suspended') audioCtx.resume(); var t=audioCtx.currentTime,d=0.5; var o=audioCtx.createOscillator(); o.type='sawtooth'; o.frequency.setValueAtTime(1500,t); o.frequency.exponentialRampToValueAtTime(220,t+d); var b=audioCtx.createBiquadFilter(); b.type='bandpass'; b.Q.value=0.9; b.frequency.setValueAtTime(1300,t); b.frequency.exponentialRampToValueAtTime(420,t+d); var g=audioCtx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.22,t+0.05); g.gain.exponentialRampToValueAtTime(0.0001,t+d); o.connect(b); b.connect(g); g.connect(audioCtx.destination); o.start(t); o.stop(t+d+0.03); }catch(e){} }
   window.addEventListener('load', runSweep);
 
-  function startMedia() {
-    // The walking clip opens muted so the ~15s spoken intro carries the first stretch of walk.
-    // When the intro ends the clip's own audio comes up — right as Bob meets someone on the street (~18s).
-    if (walk) { try { walk.currentTime = 0; walk.muted = true; var pv = walk.play(); if (pv && pv.catch) pv.catch(function(){}); } catch(e) {} }
-    if (intro) { try { intro.currentTime = 0; var p = intro.play(); if (p && p.catch) p.catch(function(){}); } catch(e) {} }
-  }
-  function reveal(withSound) {
-    hero.classList.add('revealed');
-    cta.setAttribute('aria-expanded', 'true');
-    paneB.setAttribute('aria-hidden', 'false');
-    if (window.matchMedia('(max-width:720px)').matches) { heroCopy.scrollIntoView({behavior:'smooth', block:'start'}); }
-    if (withSound) {
-      runSweep(); swish();
-      startMedia();
-      if (tog) { tog.hidden = false; tog.textContent = 'Pause'; }
-    } else if (walk) {
-      try { walk.muted = true; var pv = walk.play(); if (pv && pv.catch) pv.catch(function(){}); } catch(e) {}
+  // Audio arc over the clip's own natural sound: the nat sound ducks for the spoken
+  // tribute (Bob on his own poetry), which fades in at ~43s and plays out, then the
+  // nat sound comes back up. Timecodes sit in the clip's natural quiet stretch (36-48s).
+  var DUCK_IN = 36, DUCK_FLOOR = 37.5, PRAISE_AT = 43, DUCK_OUT = 57, DUCK_UP = 59, FLOOR = 0.14;
+  function updateArc() {
+    if (!clip) return;
+    var t = clip.currentTime, v = 1;
+    if (t >= DUCK_IN && t < DUCK_FLOOR) v = 1 - (t - DUCK_IN) / (DUCK_FLOOR - DUCK_IN) * (1 - FLOOR);
+    else if (t >= DUCK_FLOOR && t < DUCK_OUT) v = FLOOR;
+    else if (t >= DUCK_OUT && t < DUCK_UP) v = FLOOR + (t - DUCK_OUT) / (DUCK_UP - DUCK_OUT) * (1 - FLOOR);
+    clip.volume = v < 0 ? 0 : (v > 1 ? 1 : v);
+    if (!praiseStarted && intro && t >= PRAISE_AT) {
+      praiseStarted = true;
+      try { intro.currentTime = 0; intro.volume = 1; var p = intro.play(); if (p && p.catch) p.catch(function(){}); } catch(e) {}
     }
   }
-  function unreveal() {
-    hero.classList.remove('revealed');
+  function openClip(withSound) {
+    hero.classList.add('playing');
+    cta.setAttribute('aria-expanded', 'true');
+    if (win) win.setAttribute('aria-hidden', 'false');
+    runSweep(); swish();
+    praiseStarted = false;
+    if (clip) {
+      try {
+        clip.currentTime = 0; clip.muted = !withSound; clip.volume = 1;
+        clip.addEventListener('timeupdate', updateArc);
+        var pv = clip.play(); if (pv && pv.catch) pv.catch(function(){ try { clip.muted = true; clip.play(); } catch(e){} });
+      } catch(e) {}
+    }
+    if (tog) { tog.hidden = false; tog.textContent = 'Pause'; }
+  }
+  function closeClip() {
+    hero.classList.remove('playing');
     cta.setAttribute('aria-expanded', 'false');
-    paneB.setAttribute('aria-hidden', 'true');
-    if (walk) { try { walk.pause(); walk.currentTime = 0; walk.muted = true; } catch(e) {} }
+    if (win) win.setAttribute('aria-hidden', 'true');
+    if (clip) { try { clip.pause(); clip.removeEventListener('timeupdate', updateArc); clip.currentTime = 0; clip.volume = 1; } catch(e) {} }
     if (intro) { try { intro.pause(); intro.currentTime = 0; } catch(e) {} }
+    praiseStarted = false;
     if (tog) { tog.hidden = true; }
     cta.focus({preventScroll:true});
   }
-  if (cta) cta.addEventListener('click', function () { reveal(true); });
-  if (back) back.addEventListener('click', unreveal);
+  if (cta) cta.addEventListener('click', function () { openClip(true); });
+  if (closeBtn) closeBtn.addEventListener('click', closeClip);
 
-  // When the spoken intro finishes, bring the clip's live street audio up.
-  if (intro) intro.addEventListener('ended', function () { if (walk) { try { walk.muted = false; } catch(e) {} } });
-  // When the clip itself ends, offer a replay.
-  if (walk) walk.addEventListener('ended', function () { if (tog) tog.textContent = 'Replay'; });
+  // when the clip ends, stop the tribute and offer a replay
+  if (clip) clip.addEventListener('ended', function () { if (intro) { try { intro.pause(); } catch(e){} } if (tog) tog.textContent = 'Replay'; });
 
   if (tog) {
     tog.addEventListener('click', function () {
-      var paused = walk ? walk.paused : (intro ? intro.paused : true);
-      if (paused) {
-        if (walk && walk.ended) { startMedia(); }
-        else {
-          if (walk) { try { walk.play(); } catch(e) {} }
-          if (intro && !intro.ended) { try { intro.play(); } catch(e) {} }
-        }
+      if (!clip) return;
+      if (clip.paused) {
+        if (clip.ended) { praiseStarted = false; try { clip.currentTime = 0; } catch(e){} }
+        try { clip.play(); } catch(e) {}
+        if (intro && praiseStarted && !intro.ended) { try { intro.play(); } catch(e) {} }
         tog.textContent = 'Pause';
       } else {
-        if (walk) { try { walk.pause(); } catch(e) {} }
+        try { clip.pause(); } catch(e) {}
         if (intro) { try { intro.pause(); } catch(e) {} }
         tog.textContent = 'Play';
       }
     });
   }
-  if (location.hash === '#what') reveal(false);
+  if (location.hash === '#clip' || location.hash === '#what') openClip(false);
 })();
 </script>
 
