@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Exploring Our Fears of Death \u2014 Bob Randolph</title>
+<title>Exploring Our Fears of Death — Bob Randolph</title>
 <link rel="stylesheet" href="../../assets/book/reader.css">
 </head>
 <body>
@@ -13,18 +13,35 @@
 <script>
 BookReader({
   root: document.getElementById('book'),
-  layout: BookLayouts.flat,
-  flat: true,
-  spine: false,
+  layout: BookLayouts.flat, flat: true, spine: false,
   sounds: ['swish-1.wav','swish-2.wav'],
   base: '../../assets/book/',
-  front: 'cover-exploring-fears.jpg',                        /* cover photograph; interior pages to be added */
-  page: function(n){ return 'pages/p' + ('00' + n).slice(-3) + '.jpg'; },
-  total: -1,                              /* cover only for now: no interior pages yet */
-  leftStart: 0,
-  homeHref: '../../index.html',
-  backHref: '../index.html',
-  backLabel: 'Chapbooks',
+  front: 'cover-exploring-fears.jpg',
+  back: 'fears-death-back.jpg',
+  sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },
+  total: 52, leftStart: 1,
+  jump: [
+    ["100 years after my death", 1],
+    ["Hinted at by poets", 3],
+    ["Caresses through the centuries", 4],
+    ["When I am gone", 4],
+    ["The times we made love", 6],
+    ["The fractured globe", 7],
+    ["The best country in the world", 8],
+    ["You too will die some day", 9],
+    ["My arms around the universe", 9],
+    ["The Battle of Hastings", 13],
+    ["Different worlds", 14],
+    ["Haiku", 15],
+    ["The passing of a gentle star in the night", 20],
+    ["I sit here by the stream", 21],
+    ["Ronald Reagan said", 21],
+    ["We are in the middle of forever", 22],
+    ["Dewdrops", 22],
+    ["The nature of matter", 23],
+    ["A clothesline between galaxies", 24]
+  ],
+  homeHref: '../../index.html', backHref: '../index.html', backLabel: 'Chapbooks',
   noArrows: true
 });
 </script>

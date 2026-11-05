@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>An American Poet Invades England — Bob Randolph</title>
+<link rel="stylesheet" href="../../assets/book/reader.css">
+</head>
+<body>
+<div id="book"></div>
+<script src="../../assets/book/layouts.js"></script>
+<script src="../../assets/book/reader.js"></script>
+<script>
+BookReader({
+  root: document.getElementById('book'),
+  layout: BookLayouts.flat, flat: true, spine: false,
+  sounds: ['swish-1.wav','swish-2.wav'],
+  base: '../../assets/book/',
+  front: 'cover-england.jpg',
+  back: 'england-back.jpg',
+  sheet: function(k){ return 'sheets/s' + ('00' + k).slice(-3) + '.jpg'; },
+  total: 88, leftStart: 1,
+  jump: [
+    ["Title page", 1],
+    ["Introduction (Eldridge Cleaver)", 2],
+    ["Table of contents", 4],
+    ["In the black of night, the meteor that was Eldridge Cleaver", 5],
+    ["Affirmative action", 7],
+    ["Now they're taking away our bribes", 8],
+    ["I will be permanently partly Cuban", 10],
+    ["I am Cuban, and I still fix typewriters for the revolution", 11],
+    ["Bosnia, U.S.A.", 13],
+    ["You deprived me of flowers", 14],
+    ["Mario Savio", 15],
+    ["When you are in my arms", 16],
+    ["To come close to you is to understand", 17],
+    ["As we did", 18],
+    ["Underwear in the universe", 19],
+    ["Nine business men", 20],
+    ["Thirty feet", 20],
+    ["In the last 10,000 years", 22],
+    ["When we have fears that we may cease to be", 24],
+    ["Epic of El Tecolote Blanco", 25],
+    ["The center of the earth", 26],
+    ["Minds in the homeland of the empire", 28],
+    ["God is the space between plus and minus", 31],
+    ["Keeping the faith with cemeteries — II", 32],
+    ["I am writing for the Sioux and the wolves", 34],
+    ["A letter to Vincent Van Gogh", 36],
+    ["Invitation to the Seasons of Love (Venustiano Olguín Jr.)", 40],
+    ["Comments by others, through the years", 42]
+  ],
+  homeHref: '../../index.html', backHref: '../index.html', backLabel: 'Chapbooks',
+  noArrows: true
+});
+</script>
+</body>
+</html>
